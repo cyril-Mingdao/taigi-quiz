@@ -32,6 +32,10 @@ const bookOf = id => (catalogById[id] ? catalogById[id].book : OTHER_BOOK);
 const lessonLabel = id => (catalogById[id] ? `${catalogById[id].book} ${catalogById[id].title}` : id);
 const catName = id => (CATS.find(c => c.id === id) || { name: id }).name;
 
+/* 朗讀測驗的紀錄在 Voice-test 的收件程式，題型測驗（作答ID 開頭 Q-）在本站的收件程式 */
+const isQuizId = id => String(id || '').indexOf('Q-') === 0;
+const apiFor = (id, body) => api(body, isQuizId(id) ? undefined : QUIZ_CONFIG.readEndpoint);
+
 function catAttempts() {
   return admin.attempts.filter(a => (a.cat || 'READ') === admin.cat);
 }
@@ -219,8 +223,18 @@ function renderAdminTable() {
 async function loadAdmin() {
   document.getElementById('ad-count').textContent = '⏳ 讀取中…';
   try {
-    const d = await api({ action: 'admin_list' });
-    admin.attempts = d.attempts.map(a => Object.assign(a, { cat: a.cat || 'READ' }));
+    // 兩邊分開讀：其中一邊失敗時，另一邊的紀錄照樣顯示
+    const [quiz, read] = await Promise.allSettled([
+      api({ action: 'admin_list' }),
+      api({ action: 'admin_list' }, QUIZ_CONFIG.readEndpoint)
+    ]);
+    if (quiz.status === 'rejected' && read.status === 'rejected') throw quiz.reason;
+    const quizList = quiz.status === 'fulfilled' ? quiz.value.attempts.filter(a => isQuizId(a.id)) : [];
+    const readList = read.status === 'fulfilled' ? read.value.attempts.filter(a => !isQuizId(a.id)) : [];
+    admin.attempts = quizList.concat(readList).map(a => Object.assign(a, { cat: a.cat || 'READ' }));
+    admin.loadWarn = [quiz.status === 'rejected' ? '題型測驗讀取失敗：' + (quiz.reason.message || quiz.reason) : '',
+      read.status === 'rejected' ? '朗讀測驗讀取失敗：' + (read.reason.message || read.reason) : ''].filter(Boolean).join('｜');
+    if (admin.loadWarn) toast('⚠️ ' + admin.loadWarn);
     admin.selected.clear();
     refreshFilters();
     if (admin.presetLesson && !admin.presetApplied) {
@@ -261,7 +275,7 @@ function bindReviewFooter(a) {
     const note = document.getElementById('rv-note').value.trim();
     btn.disabled = true;
     try {
-      await api({ action: 'admin_review', attemptId: a.id, verdict: verdict, note: note });
+      await apiFor(a.id, { action: 'admin_review', attemptId: a.id, verdict: verdict, note: note });
       a.verdict = verdict;
       a.note = note;
       adminPlayer.pause();
@@ -281,7 +295,7 @@ async function openReview(id) {
   openModal('<h3>讀取中…</h3>', true);
   let d;
   try {
-    d = (await api({ action: 'admin_attempt', attemptId: id })).attempt;
+    d = (await apiFor(id, { action: 'admin_attempt', attemptId: id })).attempt;
   } catch (err) {
     openModal(`<h3>讀取失敗</h3><div>${escapeHtml(String(err.message || err))}</div>
       <div class="quiz-actions"><button class="qbtn light" id="rv-x">關閉</button></div>`, true);
@@ -357,7 +371,7 @@ async function playStudentAudio(attemptId, fileName, btn) {
     if (!admin.audioCache[key]) {
       btn.disabled = true;
       btn.textContent = '⏳';
-      const d = await api({ action: 'admin_audio', attemptId: attemptId, file: fileName });
+      const d = await apiFor(attemptId, { action: 'admin_audio', attemptId: attemptId, file: fileName });
       const bin = atob(d.data);
       const bytes = new Uint8Array(bin.length);
       for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
@@ -398,9 +412,14 @@ function confirmDelete(ids) {
     btn.disabled = true;
     btn.textContent = '刪除中…';
     try {
-      const d = await api({ action: 'admin_delete', attemptIds: ids, purgeRoster: document.getElementById('del-roster').checked });
+      const purgeRoster = document.getElementById('del-roster').checked;
+      const quizIds = ids.filter(isQuizId);
+      const readIds = ids.filter(id => !isQuizId(id));
+      let deleted = 0;
+      if (quizIds.length) deleted += (await api({ action: 'admin_delete', attemptIds: quizIds, purgeRoster: purgeRoster })).deleted;
+      if (readIds.length) deleted += (await api({ action: 'admin_delete', attemptIds: readIds, purgeRoster: purgeRoster }, QUIZ_CONFIG.readEndpoint)).deleted;
       closeModal();
-      toast(`已刪除 ${d.deleted} 筆`);
+      toast(`已刪除 ${deleted} 筆`);
       loadAdmin();
     } catch (err) {
       toast('刪除失敗：' + (err.message || err));

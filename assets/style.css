@@ -2007,7 +2007,7 @@
     /* 形音義 */
     .hg-word { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px 0; }
     .hg-ty { font-size: 2.6em; font-weight: bold; }
-    .hg-matrix { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 14px; max-height: 40vh; overflow-y: auto; }
+    .hg-matrix { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 14px; }
     .hg-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .hg-box { border: 2px solid var(--line); border-radius: 12px; text-align: center; padding: 4px; background: #fafafa; }
     .hg-box.active { border-color: var(--black); background: var(--yellow-soft); box-shadow: 0 0 0 3px var(--yellow); }

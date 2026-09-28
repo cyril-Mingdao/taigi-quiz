@@ -1,10 +1,12 @@
 /* 本土語線上測驗：共用模組（登入、班級座號、呼叫收件程式、對話框）
    臺中明道中學 詹宗龍 製作
-   收件程式與朗讀線上測驗（Voice-test）共用同一個 Apps Script 與成績試算表。 */
+   題型測驗用自己的收件程式與成績試算表「題型線上測驗成績」（endpoint）；
+   管理頁的朗讀測驗資料仍向朗讀線上測驗（Voice-test）的收件程式讀取（readEndpoint）。 */
 
 const QUIZ_CONFIG = {
   clientId: '860391262336-pbgnjm4lrelkcc266evtnbpg7o84v8ik.apps.googleusercontent.com',
-  endpoint: 'https://script.google.com/macros/s/AKfycbwdXwyAWKBqsWZLRQyonIrakb96rBV3SRx0NZ4urg4RgVaN8PrVhaDwwonXjIGFo31g/exec',
+  endpoint: 'https://script.google.com/macros/s/AKfycbxQoPYPeWkEkouokXFPy1LetG_cga5k1lUNue4S9Rqz4qu1ANPvOzN4UYbGWsmwozMQ/exec',
+  readEndpoint: 'https://script.google.com/macros/s/AKfycbwdXwyAWKBqsWZLRQyonIrakb96rBV3SRx0NZ4urg4RgVaN8PrVhaDwwonXjIGFo31g/exec',
   domain: 'ms.mingdao.edu.tw',
   adminUrl: 'https://cyril-mingdao.github.io/taigi-quiz/admin.html'
 };
@@ -279,8 +281,8 @@ function bindProfileForm() {
 
 /* ===================== 收件程式 ===================== */
 
-function postToServer(body) {
-  return fetch(QUIZ_CONFIG.endpoint, {
+function postToServer(body, url) {
+  return fetch(url || QUIZ_CONFIG.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },   // text/plain 不會觸發 CORS 預檢，Apps Script 才收得到
     body: JSON.stringify(body)
@@ -290,14 +292,15 @@ function postToServer(body) {
   });
 }
 
-/* 呼叫收件程式；登入過期時跳出重新登入，登入後自動重試同一個動作 */
-function api(body) {
-  return postToServer(Object.assign({}, body, { idToken: app.user.idToken })).then(data => {
+/* 呼叫收件程式；登入過期時跳出重新登入，登入後自動重試同一個動作。
+   url 省略＝題型測驗的收件程式；傳 QUIZ_CONFIG.readEndpoint＝朗讀測驗的收件程式 */
+function api(body, url) {
+  return postToServer(Object.assign({}, body, { idToken: app.user.idToken }), url).then(data => {
     if (data.ok) return data;
     if (data.error === 'auth') {
       try { sessionStorage.removeItem(TOKEN_KEY); } catch (e) {}
       return new Promise((resolve, reject) => {
-        app.reloginCallback = () => api(body).then(resolve, reject);
+        app.reloginCallback = () => api(body, url).then(resolve, reject);
         openModal(`<h3>🔑 登入已過期</h3><div>請用同一個帳號（${escapeHtml(app.user.email)}）再登入一次，登入後會自動繼續剛才的動作。</div><div id="gsi-relogin"></div>`);
         renderGsiButton(document.getElementById('gsi-relogin'));
       });
