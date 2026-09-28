@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜康軒版國中第2冊 第4課 一擺上有意義的活動（題庫來源：09_生份字\康軒國中第二冊\04成果-生字-第4課 一擺上有意義的活動.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 一擺上有意義的活動｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>康軒版國中第2冊 第4課 一擺上有意義的活動</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-KANGHSUAN-B2L4","kind":"SIANN","kindName":"咱來餾生份字","book":"康軒第2冊","bookFull":"康軒版國中第2冊","title":"第4課 一擺上有意義的活動","items":[{"no":1,"page":58,"ty":"頂","tl":"tíng","md":"先前；上方；頂替；單位"},{"no":2,"page":58,"ty":"尾","tl":"bué / bé","md":"末端(6)"},{"no":3,"page":58,"ty":"𤆬","tl":"tshuā","md":"引導；照顧；誘拐"},{"no":4,"page":58,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛"},{"no":5,"page":58,"ty":"柴柴","tl":"tshâ-tshâ","md":"生硬、遲鈍、呆滯"},{"no":6,"page":58,"ty":"眠床","tl":"bîn-tshn̂g / mn̂g","md":"床、床鋪"},{"no":7,"page":58,"ty":"振動","tl":"tín-tāng","md":"震動；移動；叫得動"},{"no":8,"page":58,"ty":"植物","tl":"si̍t-bu̍t","md":"百穀草木的總稱"},{"no":9,"page":58,"ty":"歹","tl":"pháinn / phái","md":"不容易地(5)"},{"no":10,"page":58,"ty":"𪜶","tl":"in","md":"他們；他們的"},{"no":11,"page":58,"ty":"開銷","tl":"khai-siau","md":"開支；支付的金錢"},{"no":12,"page":58,"ty":"覓","tl":"māi","md":"動詞後綴；具試探"},{"no":13,"page":58,"ty":"熱","tl":"jia̍t / lia̍t","md":"交流熱絡(3)"},{"no":14,"page":58,"ty":"𢯾","tl":"mooh","md":"緊抱、緊貼"},{"no":15,"page":58,"ty":"綴","tl":"tuè / tè","md":"跟、隨"},{"no":16,"page":59,"ty":"徛","tl":"khiā","md":"站立(9)"},{"no":17,"page":59,"ty":"踮","tl":"tiàm","md":"在…；居住、過夜"},{"no":18,"page":59,"ty":"麭","tl":"pháng","md":"麵包"},{"no":19,"page":59,"ty":"門跤口","tl":"mn̂g-kha-kháu","md":"門口"},{"no":20,"page":59,"ty":"行","tl":"kiânn","md":"走(5)"},{"no":21,"page":59,"ty":"喝","tl":"huah","md":"大聲喊叫；喝叱"},{"no":22,"page":59,"ty":"逐家","tl":"ta̍k-ke","md":"大家；眾人"},{"no":23,"page":59,"ty":"好代","tl":"hó-tāi","md":"善行事；好消息"},{"no":24,"page":59,"ty":"同齊","tl":"tâng-tsê","md":"同時一起"},{"no":25,"page":59,"ty":"倚","tl":"uá","md":"靠近；依附；模仿"},{"no":26,"page":59,"ty":"遮的","tl":"tsia--ê","md":"這些；這裡的"},{"no":27,"page":59,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":28,"page":59,"ty":"予","tl":"hōo","md":"給予(5)"},{"no":29,"page":59,"ty":"紲手","tl":"suà-tshiú","md":"順手、隨手"},{"no":30,"page":59,"ty":"擲","tl":"tàn","md":"投出東西；丟棄"},{"no":31,"page":60,"ty":"燒熱","tl":"sio-jua̍h / lua̍h","md":"炎熱(5)"},{"no":32,"page":60,"ty":"外口","tl":"guā-kháu","md":"外面；外頭"},{"no":33,"page":60,"ty":"喙焦","tl":"tshuì-ta","md":"口渴"},{"no":34,"page":60,"ty":"誠","tl":"tsiânn","md":"很、非常"},{"no":35,"page":60,"ty":"代誌","tl":"tāi-tsì","md":"事情"},{"no":36,"page":60,"ty":"毋過","tl":"m̄-koh / kò / kù","md":"不過、但是"},{"no":37,"page":60,"ty":"落尾","tl":"lo̍h-bué / lōo-bé","md":"後來、最後"},{"no":38,"page":60,"ty":"外","tl":"guā","md":"數字後表示餘(4)"},{"no":39,"page":60,"ty":"較","tl":"khah","md":"比較(3)"},{"no":40,"page":60,"ty":"早齋","tl":"tsá-tsai","md":"早上吃素"},{"no":41,"page":60,"ty":"遮爾","tl":"tsiah-nī","md":"多麼、這麼"},{"no":42,"page":60,"ty":"傳","tl":"thuân","md":"散播；延續；轉交"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜康軒版國中第2冊 第2課 收成（題庫來源：11_咱來鬥句\02康軒版國中第2冊\02成果-選詞-第2課 收成.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 收成｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>康軒版國中第2冊 第2課 收成</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-KANGHSUAN-B2L2","kind":"TAUKU","kindName":"咱來鬥句","book":"康軒第2冊","bookFull":"康軒版國中第2冊","title":"第2課 收成","items":[{"no":1,"page":30,"ty":"作","tl":"tsoh","md":"從事農耕；創作製造","sent":"種作、作田、作穡、敆作、作怪","parts":["種作、","作田、","作穡、","敆作、作怪"]},{"no":2,"page":30,"ty":"無仝款","tl":"bô kāng-khuán","md":"不一樣","sent":"好額人的生活佮咱是無仝款的","parts":["好額人","的生活","佮咱是","無仝款的"]},{"no":3,"page":30,"ty":"偌","tl":"guā","md":"多少","sent":"我買的物件攏總偌濟錢？","parts":["我買","的物件","攏總","偌濟錢？"]},{"no":4,"page":30,"ty":"立春","tl":"li̍p-tshun","md":"春季開始(約2/4-5)","sent":"立春是春天開始的第一工","parts":["立春","是春天","開始的","第一工"]},{"no":5,"page":30,"ty":"猶閣","tl":"iáu-koh","md":"還","sent":"阮的工頭看起來猶閣真少年","parts":["阮的工頭","看起來","猶閣","真少年"]},{"no":6,"page":30,"ty":"淡薄仔","tl":"tām-po̍h-á","md":"一點點；微量的","sent":"我的口座猶有淡薄仔存款","parts":["我的","口座猶有","淡薄仔","存款"]},{"no":7,"page":30,"ty":"無閒","tl":"bô-îng","md":"忙碌；沒空","sent":"伊的工課真濟，足無閒的","parts":["伊的","工課真濟，","足","無閒的"]},{"no":8,"page":30,"ty":"犁田","tl":"lê-tshân","md":"耕田；摔車","sent":"較早攏是用水牛拖犁來犁田","parts":["較早","攏是用","水牛拖犁","來犁田"]},{"no":9,"page":30,"ty":"淹水","tl":"im-tsuí","md":"被水覆蓋","sent":"𪜶兜淹水矣","parts":["𪜶","兜","淹水","矣"]},{"no":10,"page":30,"ty":"秧仔","tl":"ng-á","md":"植物的幼苗(通指水稻秧苗)","sent":"我看著阿公佇田裡佈秧仔","parts":["我看著","阿公","佇田裡","佈秧仔"]},{"no":11,"page":30,"ty":"共","tl":"kā","md":"給；跟；幫…；把","sent":"共房間摒摒咧","parts":["共","房間","摒摒咧"]},{"no":12,"page":30,"ty":"佇","tl":"tī","md":"在某個地方；在某段時間","sent":"伊這馬佇厝裡咧睏","parts":["伊這馬","佇","厝裡","咧睏"]},{"no":13,"page":30,"ty":"賰","tl":"tshun","md":"剩餘；存下錢來","sent":"伊病甲賰一屑仔氣絲仔爾爾","parts":["伊病甲","賰","一屑仔","氣絲仔爾爾"]},{"no":14,"page":30,"ty":"向望","tl":"ǹg-bāng","md":"盼望、希望","sent":"向望你會當好好仔做人","parts":["向望","你會當","好好仔","做人"]},{"no":15,"page":30,"ty":"疼痛","tl":"thiànn-thàng","md":"疼愛、關切憐惜","sent":"你就愛好好仔共伊疼痛","parts":["你就愛","好好仔","共伊","疼痛"]},{"no":16,"page":31,"ty":"驚蟄","tl":"kenn-ti̍t","md":"春雷響萬物醒(約3/5-6)","sent":"驚蟄烏，百日雨","parts":["驚蟄","烏，","百日","雨"]},{"no":17,"page":31,"ty":"彼","tl":"hit","md":"那","sent":"阿公定定去彼間𥴊仔店交關","parts":["阿公","定定去","彼間","𥴊仔店交關"]},{"no":18,"page":31,"ty":"霆雷公","tl":"tân-luî-kong","md":"打雷","sent":"落西北雨的時定定會霆雷公","parts":["落西北雨","的時","定定會","霆雷公"]},{"no":19,"page":31,"ty":"較","tl":"khah","md":"比較；再怎麼樣也…；更…","sent":"這塊桌仔比彼塊較低","parts":["這塊","桌仔","比彼塊","較低"]},{"no":20,"page":31,"ty":"無定著","tl":"bô-tiānn-tio̍h","md":"也許、說不定；不安定","sent":"無定著彼件代誌就是伊做的","parts":["無定著","彼件代誌","就是","伊做的"]},{"no":21,"page":31,"ty":"弄花","tl":"lāng-hue","md":"植物開花靠風力授粉的過程","sent":"稻仔開花、弄花頭尾才成禮拜","parts":["稻仔開花、","弄花","頭尾才","成禮拜"]},{"no":22,"page":31,"ty":"毋通","tl":"m̄-thang","md":"不可以、不要","sent":"你毋通傷晏轉來","parts":["你","毋通","傷晏","轉來"]},{"no":23,"page":31,"ty":"冇去","tl":"phànn--khì","md":"空心、不扎實","sent":"這塊柴予白蟻咬甲冇去矣","parts":["這塊柴","予白蟻","咬甲","冇去矣"]},{"no":24,"page":31,"ty":"立夏","tl":"li̍p-hē/hā","md":"夏季的開始(約5/6-7)","sent":"立夏是熱人開始的第一工","parts":["立夏","是熱人","開始的","第一工"]},{"no":25,"page":31,"ty":"沓沓仔","tl":"ta̍uh-ta̍uh-á","md":"慢慢地","sent":"有話沓沓仔講","parts":["有","話","沓沓仔","講"]},{"no":26,"page":31,"ty":"秋凊","tl":"tshiu/tshio-tshìn","md":"清涼舒爽","sent":"今仔日下晡的天氣真秋凊","parts":["今仔日","下晡的","天氣","真秋凊"]},{"no":27,"page":31,"ty":"翕熱","tl":"hip-jua̍h/lua̍h","md":"悶熱","sent":"最近的天氣誠翕熱","parts":["最近","的天氣","誠","翕熱"]},{"no":28,"page":31,"ty":"上","tl":"siōng","md":"空間位置；極致地","sent":"阿明仔上有擋頭","parts":["阿明仔","上","有","擋頭"]},{"no":29,"page":31,"ty":"滾絞","tl":"kún-ká","md":"翻騰、掙扎、滾動","sent":"我的腹肚疼甲若像咧滾絞","parts":["我的","腹肚","疼甲若像","咧滾絞"]},{"no":30,"page":31,"ty":"烏有","tl":"oo-iú","md":"泡湯、落空","sent":"伊的心血攏烏有去矣","parts":["伊的","心血","攏烏有","去矣"]},{"no":31,"page":32,"ty":"夏至","tl":"hē-tsì","md":"最熱及晝長夜短(約6/21-22)","sent":"夏至彼工的天氣真燒熱","parts":["夏至","彼工的","天氣","真燒熱"]},{"no":32,"page":32,"ty":"披","tl":"phi","md":"披掛；盤形竹器","sent":"阿母當佇後埕咧披衫","parts":["阿母","當佇後埕","咧","披衫"]},{"no":33,"page":32,"ty":"衫","tl":"sann","md":"衣服","sent":"阿弟仔生日的時吵講欲買新衫","parts":["阿弟仔","生日的時","吵講欲","買新衫"]},{"no":34,"page":32,"ty":"呵咾","tl":"o-ló","md":"讚美、表揚","sent":"你一直共我呵咾，我會歹勢","parts":["你","一直共我","呵咾，","我會歹勢"]},{"no":35,"page":32,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合","sent":"我欲佮伊來去看電影","parts":["我欲","佮","伊來去","看電影"]},{"no":36,"page":32,"ty":"喝咻","tl":"huah-hiu","md":"大聲叫嚷","sent":"有人咧喝咻，毋知是啥物代誌","parts":["有人","咧喝咻，","毋知是","啥物代誌"]},{"no":37,"page":32,"ty":"曝","tl":"pha̍k","md":"曬太陽","sent":"今仔日的天氣袂䆀，欲來曝棉被","parts":["今仔日","的天氣袂䆀，","欲來","曝棉被"]},{"no":38,"page":32,"ty":"焦燥","tl":"ta-sò","md":"乾燥","sent":"這站仔的天氣真焦燥","parts":["這站仔","的天氣","真","焦燥"]},{"no":39,"page":32,"ty":"粟仔","tl":"tshik-á","md":"稻穀","sent":"這坵田的粟仔較媠，留起來做粟種","parts":["這坵田","的粟仔","較媠，","留起來做粟種"]},{"no":40,"page":32,"ty":"輾","tl":"liàn/lìn","md":"滾動；圈數","sent":"你的銀角仔輾落去矣","parts":["你的","銀角仔","輾落","去矣"]},{"no":41,"page":32,"ty":"袂輸","tl":"bē/buē-su","md":"好比、好像","sent":"伊看著我袂輸看著鬼咧","parts":["伊看著我","袂輸","看著","鬼咧"]},{"no":42,"page":32,"ty":"走相逐","tl":"tsáu-sio-jiok/lip","md":"賽跑；追逐的遊戲","sent":"毋通佇遮耍走相逐，蓋危險","parts":["毋通","佇遮耍","走相逐，","蓋危險"]},{"no":43,"page":32,"ty":"透濫","tl":"thàu-lām","md":"參雜混合","sent":"這罐純，無透濫一寡有的無的","parts":["這罐純，","無透濫","一寡","有的無的"]},{"no":44,"page":32,"ty":"跟綴","tl":"kin-tuè/kun-tè","md":"跟隨","sent":"你愛跟綴予好，毋通落勾去","parts":["你愛","跟綴予好，","毋通","落勾去"]},{"no":45,"page":32,"ty":"早冬","tl":"tsá-tang","md":"一年兩收的第一期稻作","sent":"臺灣稻仔收成分做早冬佮慢冬","parts":["臺灣稻仔","收成分做","早冬","佮慢冬"]}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

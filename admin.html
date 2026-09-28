@@ -1,0 +1,72 @@
+<!doctype html>
+<!--
+  本土語線上測驗｜教師管理（朗讀＋題型測驗整合）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教師管理｜本土語線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🛠️ 教師管理 🛠️</h1>
+     <h2>朗讀測驗・咱來餾生份字・選詞塌空・咱來鬥句・形音義</h2>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card admin-panel hidden" id="admin-panel" data-section>
+     <div class="quiz-user" id="admin-user"></div>
+     <h3>🛠️ 教師管理</h3>
+     <div class="chip-row admin-books admin-cats" id="ad-cats" aria-label="測驗類別"></div>
+     <hr class="admin-sep">
+     <div class="chip-row admin-books" id="ad-books" aria-label="版本"></div>
+     <div class="admin-toolbar">
+      <select id="ad-lesson" aria-label="課次"></select>
+     </div>
+     <div class="chip-row admin-books" id="ad-depts" aria-label="部別"></div>
+     <div class="admin-toolbar">
+      <select id="ad-cls" aria-label="班級"></select>
+      <select id="ad-status" aria-label="狀態"></select>
+      <select id="ad-sort" aria-label="排序">
+       <option value="seat">依班級座號排序</option>
+       <option value="time-desc">依時間排序（新→舊）</option>
+       <option value="time-asc">依時間排序（舊→新）</option>
+       <option value="score-desc">依分數排序（高→低）</option>
+      </select>
+      <input id="ad-search" placeholder="搜尋姓名／信箱" aria-label="搜尋">
+     </div>
+     <div class="quiz-actions">
+      <button class="qbtn light" id="ad-refresh">🔄 重新整理</button>
+      <button class="qbtn light" id="ad-csv">⬇️ 下載成績 CSV</button>
+      <button class="qbtn danger" id="ad-delete" disabled>🗑️ 刪除勾選</button>
+      <button class="qbtn" id="ad-student">🎤 切換學生模式</button>
+      <button class="qbtn light" id="ad-signout">換帳號</button>
+     </div>
+     <div class="hint" id="ad-count"></div>
+     <div class="admin-table-wrap" id="ad-list"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="assets/catalog.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/admin.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

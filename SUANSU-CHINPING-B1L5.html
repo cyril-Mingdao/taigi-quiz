@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  選詞塌空線上測驗｜真平版國中第1冊 第5課 踅菜市（題庫來源：10_選詞塌空\01真平國中第1冊\05成果-選詞-第5課 踅菜市.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第5課 踅菜市｜選詞塌空線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>✏️ 選詞塌空 ✏️</h1>
+     <h2>真平版國中第1冊 第5課 踅菜市</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">✏️</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SUANSU-CHINPING-B1L5","kind":"SUANSU","kindName":"選詞塌空","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第5課 踅菜市","items":[{"no":1,"page":72,"ty":"寒","tl":"kuânn","md":"氣候上的冷","sent":"昨昏比今仔日較寒"},{"no":2,"page":72,"ty":"下暗","tl":"e/enn-àm","md":"晚上、今晚","sent":"下暗欲來阮兜予阮請無?"},{"no":3,"page":72,"ty":"會當","tl":"ē-tàng","md":"可以","sent":"我會當答應你的要求"},{"no":4,"page":72,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"𪜶兜雖然散赤，毋過真幸福"},{"no":5,"page":72,"ty":"來去","tl":"lâi-khì；laih","md":"離開/前往/來往","sent":"我欲來去踅街"},{"no":6,"page":72,"ty":"頭家","tl":"thâu-ke","md":"老闆/丈夫","sent":"你是這間店的頭家毋?"},{"no":7,"page":72,"ty":"苳蒿","tl":"tang-o","md":"茼蒿","sent":"食火鍋一定愛有苳蒿"},{"no":8,"page":72,"ty":"按怎","tl":"án-tsuánn/nu/ná","md":"怎麼、怎樣","sent":"你講！我到底著愛按怎做"},{"no":9,"page":72,"ty":"箍","tl":"khoo","md":"元(8)","sent":"我身軀干焦賰兩箍爾爾"},{"no":10,"page":72,"ty":"搣","tl":"me/mi","md":"用手抓一把/一把","sent":"搣兩搣塗豆轉來食"},{"no":11,"page":72,"ty":"喙","tl":"tshuì","md":"嘴巴(4)","sent":"囡仔人有耳無喙"},{"no":12,"page":72,"ty":"爾爾","tl":"niā-niā","md":"而已","sent":"我干焦食一喙爾爾"},{"no":13,"page":72,"ty":"欲","tl":"beh/bueh","md":"要/將要/若是","sent":"你欲去無？"},{"no":14,"page":72,"ty":"拍某菜","tl":"phah-bóo-tshài","md":"茼蒿","sent":"你敢知影拍某菜是啥?"},{"no":15,"page":72,"ty":"寡","tl":"kuá/kuánn","md":"一些/喪夫之婦","sent":"你去市場買寡魚轉來"},{"no":16,"page":73,"ty":"蝦仔","tl":"hê-á","md":"蝦","sent":"阮小弟仔足愛食蝦仔欸"},{"no":17,"page":73,"ty":"墨賊仔","tl":"ba̍k-tsa̍t-á","md":"烏賊","sent":"墨賊仔炒芹菜真好食"},{"no":18,"page":73,"ty":"遮爾","tl":"tsiah-nī","md":"多麼、這麼","sent":"恁阿母遮爾惜你"},{"no":19,"page":73,"ty":"鮮","tl":"tshinn","md":"新鮮/光鮮亮麗","sent":"現流仔上鮮"},{"no":20,"page":73,"ty":"一寡仔","tl":"tsi̍t-kuá-á","md":"一點、一些","sent":"猶有一寡仔物件無整理"},{"no":21,"page":73,"ty":"矣","tl":"--ah","md":"語尾助詞(3)","sent":"我食飽矣"},{"no":22,"page":73,"ty":"啥物","tl":"siánn-mih/mi̍h","md":"什麼","sent":"啥物人佇遐咧唱歌？"},{"no":23,"page":73,"ty":"食好料","tl":"tsia̍h hó-liāu","md":"享受美食","sent":"朋友相招出去食好料"},{"no":24,"page":73,"ty":"做伙","tl":"tsò-hué/tsuè-hé","md":"一起/往來","sent":"咱兩个做伙來去𨑨迌"},{"no":25,"page":74,"ty":"逐擺","tl":"ta̍k-pái","md":"每次","sent":"伊逐擺攏欲佮人相諍"},{"no":27,"page":74,"ty":"歇睏","tl":"hioh/heh/hennh-khùn","md":"休息、歇息","sent":"你小歇睏一下，好無"},{"no":28,"page":74,"ty":"阿媽","tl":"a-má","md":"奶奶/外婆","sent":"阮阿媽今年八十歲"},{"no":29,"page":74,"ty":"抑","tl":"ia̍h/iah/a̍h/ah","md":"或、還是","sent":"伊是知抑毋知？"},{"no":30,"page":74,"ty":"招","tl":"tsio","md":"邀(4)","sent":"明仔載我欲招伊去𨑨迌"},{"no":31,"page":74,"ty":"阮","tl":"gún/guán","md":"我們/我/我的","sent":"阮欲走矣，你咧？"},{"no":32,"page":74,"ty":"鬥陣","tl":"tàu-tīn","md":"結伴/交際往來","sent":"咱鬥陣來去"},{"no":33,"page":74,"ty":"踅","tl":"se̍h","md":"轉動/來回走動","sent":"咱下昏來去踅夜市"},{"no":34,"page":75,"ty":"爿","tl":"pîng","md":"邊、旁(4)","sent":"彼間厝的四爿攏是山"},{"no":35,"page":75,"ty":"擔頭","tl":"tànn-thâu","md":"擔子，引申責任","sent":"擔頭兩爿著囥予四伨"},{"no":36,"page":75,"ty":"生理","tl":"sing-lí","md":"生意、買賣","sent":"阿發仔生理做甲削削叫"},{"no":37,"page":75,"ty":"頭家","tl":"thâu-ke","md":"老闆/丈夫","sent":"頭家娘找我四百五十箍"},{"no":38,"page":75,"ty":"開喙","tl":"khui-tshuì","md":"開口/開價","sent":"伊開喙五萬箍，我嫌傷貴"},{"no":39,"page":75,"ty":"喝","tl":"huah","md":"大聲喊叫/喝叱","sent":"我喝甲嚨喉強欲梢聲矣"},{"no":40,"page":75,"ty":"人客","tl":"lâng-kheh","md":"客人","sent":"咱愛好好仔招待人客"},{"no":41,"page":75,"ty":"啥物","tl":"siánn-mih/mi̍h","md":"什麼","sent":"啥物人佇遐咧唱歌？"},{"no":42,"page":75,"ty":"加減","tl":"ke-kiám","md":"多少","sent":"你愛加減食一寡"},{"no":43,"page":75,"ty":"交關","tl":"kau-kuan","md":"買賣","sent":"阿公定定去彼間𥴊仔店交關"},{"no":44,"page":76,"ty":"佮","tl":"kah","md":"和(4)","sent":"我欲佮伊來去看電影"},{"no":45,"page":76,"ty":"果子","tl":"kué/ké-tsí","md":"水果","sent":"你去買一寡果子轉來供神"},{"no":46,"page":76,"ty":"蟳","tl":"tsîm","md":"海水蟹的一種","sent":"紅蟳米糕是辦桌菜"},{"no":47,"page":76,"ty":"滋味","tl":"tsu-bī","md":"味道/感覺","sent":"這个湯頭的滋味袂䆀"},{"no":48,"page":76,"ty":"貨色","tl":"huè/hè-sik","md":"貨物的種類質料","sent":"這間𥴊仔店的貨色誠齊全"},{"no":49,"page":76,"ty":"鮮沢","tl":"tshinn-tshioh","md":"新鮮光澤/時髦樣","sent":"魚港賣的魚較鮮沢"},{"no":50,"page":76,"ty":"隨意","tl":"suî-ì","md":"任憑自己的意思","sent":"請逐家隨意，毋通拘禮"},{"no":51,"page":76,"ty":"五金","tl":"ngóo-kim","md":"泛指金屬製品","sent":"母仔吩咐我去五金行買螺絲"},{"no":52,"page":76,"ty":"雜細","tl":"tsa̍p-sè","md":"雜貨","sent":"搖玲瑯鼓，賣雜細"},{"no":53,"page":76,"ty":"物件","tl":"mi̍h/mn̍gh-kiānn","md":"東西","sent":"你手提的是啥物物件？"},{"no":54,"page":76,"ty":"佮意","tl":"kah-ì","md":"喜歡、滿意","sent":"我佮意的人就是你"},{"no":55,"page":76,"ty":"捾","tl":"kuānn","md":"提、拿(4)","sent":"我手尾力無夠，捾袂起來"},{"no":56,"page":76,"ty":"款","tl":"khuán","md":"整理(5)","sent":"款厝內是規家伙仔的工課"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

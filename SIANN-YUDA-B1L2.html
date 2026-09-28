@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜育達版高中全1冊 第2課 茂林的Rukai族佮烏秫米祭（題庫來源：09_生份字\育達高中全一冊\02成果-生字-第2課 茂林的Rukai族佮烏秫米祭.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 茂林的Rukai族佮烏秫米祭｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>育達版高中全1冊 第2課 茂林的Rukai族佮烏秫米祭</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-YUDA-B1L2","kind":"SIANN","kindName":"咱來餾生份字","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第2課 茂林的Rukai族佮烏秫米祭","items":[{"no":1,"page":22,"ty":"个","tl":"ê","md":"個"},{"no":2,"page":22,"ty":"遐","tl":"hia","md":"那"},{"no":3,"page":22,"ty":"烏秫米","tl":"oo-tsu̍t-bí","md":"黑糯米"},{"no":4,"page":22,"ty":"逐","tl":"ta̍k","md":"每"},{"no":5,"page":22,"ty":"攏","tl":"lóng","md":"都"},{"no":6,"page":22,"ty":"對","tl":"tuì","md":"從"},{"no":7,"page":22,"ty":"予","tl":"hōo","md":"給予"},{"no":8,"page":22,"ty":"𪜶","tl":"in","md":"他們"},{"no":9,"page":22,"ty":"嘛是","tl":"mā sī","md":"也是"},{"no":10,"page":22,"ty":"無濟","tl":"bô-tsē","md":"不多"},{"no":11,"page":22,"ty":"傳統","tl":"thuân-thóng","md":"傳統"},{"no":12,"page":22,"ty":"佮","tl":"kah","md":"和"},{"no":13,"page":23,"ty":"品","tl":"phín","md":"約定"},{"no":14,"page":23,"ty":"著愛","tl":"tio̍h-ài","md":"就要"},{"no":15,"page":23,"ty":"兜","tl":"tau","md":"家"},{"no":16,"page":23,"ty":"無錢工","tl":"bô-tsînn-kang","md":"無酬工作"},{"no":17,"page":23,"ty":"毋但","tl":"m̄-nā","md":"不但"},{"no":18,"page":23,"ty":"袂使得","tl":"bē-sái-tit / buē","md":"不可以"},{"no":19,"page":23,"ty":"愛人仔","tl":"ài-jîn-á","md":"心儀對象"},{"no":20,"page":23,"ty":"偝","tl":"āinn","md":"背人"},{"no":21,"page":23,"ty":"無品","tl":"bô-phín","md":"人品卑劣"},{"no":22,"page":23,"ty":"真濟","tl":"tsin-tsē","md":"很多"},{"no":23,"page":23,"ty":"袂少","tl":"bē-tsió / buē","md":"不少"},{"no":24,"page":23,"ty":"條直","tl":"tiâu-ti̍t","md":"坦率"},{"no":25,"page":23,"ty":"鬥陣","tl":"tàu-tīn","md":"相處"},{"no":26,"page":23,"ty":"佇","tl":"tī","md":"在"},{"no":27,"page":23,"ty":"踮","tl":"tiàm","md":"在…"},{"no":28,"page":23,"ty":"和諧","tl":"hô-hâi","md":"和諧"},{"no":29,"page":23,"ty":"相伨","tl":"sio-thīn","md":"相互扶持"},{"no":30,"page":23,"ty":"環境","tl":"khuân-kíng","md":"環境"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

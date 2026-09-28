@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  選詞塌空線上測驗｜育達版高中全1冊 第4課 馬偕之路（題庫來源：10_選詞塌空\03育達高中全1冊\04成果-選詞-第4課 馬偕之路.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 馬偕之路｜選詞塌空線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>✏️ 選詞塌空 ✏️</h1>
+     <h2>育達版高中全1冊 第4課 馬偕之路</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">✏️</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SUANSU-YUDA-B1L4","kind":"SUANSU","kindName":"選詞塌空","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第4課 馬偕之路","items":[{"no":1,"page":48,"ty":"啥物","tl":"siánn-mih/mi̍h","md":"什麼","sent":"啥物人佇遐咧唱歌？"},{"no":2,"page":48,"ty":"佇","tl":"tī","md":"在…","sent":"伊這馬佇厝裡咧睏"},{"no":3,"page":48,"ty":"行","tl":"kiânn","md":"走","sent":"我逐工攏用行的去學校"},{"no":4,"page":48,"ty":"斯當年","tl":"su-tong-nî","md":"那年","sent":"斯當年你應當愛聽我的話"},{"no":5,"page":48,"ty":"四界","tl":"sì-kè/kuè","md":"到處","sent":"毋通四界拋拋走"},{"no":6,"page":48,"ty":"攏","tl":"lóng","md":"都","sent":"逐家攏莫去"},{"no":7,"page":48,"ty":"荒埔","tl":"hng-poo","md":"荒地","sent":"遮十年情猶是一片荒埔"},{"no":8,"page":48,"ty":"佮","tl":"kah","md":"和","sent":"我欲佮伊來去看電影"},{"no":9,"page":48,"ty":"做伙","tl":"tsò-hué/tsuè-hé","md":"一起","sent":"咱兩个做伙來去𨑨迌"},{"no":10,"page":48,"ty":"行踏","tl":"kiânn-ta̍h","md":"與人來往","sent":"𪜶真罕得來咱遮行踏"},{"no":11,"page":48,"ty":"拄來","tl":"tú-lâi","md":"剛到","sent":"伊拄來咱兜做客"},{"no":12,"page":48,"ty":"冬","tl":"tang","md":"年的單位","sent":"我進前佇台北蹛五冬"},{"no":13,"page":48,"ty":"扯勻","tl":"tshé-ûn","md":"平均","sent":"這幾袋扯勻有幾粒"},{"no":14,"page":48,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有","sent":"干焦賰遮爾，你欲無？"},{"no":15,"page":48,"ty":"怙","tl":"kōo","md":"憑藉","sent":"你怙行的欲行甲底時？"},{"no":16,"page":48,"ty":"步輦","tl":"pōo-lián","md":"徒步","sent":"我欲步輦來去公園𨑨迌"},{"no":17,"page":48,"ty":"見若","tl":"kiàn-nā","md":"凡是","sent":"伊見若食牛奶就落屎"},{"no":18,"page":48,"ty":"挽","tl":"bán","md":"拔","sent":"你蛀牙矣，愛去挽喙齒"},{"no":19,"page":48,"ty":"猶未","tl":"iáu-buē/bē","md":"尚未","sent":"你寄的批我猶未收著"},{"no":20,"page":48,"ty":"利便","tl":"lī-piān","md":"便利","sent":"蹛佇都市交通較利便"},{"no":21,"page":48,"ty":"這馬","tl":"tsit-má","md":"現在","sent":"這馬的人攏罕得寫批矣"},{"no":22,"page":48,"ty":"引𤆬","tl":"ín-tshuā","md":"帶領","sent":"若有人引𤆬，較緊學上手"},{"no":23,"page":48,"ty":"跤跡","tl":"kha-jiah/liah","md":"足跡","sent":"海沙埔頂有足濟跤跡"},{"no":24,"page":49,"ty":"三角湧","tl":"Sann-kak-íng","md":"三峽","sent":"三角湧是『三峽』的舊名"},{"no":25,"page":49,"ty":"險仔","tl":"hiám-á","md":"差一點","sent":"伊拄才險仔去予車挵著"},{"no":26,"page":49,"ty":"撼","tl":"hám","md":"重物猛擊","sent":"攑槌仔共伊撼落去"},{"no":27,"page":49,"ty":"艋舺","tl":"Báng-kah","md":"萬華","sent":"艋舺是『萬華』的舊名"},{"no":28,"page":49,"ty":"攑","tl":"gia̍h","md":"舉","sent":"這箱欲愛的攑手"},{"no":29,"page":49,"ty":"共","tl":"kā","md":"向","sent":"我共你講，你袂使共別人講"},{"no":30,"page":49,"ty":"刣","tl":"thâi","md":"殺","sent":"伊無細膩去予刀仔刣著"},{"no":31,"page":49,"ty":"好佳哉","tl":"hó-ka-tsài","md":"幸虧","sent":"好佳哉有你佇咧"},{"no":32,"page":49,"ty":"就按呢","tl":"tsiū/tsū-án-ne","md":"就這樣","sent":"代誌就按呢進行"},{"no":33,"page":49,"ty":"越頭","tl":"ua̍t-thâu","md":"頭向後轉","sent":"我越頭才看著伊徛佇後壁"},{"no":34,"page":49,"ty":"做伊旋","tl":"tsò-i-suan","md":"自顧自溜走","sent":"伊看目色毋著就做伊旋矣"},{"no":36,"page":49,"ty":"幾若擺","tl":"kuí-nā-pái","md":"好幾次","sent":"伊試幾若擺攏無成功"},{"no":37,"page":49,"ty":"出草","tl":"tshut-tsháu","md":"獵人頭","sent":"出草是原住民較早的用語"},{"no":38,"page":49,"ty":"疼心","tl":"thiànn-sim","md":"愛心","sent":"伊對人真有疼心"},{"no":39,"page":49,"ty":"落尾","tl":"lo̍h-bué/bé","md":"最後","sent":"落尾我就去高雄讀冊"},{"no":40,"page":50,"ty":"媠","tl":"suí","md":"漂亮的","sent":"彼个查某囡仔真媠"},{"no":41,"page":50,"ty":"毋但","tl":"m̄-nā/niā","md":"不只","sent":"伊做的歹代誌毋但按呢"},{"no":42,"page":50,"ty":"領洗禮","tl":"niá-sé/sué-lé","md":"受洗","sent":"領洗禮是宗教專有的行為"},{"no":43,"page":50,"ty":"埋","tl":"tâi","md":"埋葬","sent":"後山塚仔埔埋袂少無名屍"},{"no":44,"page":50,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像","sent":"𪜶兩个好甲親像兄弟仔仝款"},{"no":45,"page":50,"ty":"攏總","tl":"lóng-tsóng","md":"全部","sent":"遮的物件我攏總共你買"},{"no":46,"page":50,"ty":"歡喜","tl":"huann-hí","md":"感到高興","sent":"伊毋知咧歡喜啥物？"},{"no":47,"page":50,"ty":"遮","tl":"tsia","md":"這裡","sent":"遮暗時真鬧熱"},{"no":48,"page":50,"ty":"款","tl":"khuán","md":"種類","sent":"囡仔的𨑨迌物百百款"},{"no":49,"page":50,"ty":"博愛","tl":"phok-ài","md":"平等愛心","sent":"捷運頂懸有設博愛座"},{"no":50,"page":50,"ty":"誠","tl":"tsiânn","md":"很","sent":"這擔菜架仔賣了誠貴"},{"no":51,"page":51,"ty":"疼","tl":"thiànn","md":"疼愛","sent":"我細漢佮阿媽蹛，伊足疼我的"},{"no":52,"page":51,"ty":"所在","tl":"sóo-tsāi","md":"地方","sent":"這个所在真鬧熱"},{"no":53,"page":51,"ty":"上","tl":"siōng","md":"最","sent":"伊是我上好的朋友"},{"no":54,"page":51,"ty":"形影","tl":"hîng-iánn","md":"行蹤","sent":"田--裡有阿公作穡的形影"},{"no":55,"page":51,"ty":"咱","tl":"lán","md":"我們的","sent":"咱公司最近生理真好"},{"no":56,"page":51,"ty":"囝孫","tl":"kiánn-sun","md":"後代","sent":"阿英真好命，囝孫攏足有孝"},{"no":57,"page":51,"ty":"跟綴","tl":"kin-tuè/tè","md":"跟隨","sent":"囡仔人較𠢕纏，老母行到佗位，伊就跟綴到佗位"},{"no":58,"page":51,"ty":"跤步","tl":"kha-pōo","md":"行為","sent":"跤步踏差啥人無？"},{"no":59,"page":51,"ty":"鬥陣","tl":"tàu-tīn","md":"一起","sent":"咱鬥陣來去"},{"no":60,"page":51,"ty":"數念","tl":"siàu-liām","md":"懷念","sent":"我真數念伊"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

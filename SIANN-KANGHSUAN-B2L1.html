@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜康軒版國中第2冊 第1課 ChatGPT敢會曉講台語（題庫來源：09_生份字\康軒國中第二冊\01成果-生字-第1課 ChatGPT敢會曉講台語.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 ChatGPT敢會曉講台語｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>康軒版國中第2冊 第1課 ChatGPT敢會曉講台語</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-KANGHSUAN-B2L1","kind":"SIANN","kindName":"咱來餾生份字","book":"康軒第2冊","bookFull":"康軒版國中第2冊","title":"第1課 ChatGPT敢會曉講台語","items":[{"no":1,"page":12,"ty":"敢","tl":"kám","md":"有膽識；表疑問"},{"no":2,"page":12,"ty":"捌","tl":"bat / pat","md":"知道；認識；曾經"},{"no":3,"page":12,"ty":"開講","tl":"khai-káng","md":"閒談聊天"},{"no":4,"page":12,"ty":"凡勢","tl":"huān-sè","md":"也許"},{"no":5,"page":12,"ty":"抑是","tl":"ia̍h-sī / iah / a̍h / ah","md":"或是"},{"no":6,"page":12,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":7,"page":12,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":8,"page":12,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":9,"page":12,"ty":"个","tl":"ê","md":"個"},{"no":10,"page":12,"ty":"上","tl":"siōng","md":"空間位置；極致地"},{"no":11,"page":12,"ty":"參","tl":"tsham","md":"和；一起；晉謁"},{"no":12,"page":12,"ty":"毋過","tl":"m̄-koh / kò / kù","md":"不過、但是"},{"no":13,"page":12,"ty":"會曉","tl":"ē-hiáu / hiáng","md":"知道、懂得"},{"no":14,"page":12,"ty":"會…袂","tl":"ē--buē / bē","md":"能不能、會不會…"},{"no":15,"page":12,"ty":"欲","tl":"beh / bueh","md":"要；將要；若是"},{"no":16,"page":13,"ty":"款","tl":"khuán","md":"種類(5)"},{"no":17,"page":13,"ty":"予","tl":"hōo","md":"給予"},{"no":18,"page":13,"ty":"親像","tl":"tshin-tshiūnn / tshan","md":"好像、好比"},{"no":19,"page":13,"ty":"咱人","tl":"lán-lâng","md":"農曆；吾人"},{"no":20,"page":13,"ty":"咧","tl":"teh / leh","md":"在；副詞後綴"},{"no":21,"page":13,"ty":"讀冊","tl":"tha̍k-tsheh","md":"讀書；上學"},{"no":22,"page":13,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像"},{"no":23,"page":13,"ty":"濟","tl":"tsē / tsuē","md":"多"},{"no":24,"page":13,"ty":"愈..愈..","tl":"jú / lú","md":"連接比較關係；更加"},{"no":25,"page":13,"ty":"拄頭仔","tl":"tú-thâu-á","md":"一開始"},{"no":26,"page":13,"ty":"猶","tl":"iáu / iah / ah / á / iá","md":"還"},{"no":27,"page":13,"ty":"袂啥輾轉","tl":"bē-siánn-liàn-tńg / buē","md":"不太流利"},{"no":28,"page":13,"ty":"矣","tl":"--ah","md":"語尾助詞"},{"no":29,"page":13,"ty":"按呢","tl":"án-ne / ni","md":"這樣、如此"},{"no":30,"page":13,"ty":"無","tl":"bô","md":"沒有(8)"},{"no":31,"page":14,"ty":"已經","tl":"í-king","md":"已經"},{"no":32,"page":14,"ty":"猶毋過","tl":"iáu-m̄-koh / iá-m̄-kò / iah / ah / á","md":"不過、可是"},{"no":33,"page":14,"ty":"干焦","tl":"kan-na / tann / ta","md":"只有、僅僅"},{"no":34,"page":14,"ty":"逐","tl":"ta̍k","md":"每一、每個"},{"no":35,"page":14,"ty":"爾爾","tl":"niā-niā / niâ","md":"而已"},{"no":36,"page":14,"ty":"毋是","tl":"m̄ sī","md":"不是"},{"no":37,"page":14,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著"},{"no":38,"page":14,"ty":"揣","tl":"tshuē / tshē","md":"尋找"},{"no":39,"page":14,"ty":"較","tl":"khah","md":"比較；再怎麼樣也…；更…"},{"no":40,"page":14,"ty":"會當","tl":"ē-tàng","md":"可以"},{"no":41,"page":14,"ty":"家己","tl":"ka-kī / tī","md":"自己、本身"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

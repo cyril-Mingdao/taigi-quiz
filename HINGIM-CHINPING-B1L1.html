@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  形音義線上測驗｜真平版國中第1冊 第1課 趣味的誤會（題庫來源：12_形音義\01真平版國中第1冊\01形音義-真平1.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 趣味的誤會｜形音義線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🔤 形音義 🔤</h1>
+     <h2>真平版國中第1冊 第1課 趣味的誤會</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🔤</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"HINGIM-CHINPING-B1L1","kind":"HINGIM","kindName":"形音義","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第1課 趣味的誤會","items":[{"no":1,"page":6,"ty":"呔會","tl":"thài ē/thah","md":"怎麼會、豈會","syl":[["th","ài","3","2"],["無","ē","7","不變"]]},{"no":2,"page":6,"ty":"著","tl":"tio̍h","md":"動詞補語，表示動作結果。","syl":[["t","io̍h","8","不變"]]},{"no":3,"page":6,"ty":"恁","tl":"lín","md":"你們；你的；你們的","syl":[["l","ín","2","不變"]]},{"no":4,"page":6,"ty":"佇","tl":"tī","md":"在某個地方","syl":[["t","ī","7","不變"]]},{"no":5,"page":6,"ty":"車頭","tl":"tshia-thâu","md":"車站；車前面的部分","syl":[["tsh","ia","1","7"],["th","âu","5","不變"]]},{"no":6,"page":6,"ty":"遐","tl":"hia/hiâ","md":"那裡","syl":[["h","ia","1","不變"]]},{"no":7,"page":6,"ty":"遮","tl":"tsia","md":"這裡","syl":[["ts","ia","1","不變"]]},{"no":8,"page":6,"ty":"毋是","tl":"m̄-sī","md":"不是","syl":[["無","m̄","7","3"],["s","ī","7","不變"]]},{"no":9,"page":6,"ty":"危險","tl":"guî-hiám/huî","md":"不安全","syl":[["g","uî","5","7"],["h","iám","2","不變"]]},{"no":10,"page":6,"ty":"歹勢","tl":"pháinn-sè","md":"對不起；害羞難為情","syl":[["ph","áinn","2","1"],["s","è","3","不變"]]},{"no":11,"page":6,"ty":"會失禮","tl":"huē-sit-lé/hē","md":"賠不是","syl":[["h","uē","7","3"],["s","it","4","8"],["l","é","2","不變"]]},{"no":12,"page":6,"ty":"頇顢","tl":"hân-bān","md":"形容愚笨、沒有才能","syl":[["h","ân","5","7"],["b","ān","7","不變"]]},{"no":13,"page":6,"ty":"閉思","tl":"pì-sù","md":"個性內向、害羞","syl":[["p","ì","3","2"],["s","ù","3","不變"]]},{"no":14,"page":7,"ty":"透早","tl":"thàu-tsá","md":"大清早","syl":[["th","àu","3","2"],["ts","á","2","不變"]]},{"no":15,"page":7,"ty":"食","tl":"tsia̍h","md":"吃；喝、飲","syl":[["ts","ia̍h","8","不變"]]},{"no":16,"page":7,"ty":"跤","tl":"kha","md":"腿、足","syl":[["kh","a","1","不變"]]},{"no":17,"page":7,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","syl":[["無","án","2","1"],["n","e","1","不變"]]},{"no":18,"page":7,"ty":"傷","tl":"siunn","md":"太、過分於","syl":[["s","iunn","1","不變"]]},{"no":19,"page":7,"ty":"腥臊","tl":"tshenn-tshau","md":"指菜色豐盛","syl":[["tsh","enn","1","7"],["tsh","au","1","不變"]]},{"no":20,"page":7,"ty":"相借問","tl":"sio-tsioh-mn̄g","md":"打招呼、寒喧","syl":[["s","io","1","7"],["ts","ioh","4","2"],["m","n̄g","7","不變"]]},{"no":21,"page":7,"ty":"親像","tl":"tshin-tshiūnn/tshan","md":"好像、好比","syl":[["tsh","in","1","7"],["tsh","iūnn","7","不變"]]},{"no":22,"page":7,"ty":"啉","tl":"lim","md":"喝、飲","syl":[["l","im","1","不變"]]},{"no":23,"page":7,"ty":"𠢕早","tl":"gâu-tsá","md":"早安、問候語","syl":[["g","âu","5","7"],["ts","á","2","不變"]]},{"no":24,"page":8,"ty":"轉來","tl":"tńg--lâi","md":"回來","syl":[["t","ńg","2","不變"],["l","âi","5","輕聲"]]},{"no":25,"page":8,"ty":"濟","tl":"tsē/tsuē","md":"多","syl":[["ts","ē","7","不變"]]},{"no":26,"page":8,"ty":"好料","tl":"hó-liāu","md":"大餐、美食","syl":[["h","ó","2","1"],["l","iāu","7","不變"]]},{"no":27,"page":8,"ty":"目油","tl":"ba̍k-iû","md":"眼油","syl":[["b","a̍k","8","4"],["無","iû","5","不變"]]},{"no":28,"page":8,"ty":"敢是","tl":"kám-sī /kiám","md":"疑問詞","syl":[["k","ám","2","1"],["s","ī","7","不變"]]},{"no":29,"page":8,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像","syl":[["k","āng","7","3"],["kh","uán","2","不變"]]},{"no":30,"page":8,"ty":"甲","tl":"kah","md":"到…的地步。","syl":[["k","ah","4","不變"]]},{"no":31,"page":9,"ty":"𠢕","tl":"gâu","md":"有本事；擅長做某事","syl":[["g","âu","5","不變"]]},{"no":32,"page":9,"ty":"滾耍笑","tl":"kún-sńg-tshiò","md":"開玩笑","syl":[["k","ún","2","1"],["s","ńg","2","1"],["tsh","iò","3","不變"]]},{"no":33,"page":9,"ty":"趣味","tl":"tshù-bī","md":"有趣；興趣","syl":[["tsh","ù","3","2"],["b","ī","7","不變"]]},{"no":34,"page":11,"ty":"閣","tl":"koh","md":"又、再、還","syl":[["k","oh","4","不變"]]},{"no":35,"page":11,"ty":"物件","tl":"mi̍h-kiānn/mn̍gh","md":"東西","syl":[["m","i̍h","8","3"],["k","iānn","7","不變"]]},{"no":36,"page":11,"ty":"緊","tl":"kín","md":"快、迅速；表催促","syl":[["k","ín","2","不變"]]},{"no":37,"page":11,"ty":"拄","tl":"tú","md":"剛才","syl":[["t","ú","2","不變"]]},{"no":38,"page":11,"ty":"袂","tl":"bē/buē","md":"不。否定詞。","syl":[["b","ē","7","不變"]]},{"no":39,"page":11,"ty":"喘氣","tl":"tshuán-khuì","md":"呼吸；短暫的休息","syl":[["tsh","uán","2","1"],["kh","uì","3","不變"]]},{"no":40,"page":11,"ty":"掠準","tl":"lia̍h-tsún","md":"認為、以為","syl":[["l","ia̍h","8","3"],["ts","ún","2","不變"]]},{"no":41,"page":11,"ty":"無爽快","tl":"bô sóng-khuài","md":"不舒服","syl":[["b","ô","5","7"],["s","óng","2","1"],["kh","uài","3","不變"]]}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

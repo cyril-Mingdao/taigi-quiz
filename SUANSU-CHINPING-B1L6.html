@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  選詞塌空線上測驗｜真平版國中第1冊 第6課 割稻仔飯（題庫來源：10_選詞塌空\01真平國中第1冊\06成果-選詞-第6課 割稻仔飯.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第6課 割稻仔飯｜選詞塌空線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>✏️ 選詞塌空 ✏️</h1>
+     <h2>真平版國中第1冊 第6課 割稻仔飯</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">✏️</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SUANSU-CHINPING-B1L6","kind":"SUANSU","kindName":"選詞塌空","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第6課 割稻仔飯","items":[{"no":1,"page":86,"ty":"食","tl":"tsia̍h","md":"吃(8)","sent":"你愛食啥物果子"},{"no":2,"page":86,"ty":"檨仔青","tl":"suāinn-á-tshenn/tshinn","md":"情人果、青芒果","sent":"檨仔青足好食矣"},{"no":3,"page":86,"ty":"酸","tl":"sng","md":"酸的/悲傷","sent":"這粒柑仔酸酸"},{"no":4,"page":86,"ty":"滋味","tl":"tsu-bī","md":"味道/感覺","sent":"這个湯頭的滋味袂䆀"},{"no":5,"page":86,"ty":"閣","tl":"koh","md":"又/反倒/句尾隱喻","sent":"伊講明仔載欲閣來"},{"no":6,"page":86,"ty":"號做","tl":"hō-tsò/tsuè","md":"叫做、稱為","sent":"我袂記得伊號做啥物名"},{"no":7,"page":86,"ty":"敢是","tl":"kám/kiám-sī","md":"疑問詞/難道是","sent":"敢是按呢？"},{"no":8,"page":87,"ty":"毋知","tl":"m̄ tsai","md":"不知道","sent":"你問我的代誌我攏毋知"},{"no":9,"page":87,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"雖然伊真拚，毋過方向毋著"},{"no":10,"page":87,"ty":"予","tl":"hōo","md":"給予(5)","sent":"我予你一个面子"},{"no":11,"page":87,"ty":"意愛","tl":"ì-ài","md":"喜歡、愛慕","sent":"少年人若有相意愛就好矣"},{"no":12,"page":87,"ty":"有影","tl":"ū-iánn","md":"真實不虛的","sent":"你講的話敢有影？"},{"no":13,"page":87,"ty":"逐","tl":"ta̍k","md":"每一、每個","sent":"佇遮，逐个人攏誠歡喜"},{"no":14,"page":87,"ty":"開","tl":"khui","md":"綻放(7)","sent":"遮的花開了足媠的"},{"no":15,"page":87,"ty":"佇","tl":"tī","md":"在某個地方/時間","sent":"伊這馬佇厝裡咧睏"},{"no":16,"page":87,"ty":"跤","tl":"kha","md":"在…下(4)","sent":"對山跤遐直行過著會到矣"},{"no":17,"page":87,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"伊按呢做，真的傷超過矣"},{"no":18,"page":88,"ty":"割稻仔飯","tl":"kuah-tiū-á-pn̄g","md":"宴請助割稻的菜餚","sent":"愛準備割稻仔飯請人"},{"no":19,"page":88,"ty":"大灶","tl":"tuā-tsàu","md":"生火烹飪的設備","sent":"𪜶兜三頓煮食攏用大灶"},{"no":20,"page":88,"ty":"燃","tl":"hiânn","md":"點燃、焚燒","sent":"阮阿媽咧燃青草仔茶"},{"no":21,"page":88,"ty":"鰇魚","tl":"jiû/liû-hû","md":"魷魚","sent":"鰇魚烘無偌久就會蔫"},{"no":22,"page":88,"ty":"精肉","tl":"tsiann-bah","md":"瘦肉","sent":"阮兜的人攏較愛食精肉"},{"no":23,"page":88,"ty":"同齊","tl":"tâng-tsê","md":"同時一起","sent":"我佮阿姊同齊去踅街"},{"no":24,"page":88,"ty":"鼎","tl":"tiánn","md":"烹飪的大鍋(3)","sent":"阮兜是阮阿爸咧扞鼎灶"},{"no":25,"page":89,"ty":"菜脯","tl":"tshài-póo","md":"蘿蔔乾","sent":"你去煎一盤菜脯卵請人客"},{"no":26,"page":89,"ty":"卵","tl":"nn̄g","md":"鳥類和爬蟲類的蛋","sent":"鴨卵密密都有縫"},{"no":27,"page":89,"ty":"鹹菜","tl":"kiâm-tshài","md":"酸菜","sent":"眠床頂亂甲袂輸咧漚鹹菜咧"},{"no":28,"page":89,"ty":"瓜仔瓤","tl":"kue-á-nn̂g","md":"瓜果中心可食部分","sent":"虱目魚煮瓜仔瓤真好食"},{"no":29,"page":89,"ty":"炕","tl":"khòng","md":"用慢火久煮","sent":"伊上愛食炕肉飯"},{"no":30,"page":89,"ty":"扁擔","tl":"pún/pín-tann","md":"挑物的扁長形工具","sent":"提扁擔來擔遮的果子去賣"},{"no":31,"page":89,"ty":"擔","tl":"tann","md":"以肩挑物(4)","sent":"戇猴擔石頭"},{"no":32,"page":89,"ty":"碗公","tl":"uánn-kong","md":"比一般還要大的碗","sent":"去提一塊碗公來貯菜頭湯"},{"no":33,"page":89,"ty":"貯","tl":"té/tué","md":"裝、盛","sent":"我來捀碗共你貯飯"},{"no":34,"page":89,"ty":"啉","tl":"lim","md":"喝、飲/喝酒","sent":"暗時欲睏進前茶湯莫啉傷濟"},{"no":35,"page":90,"ty":"布袋","tl":"pòo-tē","md":"棉布製成的袋子","sent":"飼鳥鼠咬布袋"},{"no":36,"page":90,"ty":"摔桶","tl":"siak-tháng","md":"脫穀用的大木桶","sent":"較早拍粟仔愛用摔桶"},{"no":37,"page":90,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","sent":"這跤皮箱內底貯啥物？"},{"no":38,"page":90,"ty":"芳","tl":"phang","md":"香氣令人愉悅的(2)","sent":"我的房內全是花的芳味"},{"no":39,"page":90,"ty":"規","tl":"kui","md":"整個/條文/器具","sent":"規路攏是人"},{"no":40,"page":90,"ty":"空空空","tl":"kha̋ng-khang-khang","md":"加強語氣的疊字詞","sent":"我的橐袋仔空空空"}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

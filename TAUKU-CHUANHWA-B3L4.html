@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜全華版國中第3冊 第4課 喝玲瑯，踅街路（題庫來源：11_咱來鬥句\04全華版國中第3冊\04成果-鬥句-第4課 喝玲瑯，踅街路.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 喝玲瑯，踅街路｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>全華版國中第3冊 第4課 喝玲瑯，踅街路</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-CHUANHWA-B3L4","kind":"TAUKU","kindName":"咱來鬥句","book":"全華第3冊","bookFull":"全華版國中第3冊","title":"第4課 喝玲瑯，踅街路","items":[{"no":1,"page":72,"ty":"注文","tl":"tsù-bûn","md":"預訂、預約。事先訂購。源自日語「注文（ちゅうもん）」","sent":"這項物件做袂赴通賣，你若欲愛著注文","parts":["這項物件","做袂赴通賣，","你若欲","愛著注文"]},{"no":2,"page":72,"ty":"米芳","tl":"bí-phang","md":"爆米花。塊狀食用的傳統食品","sent":"阮規家伙仔攏足愛食磅米芳的","parts":["阮規家伙仔","攏足","愛食磅","米芳的"]},{"no":3,"page":72,"ty":"走","tl":"tsáu","md":"跑。 離開。 逃。 走動。 偏離","sent":"伊走無去矣","parts":["伊","走","無去","矣"]},{"no":4,"page":72,"ty":"親像","tl":"tshin-tshiūnn / tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款","parts":["𪜶兩个","好甲","親像","兄弟仔仝款"]},{"no":5,"page":72,"ty":"桌頂拈柑","tl":"toh-tíng ni-kam","md":"輕而易舉","sent":"彼層代誌對伊來講袂輸桌頂拈柑咧","parts":["彼層代誌","對伊來講","袂輸","桌頂拈柑咧"]},{"no":6,"page":72,"ty":"毋管","tl":"m̄-kuán","md":"不論、無論","sent":"毋管是啥人共你問，你攏袂使講","parts":["毋管","是啥人共你問，","你攏","袂使講"]},{"no":7,"page":72,"ty":"攏","tl":"lóng","md":"都、皆、全部","sent":"逐家攏莫去","parts":["逐家","攏","莫","去"]},{"no":8,"page":73,"ty":"磅","tl":"pōng","md":"度量輕重。 炸開。 重量的單位。1磅=0.454公斤。量測體溫","sent":"炭空挖塗炭，著愛先用磅子磅","parts":["炭空挖塗炭，","著愛","先用磅子","磅"]},{"no":9,"page":73,"ty":"敢","tl":"kám","md":"有膽識，毫不畏懼的。 表疑問。豈，難道","sent":"這敢是你的？","parts":["這","敢","是","你的？"]},{"no":10,"page":73,"ty":"䢢拄䢢","tl":"tshiāng-tú-tshiāng","md":"正巧、碰巧、剛剛好","sent":"我有代誌想欲佮你參詳，䢢拄䢢去拄著你","parts":["我有代誌想欲佮你參詳，","䢢拄䢢","去拄著","你"]},{"no":11,"page":73,"ty":"拄","tl":"tú","md":"抵。互換。剛才。遇見。頂撞。連接兩個相同形容詞，來反駁對方","sent":"伊拄走無偌久爾爾","parts":["伊","拄","走無偌久","爾爾"]},{"no":12,"page":73,"ty":"爾爾","tl":"niā-niā","md":"而已","sent":"我規身軀干焦十箍爾爾","parts":["我規身軀","干焦","十箍","爾爾"]},{"no":13,"page":73,"ty":"這馬","tl":"tsit-má","md":"現在","sent":"這馬的人攏罕得寫批矣","parts":["這馬","的人","攏罕得","寫批矣"]},{"no":14,"page":73,"ty":"恁","tl":"lín","md":"你們。你的。你們的","sent":"恁欲去佗位？","parts":["恁","欲","去","佗位？"]},{"no":15,"page":73,"ty":"生理","tl":"sing-lí","md":"生意、買賣","sent":"阮叔仔咧做一寡小生理","parts":["阮叔仔","咧","做一寡小","生理"]},{"no":16,"page":73,"ty":"加","tl":"ke","md":"添加。 比原來的數量多。 多餘","sent":"寄話會加，寄物會減","parts":["寄話","會","加，","寄物會減"]},{"no":17,"page":74,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像。一樣，沒有差別","sent":"這兩个皮包仔看著仝款仔仝款","parts":["這兩个皮包仔","看著","仝款","仔仝款"]},{"no":18,"page":74,"ty":"乎","tl":"--honnh","md":"反問語助詞，表示與問話者確認的語氣。 反問語助詞，帶有調侃的意味","sent":"你今仔日欲出去𨑨迌乎？","parts":["你","今仔日欲出去","𨑨迌","乎？"]},{"no":19,"page":74,"ty":"記持","tl":"kì-tî","md":"記憶、記性","sent":"你記持誠䆀，隨講隨袂記得","parts":["你","記持","誠䆀，","隨講隨袂記得"]},{"no":20,"page":74,"ty":"老主顧","tl":"lāu-tsú-kòo","md":"熟客","sent":"阿明是彼間店的老主顧","parts":["阿明是","彼間店","的","老主顧"]},{"no":21,"page":74,"ty":"會記得","tl":"ē-kì--tit","md":"記得(又唸作ē-kì--tsitē-kì--litē-kì--lihē-kì--eh)","sent":"你講過的話，敢閣會記得？","parts":["你講過的話，","敢","閣","會記得？"]},{"no":22,"page":75,"ty":"燒燙燙","tl":"sio-thǹg-thǹg","md":"溫度很高會燙人","sent":"火鍋湯燒燙燙，若欲啉著愛細膩","parts":["火鍋湯","燒燙燙","，若欲啉","著愛細膩"]},{"no":23,"page":75,"ty":"芳貢貢","tl":"phang-kòng-kòng","md":"形容香氣很盛","sent":"阮兜門口有種一欉月來香，天一下暗就規厝間芳貢貢","parts":["阮兜門口有種一欉月來香，","天一下暗","就規厝間","芳貢貢"]},{"no":24,"page":75,"ty":"知影","tl":"tsai-iánn","md":"知道、懂得","sent":"你敢知影伊叫做啥物名？","parts":["你敢","知影","伊叫做","啥物名？"]},{"no":25,"page":75,"ty":"這陣","tl":"tsit-tsūn","md":"現在。當下這個時刻","sent":"你這陣有啥物拍算？","parts":["你","這陣","有啥物","拍算？"]},{"no":26,"page":75,"ty":"下晡","tl":"ē-poo","md":"下午","sent":"下晡我欲招阿美仔去𨑨迌","parts":["下晡","我欲招","阿美仔","去𨑨迌"]},{"no":27,"page":76,"ty":"捾","tl":"kuānn","md":"提。用手下垂提取東西。提把。計算成串的東西。富含","sent":"一大捾的荔枝","parts":["一","大","捾","的荔枝"]},{"no":28,"page":76,"ty":"喝","tl":"huah","md":"大聲喊叫。 喝叱","sent":"伊咧遏花，緊共喝予走","parts":["伊咧遏花，","緊共","喝","予走"]},{"no":29,"page":76,"ty":"上","tl":"siōng","md":"指空間位置。最…地，有些地區音變為thōng","sent":"上好是像你講的按呢","parts":["上","好是","像你講的","按呢"]},{"no":30,"page":77,"ty":"燒唿唿","tl":"sio-hut-hut","md":"熱呼呼、熱騰騰","sent":"包仔拄炊好的，猶燒唿唿","parts":["包仔拄炊好的，","猶","燒唿唿"]},{"no":31,"page":77,"ty":"欲","tl":"beh / bueh","md":"要、想，表示意願。 將要、快要。 若是、如果，表示假設","sent":"欲落雨矣，咱緊來轉","parts":["欲","落雨矣，","咱緊來","轉"]},{"no":32,"page":77,"ty":"下港","tl":"ē-káng","md":"指臺灣南部地方","sent":"伊對下港起來臺北食頭路","parts":["伊對","下港","起來臺北","食頭路"]},{"no":33,"page":77,"ty":"予","tl":"hōo","md":"給予。 被…。任由。 讓。 動詞後綴","sent":"我予你一个面子，這件代誌就準拄煞","parts":["我","予","你一个面子，","這件代誌就準拄煞"]},{"no":34,"page":77,"ty":"阮","tl":"guán / gún","md":"我們。我。我的","sent":"阮欲走矣，你咧？","parts":["阮","欲走矣，","你","咧？"]},{"no":35,"page":77,"ty":"分張","tl":"pun-tiunn","md":"通常指小孩子慷慨大方願意將食物分給他人","sent":"這个囡仔誠分張","parts":["這个","囡仔","誠","分張"]},{"no":36,"page":78,"ty":"這聲","tl":"tsit-siann","md":"這下子、這回。這一次、就在這時候","sent":"這聲伊走袂去矣","parts":["這聲","伊","走袂去","矣"]},{"no":37,"page":78,"ty":"袂赴市","tl":"bē-hù-tshī / buē-hù-tshī","md":"時間短暫，無法趕上或顧及","sent":"天欲暗矣，無較緊咧，就袂赴市矣","parts":["天欲暗矣，","無較緊咧，","就","袂赴市矣"]}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

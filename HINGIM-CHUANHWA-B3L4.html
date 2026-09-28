@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  形音義線上測驗｜全華版國中第3冊 第4課 喝玲瑯，踅街路（題庫來源：12_形音義\04全華版國中第3冊\04形音義-第4課 喝玲瑯，踅街路.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 喝玲瑯，踅街路｜形音義線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🔤 形音義 🔤</h1>
+     <h2>全華版國中第3冊 第4課 喝玲瑯，踅街路</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🔤</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"HINGIM-CHUANHWA-B3L4","kind":"HINGIM","kindName":"形音義","book":"全華第3冊","bookFull":"全華版國中第3冊","title":"第4課 喝玲瑯，踅街路","items":[{"no":1,"page":72,"ty":"注文","tl":"tsù-bûn","md":"預訂、預約。事先訂購。源自日語「注文（ちゅうもん）」","syl":[["ts","ù","3","2"],["b","ûn","5","不變"]]},{"no":2,"page":72,"ty":"米芳","tl":"bí-phang","md":"爆米花。塊狀食用的傳統食品","syl":[["b","í","2","1"],["ph","ang","1","不變"]]},{"no":3,"page":72,"ty":"走","tl":"tsáu","md":"跑。離開。逃。走動。偏離","syl":[["ts","áu","2","不變"]]},{"no":4,"page":72,"ty":"親像","tl":"tshin-tshiūnn / tshan-tshiūnn","md":"好像、好比","syl":[["tsh","in","1","7"],["tsh","iūnn","7","不變"]]},{"no":5,"page":72,"ty":"桌頂拈柑","tl":"toh-tíng ni-kam","md":"輕而易舉","syl":[["t","oh","4","2"],["t","íng","2","1"],["n","i","1","7"],["k","am","1","不變"]]},{"no":6,"page":72,"ty":"毋管","tl":"m̄-kuán","md":"不論、無論","syl":[["無","m̄","7","3"],["k","uán","2","不變"]]},{"no":7,"page":72,"ty":"攏","tl":"lóng","md":"都、皆、全部","syl":[["l","óng","2","不變"]]},{"no":8,"page":73,"ty":"磅","tl":"pōng","md":"度量輕重。炸開。重量的單位。1磅=0.454公斤。量測體溫","syl":[["p","ōng","7","不變"]]},{"no":9,"page":73,"ty":"敢","tl":"kám","md":"有膽識，毫不畏懼的。表疑問。豈，難道","syl":[["k","ám","2","不變"]]},{"no":10,"page":73,"ty":"䢢拄䢢","tl":"tshiāng-tú-tshiāng","md":"正巧、碰巧、剛剛好","syl":[["tsh","iāng","7","3"],["t","ú","2","1"],["tsh","iāng","7","不變"]]},{"no":11,"page":73,"ty":"拄","tl":"tú","md":"抵。互換。剛才。遇見。頂撞。連接兩個相同形容詞，來反駁對方","syl":[["t","ú","2","不變"]]},{"no":12,"page":73,"ty":"爾爾","tl":"niā-niā","md":"而已","syl":[["n","iā","7","3"],["n","iā","7","不變"]]},{"no":13,"page":73,"ty":"這馬","tl":"tsit-má","md":"現在","syl":[["ts","it","4","8"],["m","á","2","不變"]]},{"no":14,"page":73,"ty":"恁","tl":"lín","md":"你們。你的。你們的","syl":[["l","ín","2","不變"]]},{"no":15,"page":73,"ty":"生理","tl":"sing-lí","md":"生意、買賣","syl":[["s","ing","1","7"],["l","í","2","不變"]]},{"no":16,"page":73,"ty":"加","tl":"ke","md":"添加。比原來的數量多。多餘","syl":[["k","e","1","不變"]]},{"no":17,"page":74,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像。一樣，沒有差別","syl":[["k","āng","7","3"],["kh","uán","2","不變"]]},{"no":18,"page":74,"ty":"乎","tl":"--honnh","md":"反問語助詞，表示與問話者確認的語氣。反問語助詞，帶有調侃的意味","syl":[["h","onnh","4","輕聲"]]},{"no":19,"page":74,"ty":"記持","tl":"kì-tî","md":"記憶、記性","syl":[["k","ì","3","2"],["t","î","5","不變"]]},{"no":20,"page":74,"ty":"老主顧","tl":"lāu-tsú-kòo","md":"熟客","syl":[["l","āu","7","3"],["ts","ú","2","1"],["k","òo","3","不變"]]},{"no":21,"page":74,"ty":"會記得","tl":"ē-kì--tit","md":"記得(又唸作ē-kì--tsitē-kì--litē-kì--lihē-kì--eh)","syl":[["無","ē","7","3"],["k","ì","3","不變"],["t","it","4","輕聲"]]},{"no":22,"page":75,"ty":"燒燙燙","tl":"sio-thǹg-thǹg","md":"溫度很高會燙人","syl":[["s","io","1","7"],["th","ǹg","3","2"],["th","ǹg","3","不變"]]},{"no":23,"page":75,"ty":"芳貢貢","tl":"phang-kòng-kòng","md":"形容香氣很盛","syl":[["ph","ang","1","7"],["k","òng","3","2"],["k","òng","3","不變"]]},{"no":24,"page":75,"ty":"知影","tl":"tsai-iánn","md":"知道、懂得","syl":[["ts","ai","1","7"],["無","iánn","2","不變"]]},{"no":25,"page":75,"ty":"這陣","tl":"tsit-tsūn","md":"現在。當下這個時刻","syl":[["ts","it","4","8"],["ts","ūn","7","不變"]]},{"no":26,"page":75,"ty":"下晡","tl":"ē-poo","md":"下午","syl":[["無","ē","7","3"],["p","oo","1","不變"]]},{"no":27,"page":76,"ty":"捾","tl":"kuānn","md":"提。用手下垂提取東西。提把。計算成串的東西。富含","syl":[["k","uānn","7","不變"]]},{"no":28,"page":76,"ty":"喝","tl":"huah","md":"大聲喊叫。喝叱","syl":[["h","uah","4","不變"]]},{"no":29,"page":76,"ty":"上","tl":"siōng","md":"指空間位置。最…地，有些地區音變為thōng","syl":[["s","iōng","7","不變"]]},{"no":30,"page":77,"ty":"燒唿唿","tl":"sio-hut-hut","md":"熱呼呼、熱騰騰","syl":[["s","io","1","7"],["h","ut","4","8"],["h","ut","4","不變"]]},{"no":31,"page":77,"ty":"欲","tl":"beh / bueh","md":"要、想，表示意願。將要、快要。若是、如果，表示假設","syl":[["b","eh","4","不變"]]},{"no":32,"page":77,"ty":"下港","tl":"ē-káng","md":"指臺灣南部地方","syl":[["無","ē","7","3"],["k","áng","2","不變"]]},{"no":33,"page":77,"ty":"予","tl":"hōo","md":"給予。被…。任由。讓。動詞後綴","syl":[["h","ōo","7","不變"]]},{"no":34,"page":77,"ty":"阮","tl":"guán / gún","md":"我們。我。我的","syl":[["g","uán","2","不變"]]},{"no":35,"page":77,"ty":"分張","tl":"pun-tiunn","md":"通常指小孩子慷慨大方願意將食物分給他人","syl":[["p","un","1","7"],["t","iunn","1","不變"]]},{"no":36,"page":78,"ty":"這聲","tl":"tsit-siann","md":"這下子、這回。這一次、就在這時候","syl":[["ts","it","4","8"],["s","iann","1","不變"]]},{"no":37,"page":78,"ty":"袂赴市","tl":"bē-hù-tshī / buē-hù-tshī","md":"時間短暫，無法趕上或顧及","syl":[["b","ē","7","3"],["h","ù","3","2"],["tsh","ī","7","不變"]]}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

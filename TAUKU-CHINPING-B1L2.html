@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜真平版國中第1冊 第2課 啥台語嘛有火星文（題庫來源：11_咱來鬥句\01真平版國中第1冊\02成果-選詞-第2課 啥台語嘛有火星文.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 啥台語嘛有火星文｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>真平版國中第1冊 第2課 啥台語嘛有火星文</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-CHINPING-B1L2","kind":"TAUKU","kindName":"咱來鬥句","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第2課 啥台語嘛有火星文","items":[{"no":1,"page":20,"ty":"歹勢","tl":"pháinn-sè","md":"不好意思/害羞","sent":"誠歹勢；伊會歹勢","parts":["誠","歹勢；","伊會","歹勢"]},{"no":2,"page":20,"ty":"欲","tl":"beh/bueh","md":"要/將要/若是","sent":"你欲去無？","parts":["你","欲","去","無？"]},{"no":3,"page":20,"ty":"按怎","tl":"án-tsuánn/nuá/ná","md":"怎麼、怎樣","sent":"到底著愛按怎做","parts":["到底","著愛","按怎","做"]},{"no":4,"page":20,"ty":"參","tl":"tsham","md":"和/一起/晉謁","sent":"你參伊去","parts":["你","參","伊","去"]},{"no":5,"page":20,"ty":"𨑨迌","tl":"tshit-thô/thit-thô","md":"遊玩/玩弄/混","sent":"你明仔載欲佮阮去𨑨迌無?","parts":["你明仔載","欲佮阮","去","𨑨迌無?"]},{"no":6,"page":20,"ty":"愛","tl":"ài","md":"喜歡/要 (4)","sent":"你行路愛小心","parts":["你","行路","愛","小心"]},{"no":7,"page":20,"ty":"按呢","tl":"án-ne/án-ni","md":"這樣、如此","sent":"按呢就傷超過矣","parts":["按呢","就","傷","超過矣"]},{"no":8,"page":20,"ty":"嘿","tl":"--heh/--hennh","md":"肯定/驚訝語氣","sent":"嘿啊，我知啊。","parts":["嘿啊，","我","知","啊。"]},{"no":9,"page":20,"ty":"後擺","tl":"āu-pái","md":"下次/將來","sent":"後擺莫閣脫箠矣","parts":["後擺","莫閣","脫箠","矣"]},{"no":10,"page":20,"ty":"紮","tl":"tsah","md":"攜帶","sent":"身軀無紮錢","parts":["身軀","無","紮","錢"]},{"no":11,"page":20,"ty":"挽","tl":"bán","md":"採(6)","sent":"挽柑仔","parts":["挽","柑仔"]},{"no":12,"page":20,"ty":"食","tl":"tsia̍h","md":"吃(8)","sent":"食果子","parts":["食","果子"]},{"no":13,"page":20,"ty":"伴手","tl":"phuānn-tshiú","md":"小禮物","sent":"阿舅逐遍來阮兜攏會紮伴手","parts":["阿舅逐遍","來阮兜","攏會紮","伴手"]},{"no":14,"page":20,"ty":"捌","tl":"bat/pat","md":"懂/認識/曾經","sent":"做人就愛捌道理","parts":["做人","就愛","捌","道理"]},{"no":15,"page":20,"ty":"代誌","tl":"tāi-tsì","md":"事情","sent":"逐項代誌攏是伊咧發落","parts":["逐項","代誌","攏是","伊咧發落"]},{"no":16,"page":20,"ty":"感心","tl":"kám-sim","md":"感動、感激","sent":"伊講的話予我真感心","parts":["伊講","的話","予我","真感心"]},{"no":17,"page":20,"ty":"毋甘","tl":"m̄-kam","md":"捨不得/難過","sent":"伊真凍霜","parts":["伊","真","凍","霜"]},{"no":18,"page":20,"ty":"啥物","tl":"siánn-mih/mi̍h","md":"什麼","sent":"啥物人佇遐咧唱歌？","parts":["啥物","人","佇遐","咧唱歌？"]},{"no":19,"page":21,"ty":"歡喜","tl":"huann-hí","md":"高興/消遣","sent":"伊毋知咧歡喜啥物？","parts":["伊","毋知","咧歡喜","啥物？"]},{"no":20,"page":21,"ty":"毋過","tl":"m̄-koh/m̄-kò/m̄-kù","md":"不過","sent":"咱雖然輸矣，毋過真滿足","parts":["咱雖然","輸矣，","毋過","真滿足"]},{"no":21,"page":21,"ty":"莫","tl":"mài","md":"不要","sent":"你莫烏白呸喙瀾！","parts":["你","莫","烏白","呸喙瀾！"]},{"no":22,"page":21,"ty":"予","tl":"hōo","md":"動詞後綴(6)","sent":"坐予好","parts":["坐","予","好"]},{"no":23,"page":21,"ty":"毋是","tl":"m̄ sī","md":"不是","sent":"這毋是我的","parts":["這","毋是","我的"]},{"no":24,"page":21,"ty":"著","tl":"tio̍h","md":"對(8)","sent":"按呢著","parts":["按呢","著"]},{"no":25,"page":21,"ty":"共","tl":"kā","md":"向(4)","sent":"我共你講","parts":["我","共","你","講"]},{"no":26,"page":21,"ty":"烏白","tl":"oo-pe̍h","md":"亂來/黑白","sent":"我才無欲聽你咧烏白講","parts":["我才","無欲聽","你咧","烏白講"]},{"no":27,"page":21,"ty":"橫直","tl":"huâinn/huînn-ti̍t","md":"橫豎、反正","sent":"橫直我就是毋信啦","parts":["橫直","我就是","毋信","啦"]},{"no":28,"page":21,"ty":"咱","tl":"lán","md":"我們/我們的/您們","sent":"咱攏來讀冊","parts":["咱","攏來","讀冊"]},{"no":29,"page":21,"ty":"毋著","tl":"m̄-tio̍h","md":"不對","sent":"這件代誌毋著的人是你","parts":["這件代誌","毋著","的人","是你"]},{"no":30,"page":21,"ty":"湠","tl":"thuànn","md":"蔓延/傳染","sent":"火咧湠真緊","parts":["火","咧","湠","真緊"]},{"no":31,"page":21,"ty":"時到","tl":"sî kàu","md":"到時候","sent":"時到時擔當，無米才煮番薯湯","parts":["時到","時擔當，","無米才","煮番薯湯"]},{"no":32,"page":21,"ty":"歹勢","tl":"pháinn-sè","md":"不好意思/害羞","sent":"誠歹勢，我毋是刁工矣","parts":["誠歹勢，","我","毋是","刁工矣"]},{"no":33,"page":21,"ty":"閣","tl":"koh","md":"又/反倒(3)","sent":"今仔日伊閣來矣","parts":["今仔日","伊","閣","來矣"]},{"no":34,"page":21,"ty":"擺","tl":"pái/páinn","md":"搖動/次數/借貸","sent":"閣愛你一擺","parts":["閣","愛你","一擺"]},{"no":35,"page":21,"ty":"失禮","tl":"sit-lé","md":"向某人賠罪","sent":"真失禮，這攏是我的毋著","parts":["真失禮，","這攏是","我的","毋著"]},{"no":36,"page":21,"ty":"隨","tl":"suî","md":"跟從/即刻/各個","sent":"你等一下，我隨來","parts":["你","等一下，","我","隨來"]}]};
+  </script>
+  <script src="assets/common.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
