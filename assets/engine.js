@@ -431,6 +431,7 @@ function showIntro() {
     (app.isTeacher ? '<br><b>教師以學生身分測試</b>（成績會記錄在系統）' : '') + '</div>' : '';
   document.getElementById('quiz-user').innerHTML = userBadgeHtml(extra);
   document.getElementById('btn-back-admin').classList.toggle('hidden', !app.isTeacher);
+  document.getElementById('btn-edit-profile').classList.toggle('hidden', app.isTeacher);
   showSection('quiz-intro');
 }
 
@@ -460,8 +461,8 @@ document.getElementById('btn-history').addEventListener('click', showHistory);
 document.getElementById('btn-edit-profile').addEventListener('click', () => showProfileForm(showIntro, showIntro));
 document.getElementById('btn-switch').addEventListener('click', signOut);
 document.getElementById('btn-back-admin').addEventListener('click', goAdmin);
-document.getElementById('mode-student').addEventListener('click', () =>
-  showProfileForm(showIntro, showTeacherChoice));
+// 教師的學生模式：班級一律記為「教師」（收件程式決定），與各班區隔，不必點選班級座號
+document.getElementById('mode-student').addEventListener('click', showIntro);
 document.getElementById('mode-admin').addEventListener('click', goAdmin);
 document.getElementById('rs-again').addEventListener('click', () => {
   if (!quiz.submitted && !confirm('這次成績還沒送出成功，確定要放棄並重新測驗嗎？')) return;

@@ -263,15 +263,20 @@ function bindReviewFooter(a) {
     const btn = document.getElementById('rv-save');
     const verdict = (body.querySelector('input[name=rv-verdict]:checked') || {}).value || '';
     const note = document.getElementById('rv-note').value.trim();
+    const body_ = { action: 'admin_review', attemptId: a.id, verdict: verdict, note: note };
+    // 題型測驗：一併送出「允許」勾選的題目（依檢核結果重新計分）
+    if (a.cat !== 'READ') body_.allow = [...body.querySelectorAll('.rv-allow:checked')].map(c => Number(c.dataset.k));
     btn.disabled = true;
     try {
-      await apiFor(a.id, { action: 'admin_review', attemptId: a.id, verdict: verdict, note: note });
+      const res = await apiFor(a.id, body_);
       a.verdict = verdict;
       a.note = note;
+      const regraded = res.total != null && (res.total !== a.total || res.correct !== a.correct);
+      if (res.total != null) { a.total = res.total; a.correct = res.correct; }
       adminPlayer.pause();
       closeModal();
       renderAdminTable();
-      toast('已儲存審查結果');
+      toast(regraded ? `已儲存審查結果，重新計分為 ${a.total} 分（答對 ${a.correct}/${a.count}）` : '已儲存審查結果');
     } catch (err) {
       toast('儲存失敗：' + (err.message || err));
       btn.disabled = false;
@@ -296,18 +301,26 @@ async function openReview(id) {
   else openQuizReview(a, d);
 }
 
-/* 題型測驗：逐題列出題目、學生作答、參考答案與得分 */
+/* 題型測驗：逐題列出題目、學生作答、參考答案與得分。
+   自動判定沒拿滿分的題目有「允許」勾選處（例如咱來鬥句的答案不只一種）：
+   勾選後按「儲存審查」，收件程式把勾選的題目改以滿分計、重新計算總分；取消勾選即恢復原判定。 */
 function openQuizReview(a, d) {
   const rows = (d.detail || []).map((r, i) => {
+    const orig = r.orig != null ? Number(r.orig) : Number(r.pts);
+    const wrong = orig < 4 - 1e-6;
     const full = Number(r.pts) >= 4 - 1e-6;
+    const mark = r.allowed ? `✔ 允許（原 ${orig}）` : `${full ? '✔' : Number(r.pts) > 0 ? '△' : '✘'} ${r.pts}`;
+    const allowBox = wrong ? `<label class="rv-allow-label"><input type="checkbox" class="rv-allow" data-k="${i}" ${r.allowed ? 'checked' : ''}> 允許</label>` : '';
     return MOBILE.matches
-      ? `<div class="rv-item ${full ? '' : 'suspect'}"><div class="rv-head"><span><b>#${i + 1}</b> ${escapeHtml(r.q)}</span><b>${r.pts}</b></div>
-          <div>作答：${escapeHtml(r.a || '（未作答）')}</div><div>正解：<b>${escapeHtml(r.c)}</b></div></div>`
+      ? `<div class="rv-item ${full ? '' : 'suspect'}"><div class="rv-head"><span><b>#${i + 1}</b> ${escapeHtml(r.q)}</span><b>${mark}</b></div>
+          <div>作答：${escapeHtml(r.a || '（未作答）')}</div><div>正解：<b>${escapeHtml(r.c)}</b></div>${allowBox ? `<div>${allowBox}</div>` : ''}</div>`
       : `<tr class="${full ? '' : 'suspect'}"><td>${i + 1}</td><td>${escapeHtml(r.q)}</td><td>${escapeHtml(r.a || '（未作答）')}</td>
-          <td><b>${escapeHtml(r.c)}</b></td><td>${full ? '✔' : Number(r.pts) > 0 ? '△' : '✘'} ${r.pts}${r.steps ? ` <span class="hint">(${r.steps})</span>` : ''}</td></tr>`;
+          <td><b>${escapeHtml(r.c)}</b></td><td>${mark}${r.steps ? ` <span class="hint">(${r.steps})</span>` : ''}</td><td>${allowBox}</td></tr>`;
   }).join('');
-  const listHtml = MOBILE.matches ? `<div>${rows}</div>`
-    : `<table class="review-list"><tr><th>#</th><th>題目</th><th>學生作答</th><th>參考答案</th><th>得分</th></tr>${rows}</table>`;
+  const hasWrong = (d.detail || []).some(r => (r.orig != null ? Number(r.orig) : Number(r.pts)) < 4 - 1e-6);
+  const listHtml = (MOBILE.matches ? `<div>${rows}</div>`
+    : `<table class="review-list"><tr><th>#</th><th>題目</th><th>學生作答</th><th>參考答案</th><th>得分</th><th>允許</th></tr>${rows}</table>`) +
+    (hasWrong ? '<div class="hint">學生答案也說得通的題目，勾選「允許」後按「💾 儲存審查」，該題改以滿分（4 分）計並重新計算總分；取消勾選即恢復原判定。</div>' : '');
   openModal(`
     <h3>🔍 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
     <div class="hint">${escapeHtml(a.email)}｜${escapeHtml(catName(a.cat))}｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜
