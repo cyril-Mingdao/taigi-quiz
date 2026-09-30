@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第1課 趣味的誤會｜選詞塌空線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">✏️</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -118,8 +119,8 @@
   <script>
     const LESSON = {"id":"SUANSU-CHINPING-B1L1","kind":"SUANSU","kindName":"選詞塌空","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第1課 趣味的誤會","items":[{"no":1,"page":6,"ty":"呔會","tl":"thài/thah ē","md":"怎麼會、豈會","sent":"呔會發生這種代誌？"},{"no":2,"page":6,"ty":"著","tl":"tio̍h","md":"動詞補語，表示動作結果。","sent":"我聽著狗仔咧吠。"},{"no":3,"page":6,"ty":"恁","tl":"lín","md":"你們；你的；你們的","sent":"恁兩个感情真好。"},{"no":4,"page":6,"ty":"佇","tl":"tī","md":"在某個地方","sent":"阿母佇菜市仔買菜。"},{"no":5,"page":6,"ty":"車頭","tl":"tshia-thâu","md":"車站；車前面的部分","sent":"咱約佇車頭相等。"},{"no":6,"page":6,"ty":"遐","tl":"hia/hiâ","md":"那裡","sent":"你佇遐創啥物?"},{"no":7,"page":6,"ty":"遮","tl":"tsia","md":"這裡","sent":"遮是阮兜。"},{"no":8,"page":6,"ty":"毋是","tl":"m̄ sī","md":"不是","sent":"金錢毋是萬能的。"},{"no":9,"page":6,"ty":"危險","tl":"guî/huî-hiám","md":"不安全","sent":"囡仔人佇車路耍真危險。"},{"no":10,"page":6,"ty":"歹勢","tl":"pháinn-sè","md":"對不起；害羞難為情","sent":"誠歹勢，予你等遮久。"},{"no":11,"page":6,"ty":"會失禮","tl":"huē/hē-sit-lé","md":"賠不是","sent":"是你毋著，愛去共人會失禮。"},{"no":12,"page":6,"ty":"頇顢","tl":"hân-bān","md":"形容愚笨、沒有才能","sent":"伊真頇顢講話。"},{"no":13,"page":6,"ty":"閉思","tl":"pì-sù","md":"個性內向、害羞","sent":"這个囡仔的個性較閉思。"},{"no":14,"page":7,"ty":"透早","tl":"thàu-tsá","md":"大清早","sent":"阿爸一透早就出門上班。"},{"no":15,"page":7,"ty":"食","tl":"tsia̍h","md":"吃；喝、飲","sent":"食雞排就愛佮珍珠奶仔茶。"},{"no":16,"page":7,"ty":"跤","tl":"kha","md":"腿、足","sent":"伊跤骨摔斷去。"},{"no":17,"page":7,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"這字按呢寫。"},{"no":18,"page":7,"ty":"傷","tl":"siunn","md":"太、過分於","sent":"你按呢做傷超過矣。"},{"no":19,"page":7,"ty":"腥臊","tl":"tshenn-tshau","md":"指菜色豐盛","sent":"阿母暗頓煮甲真腥臊？"},{"no":20,"page":7,"ty":"相借問","tl":"sio-tsioh-mn̄g","md":"打招呼、寒喧","sent":"人客來愛相借問，才有禮貌。"},{"no":21,"page":7,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"人生親像走馬燈。"},{"no":22,"page":7,"ty":"啉","tl":"lim","md":"喝、飲","sent":"熱天啉冰茶，透心涼。"},{"no":23,"page":7,"ty":"𠢕早","tl":"gâu-tsá","md":"早安、問候語","sent":"逐家𠢕早。"},{"no":24,"page":8,"ty":"轉來","tl":"tńg--lâi","md":"回來","sent":"公司派我出張，三工後才會轉來"},{"no":25,"page":8,"ty":"濟","tl":"tsē/tsuē","md":"多","sent":"公園有真濟人咧運動。"},{"no":26,"page":8,"ty":"好料","tl":"hó-liāu","md":"大餐、美食","sent":"生日的時，朋友請我食好料。"},{"no":27,"page":8,"ty":"目油","tl":"ba̍k-iû","md":"眼油","sent":"手機仔看傷久會流目油。"},{"no":28,"page":8,"ty":"敢是","tl":"kám/kiám-sī","md":"疑問詞","sent":"伊敢是恁老師？"},{"no":29,"page":8,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像","sent":"這兩台車的色水仝款。"},{"no":30,"page":8,"ty":"甲","tl":"kah","md":"到…的地步。","sent":"台語講甲真輾轉。"},{"no":31,"page":9,"ty":"𠢕","tl":"gâu","md":"有本事；擅長做某事","sent":"恁囝真𠢕畫圖。"},{"no":32,"page":9,"ty":"滾耍笑","tl":"kún-sńg-tshiò","md":"開玩笑","sent":"阿明真愛佮人滾耍笑。"},{"no":33,"page":9,"ty":"趣味","tl":"tshù-bī","md":"有趣；興趣","sent":"這本尪仔冊真趣味。"},{"no":34,"page":11,"ty":"閣","tl":"koh","md":"又、再、還","sent":"我欲閣去日本耍。"},{"no":35,"page":11,"ty":"物件","tl":"mi̍h/mn̍gh-kiānn","md":"東西","sent":"這間店有真濟物件。"},{"no":36,"page":11,"ty":"緊","tl":"kín","md":"快、迅速；表催促","sent":"大俗賣，逐家緊來看。"},{"no":37,"page":11,"ty":"拄","tl":"tú","md":"剛才","sent":"伊作業拄寫了。"},{"no":38,"page":11,"ty":"袂","tl":"bē/buē","md":"不。否定詞。","sent":"明仔載伊袂去。"},{"no":39,"page":11,"ty":"喘氣","tl":"tshuán-khuì","md":"呼吸；短暫的休息","sent":"無閒甲連喘氣的機會都無。"},{"no":40,"page":11,"ty":"掠準","tl":"lia̍h-tsún","md":"認為、以為","sent":"我掠準阿爸會買手機予我。"},{"no":41,"page":11,"ty":"無爽快","tl":"bô sóng-khuài","md":"不舒服","sent":"阿珍感冒，人無爽快。"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

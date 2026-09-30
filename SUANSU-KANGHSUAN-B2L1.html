@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第1課 ChatGPT敢會曉講台語｜選詞塌空線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">✏️</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -118,8 +119,8 @@
   <script>
     const LESSON = {"id":"SUANSU-KANGHSUAN-B2L1","kind":"SUANSU","kindName":"選詞塌空","book":"康軒第2冊","bookFull":"康軒版國中第2冊","title":"第1課 ChatGPT敢會曉講台語","items":[{"no":1,"page":12,"ty":"敢","tl":"kám","md":"有膽識；表疑問","sent":"你敢無欲去？"},{"no":2,"page":12,"ty":"捌","tl":"bat/pat","md":"知道；認識；曾經","sent":"這个人你敢捌伊？"},{"no":3,"page":12,"ty":"開講","tl":"khai-káng","md":"閒談聊天","sent":"閒閒咧開講"},{"no":4,"page":12,"ty":"凡勢","tl":"huān-sè","md":"也許","sent":"天遐爾仔烏，等咧凡勢會落雨"},{"no":5,"page":12,"ty":"抑是","tl":"ia̍h/iah/a̍h/ah-sī","md":"或是","sent":"你欲啉咖啡抑是欲啉茶？"},{"no":6,"page":12,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合","sent":"我欲佮伊來去看電影"},{"no":7,"page":12,"ty":"伊","tl":"i","md":"他、她、牠、它","sent":"若講甲伊知，喙鬚會拍結"},{"no":8,"page":12,"ty":"共","tl":"kā","md":"給；跟；幫；把","sent":"我共你講，你毋通共別人講"},{"no":9,"page":12,"ty":"个","tl":"ê","md":"個","sent":"兩个人做伙公家食一碗"},{"no":10,"page":12,"ty":"上","tl":"siōng","md":"空間位置；極致地","sent":"上好是像你講的按呢"},{"no":11,"page":12,"ty":"參","tl":"tsham","md":"和；一起；晉謁","sent":"你欲參伊去𨑨迌無"},{"no":12,"page":12,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"𪜶兜雖然散赤，毋過真幸福"},{"no":13,"page":12,"ty":"會曉","tl":"ē-hiáu/hiáng","md":"知道、懂得","sent":"這條歌你會曉唱袂？"},{"no":15,"page":12,"ty":"欲","tl":"beh/bueh","md":"要；將要；若是","sent":"你欲去彼間店食飯無?"},{"no":16,"page":13,"ty":"款","tl":"khuán","md":"種類(5)","sent":"囡仔的𨑨迌物百百款"},{"no":17,"page":13,"ty":"予","tl":"hōo","md":"給予","sent":"我予你一个面子"},{"no":18,"page":13,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款"},{"no":19,"page":13,"ty":"咱人","tl":"lán-lâng","md":"農曆；吾人","sent":"咱人著愛存天良、做好代"},{"no":20,"page":13,"ty":"咧","tl":"teh/ leh","md":"在；副詞後綴","sent":"伊咧讀冊"},{"no":21,"page":13,"ty":"讀冊","tl":"tha̍k-tsheh","md":"讀書；上學","sent":"咱讀冊就毋通讀對尻脊骿去"},{"no":22,"page":13,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像","sent":"這兩个皮包仔看著仝款仔仝款"},{"no":23,"page":13,"ty":"濟","tl":"tsē/tsuē","md":"多","sent":"伊的齣頭真濟"},{"no":25,"page":13,"ty":"拄頭仔","tl":"tú-thâu-á","md":"一開始","sent":"伊拄頭仔有來，這馬無看見人"},{"no":26,"page":13,"ty":"猶","tl":"iáu/iah/ah/á/iá","md":"還","sent":"這台車猶會使騎"},{"no":27,"page":13,"ty":"袂啥輾轉","tl":"bē/buē-siánn-liàn-tńg","md":"不太流利","sent":"彼个囡仔講話猶袂啥輾轉"},{"no":28,"page":13,"ty":"矣","tl":"--ah","md":"語尾助詞","sent":"我食飽矣"},{"no":29,"page":13,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"伊若真正按呢做，就傷超過矣"},{"no":30,"page":13,"ty":"無","tl":"bô","md":"沒有(8)","sent":"我無錢通買四秀仔"},{"no":31,"page":14,"ty":"已經","tl":"í-king","md":"已經","sent":"糖仔已經攏分了矣"},{"no":32,"page":14,"ty":"猶毋過","tl":"iáu-m̄-koh/iah/ah/á/iá-m̄-kò","md":"不過、可是","sent":"伊直直共我招，猶毋過我無想欲去"},{"no":33,"page":14,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有、僅僅","sent":"干焦賰遮的菜爾爾，你欲無？"},{"no":34,"page":14,"ty":"逐","tl":"ta̍k","md":"每一、每個","sent":"逐个人"},{"no":35,"page":14,"ty":"爾爾","tl":"niā-niā/合音niâ","md":"而已","sent":"我規身軀干焦十箍爾爾"},{"no":36,"page":14,"ty":"毋是","tl":"m̄ sī","md":"不是","sent":"這毋是我的"},{"no":37,"page":14,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著","sent":"紲落來咱就來表決"},{"no":38,"page":14,"ty":"揣","tl":"tshuē/tshē","md":"尋找","sent":"物件愛收予好，才袂揣無"},{"no":39,"page":14,"ty":"較","tl":"khah","md":"比較；再怎麼樣也…；更…","sent":"你愛的物件佇較內面"},{"no":40,"page":14,"ty":"會當","tl":"ē-tàng","md":"可以","sent":"你第一个要求我會當答應你"},{"no":41,"page":14,"ty":"家己","tl":"ka-kī/ tī","md":"自己、本身","sent":"我家己用行的去學校就好"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

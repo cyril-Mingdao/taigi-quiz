@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第6課 化妝品｜選詞塌空線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">✏️</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -118,8 +119,8 @@
   <script>
     const LESSON = {"id":"SUANSU-YUDA-B1L6","kind":"SUANSU","kindName":"選詞塌空","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第6課 化妝品","items":[{"no":1,"page":94,"ty":"欲","tl":"beh/bueh","md":"將要","sent":"外口看起來敢若欲落雨矣"},{"no":2,"page":94,"ty":"粉柑仔色","tl":"hún-kam-á-sik","md":"粉橘色","sent":"彼條粉柑仔色的袚巾誠媠"},{"no":3,"page":94,"ty":"胭脂","tl":"ian-tsi","md":"脣膏","sent":"這支胭脂加足搶市"},{"no":4,"page":94,"ty":"彼","tl":"he","md":"那個","sent":"彼攏是謠言，你毋通相信"},{"no":5,"page":94,"ty":"共","tl":"kā","md":"把","sent":"共房間摒摒咧"},{"no":6,"page":94,"ty":"喙脣","tl":"tshuì-tûn","md":"嘴脣","sent":"火氣傷大，喙脣會必"},{"no":7,"page":94,"ty":"生成","tl":"senn-sîng","md":"天生","sent":"鳥仔生成會飛"},{"no":8,"page":94,"ty":"一白蔭九媠","tl":"tsi̍t pe̍h ìm káu suí","md":"白就美","sent":"一白蔭九媠是亞州人的審美觀"},{"no":9,"page":94,"ty":"規个","tl":"kui-ê","md":"整個","sent":"伊規个人攏愣去"},{"no":10,"page":94,"ty":"精神","tl":"tsing-sîn","md":"神志","sent":"伊的精神無啥好"},{"no":11,"page":94,"ty":"逐擺","tl":"ta̍k-pái","md":"每次","sent":"伊逐擺攏欲佮人相諍"},{"no":12,"page":94,"ty":"攏","tl":"lóng","md":"都","sent":"阿明共退休金攏提去炒股票"},{"no":13,"page":94,"ty":"行","tl":"kiânn","md":"走","sent":"伊行路無注意煞去𨂿著"},{"no":14,"page":94,"ty":"路裡","tl":"lōo--lí","md":"路上","sent":"路裡的風景袂䆀"},{"no":15,"page":94,"ty":"敢若","tl":"kán-ná","md":"好像","sent":"敢若是伊，閣敢若毋是"},{"no":16,"page":94,"ty":"化妝","tl":"huà-tsong","md":"化妝","sent":"伊見若出門，一定會化妝"},{"no":17,"page":94,"ty":"抹","tl":"buah","md":"塗抹","sent":"魚仔刣了愛抹鹽較袂歹去"},{"no":18,"page":94,"ty":"畫妝","tl":"uē-tsng","md":"化妝","sent":"伊攏用真濟時間畫妝佮落妝"},{"no":19,"page":95,"ty":"捌","tl":"bat","md":"曾經","sent":"我捌聽過白賊七仔的故事"},{"no":20,"page":95,"ty":"捷運","tl":"tsia̍t-ūn","md":"運輸系統","sent":"徛家若倚捷運，厝價會較懸"},{"no":21,"page":95,"ty":"敢","tl":"kánn","md":"有膽識","sent":"你誠敢呢！墓仔埔抑敢去"},{"no":22,"page":95,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過","sent":"伊真愛唱，毋過逐家攏幌頭"},{"no":23,"page":95,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛","sent":"目睭去予蜊仔肉糊著"},{"no":24,"page":95,"ty":"䀐","tl":"siam","md":"瞄","sent":"你去房間共䀐看覓"},{"no":25,"page":95,"ty":"遐","tl":"hia/hiâ","md":"那裡","sent":"你的物件佇遐"},{"no":26,"page":95,"ty":"綴","tl":"tuè/tè","md":"跟","sent":"你莫綴前綴後"},{"no":27,"page":95,"ty":"提","tl":"the̍h","md":"拿取","sent":"無錢，做你共我提"},{"no":28,"page":95,"ty":"貼粉","tl":"tah-hún","md":"上粉底","sent":"貼粉會使共烏斑遮掉"},{"no":29,"page":95,"ty":"一下仔","tl":"tsi̍t-ē-á","md":"一會兒","sent":"遮爾濟工課一下仔就完成矣"},{"no":30,"page":95,"ty":"目睫毛","tl":"ba̍k-tsiah-mn̂g","md":"眼睫毛","sent":"伊的目睫毛真長"},{"no":31,"page":95,"ty":"牽","tl":"khan","md":"拉","sent":"囡仔共伊牽一下"},{"no":32,"page":95,"ty":"袂輸","tl":"bē/buē-su","md":"好像","sent":"伊看著我袂輸看著鬼咧"},{"no":33,"page":95,"ty":"仝款","tl":"kāng-khuán","md":"同樣","sent":"彼兩个人看著仝款仔仝款"},{"no":34,"page":95,"ty":"媠","tl":"suí","md":"漂亮","sent":"愛媠毋驚流鼻水"},{"no":35,"page":95,"ty":"䆀","tl":"bái","md":"醜陋","sent":"伊的心情誠䆀"},{"no":36,"page":95,"ty":"在人","tl":"tsāi-lâng","md":"隨人","sent":"話是在人講的"},{"no":37,"page":95,"ty":"定著","tl":"tiānn-tio̍h","md":"一定","sent":"你定著愛行一逝"},{"no":38,"page":95,"ty":"閉思","tl":"pì-sù","md":"內向","sent":"這个囡仔較閉思"},{"no":39,"page":95,"ty":"毋通","tl":"m̄-thang","md":"不可以","sent":"你毋通傷晏轉來"},{"no":40,"page":95,"ty":"管過溪","tl":"kuán kuè khe","md":"雞婆","sent":"一人一家代，甭管過溪"},{"no":41,"page":95,"ty":"興","tl":"hìng","md":"愛好","sent":"阿明上興食腥臊的"},{"no":42,"page":95,"ty":"偌","tl":"guā/juā/luā","md":"多少","sent":"這本冊偌濟錢？"},{"no":43,"page":95,"ty":"佮意","tl":"kah-ì","md":"中意","sent":"我無佮意伊做代誌的方式"},{"no":44,"page":95,"ty":"遐","tl":"hiah","md":"那麼","sent":"莫開遐爾濟錢來𨑨迌"},{"no":45,"page":95,"ty":"毋敢","tl":"m̄ kánn","md":"不敢","sent":"看你敢抑是毋敢？"},{"no":46,"page":95,"ty":"咱","tl":"lán","md":"我們","sent":"後一場欲佮咱比賽的對手真強"},{"no":47,"page":95,"ty":"莫怪","tl":"bo̍k-kuài","md":"難怪","sent":"湧遐大，莫怪伊會眩船"},{"no":48,"page":95,"ty":"到今","tl":"kàu-tann","md":"至今","sent":"到今你才知！"},{"no":49,"page":95,"ty":"逐家","tl":"ta̍k-ke","md":"大家","sent":"逐家攏是家己人"},{"no":50,"page":96,"ty":"細漢","tl":"sè/suè-hàn","md":"齡小","sent":"聽𪜶爸母講伊細漢嘛真歹育飼"},{"no":51,"page":96,"ty":"定定","tl":"tiānn-tiānn","md":"經常","sent":"阿美定定佮我講私奇話"},{"no":52,"page":96,"ty":"抑是","tl":"ia̍h-sī","md":"或者","sent":"你欲啉咖啡抑是欲啉茶？"},{"no":53,"page":96,"ty":"毋知","tl":"m̄ tsai","md":"不知道","sent":"你問我的代誌我攏毋知"},{"no":54,"page":96,"ty":"遺傳","tl":"uî-thuân","md":"遺傳","sent":"伊彼支鼻遺傳著老母"},{"no":55,"page":96,"ty":"仝款","tl":"kāng-khuán","md":"同樣","sent":"這兩个人生做仝款仔仝款"},{"no":56,"page":96,"ty":"代誌","tl":"tāi-tsì","md":"事情","sent":"厝內大細項代誌攏是伊咧發落"},{"no":58,"page":96,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有","sent":"干焦賰遮的菜爾爾"},{"no":59,"page":96,"ty":"爾爾","tl":"niā-niā","md":"而已","sent":"我規身軀干焦十箍爾爾"},{"no":60,"page":96,"ty":"齊","tl":"tsê/tsuê","md":"完備","sent":"理論愛先學予齊透"},{"no":61,"page":96,"ty":"耍","tl":"sńg","md":"玩","sent":"囡仔人愛耍𨑨迌物仔"},{"no":62,"page":96,"ty":"擋","tl":"tòng","md":"攔阻","sent":"你莫擋佇門跤口"},{"no":63,"page":96,"ty":"上好","tl":"siōng hó","md":"最好","sent":"阮姊仔是唱歌唱了上好的人"},{"no":64,"page":96,"ty":"好笑神","tl":"hó-tshiò-sîn","md":"神態愉悅","sent":"阿英仔真好笑神"},{"no":65,"page":96,"ty":"得人疼","tl":"tit-lâng-thiànn","md":"討人喜愛","sent":"這个囡仔真得人疼"},{"no":66,"page":96,"ty":"站節","tl":"tsām-tsat","md":"分寸","sent":"咱人做代誌著愛有站節"},{"no":67,"page":96,"ty":"鞏牢咧","tl":"khōng tiâu--leh","md":"牽制住","sent":"彼支柱仔予人鞏牢咧"},{"no":68,"page":96,"ty":"叫是","tl":"kiò-sī","md":"以為","sent":"我叫是你欲走矣"},{"no":69,"page":96,"ty":"顛倒","tl":"tian-tò","md":"反而","sent":"伊無欲來，阮顛倒較歡喜"},{"no":70,"page":96,"ty":"旋","tl":"suan","md":"逃跑","sent":"諞仙仔錢諞上手就溜旋矣"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

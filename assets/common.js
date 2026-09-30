@@ -230,7 +230,9 @@ function onProfileChipClick(e) {
   renderProfileChips();
 }
 
-/** 顯示基本資料表單；done：存好後要做的事，cancel：按取消要做的事（null＝不能取消） */
+/** 顯示基本資料表單；done：存好後要做的事，cancel：按取消要做的事（null＝不能取消）。
+    教師帳號進學生模式也會看到這一頁（預覽學生的畫面、人工檢查），但教師的選擇不送出、不儲存，
+    成績一律記在班級「教師」（收件程式決定）。 */
 function showProfileForm(done, cancel) {
   const p = app.profile || {};
   pf.cls = p.cls && deptOfClass(p.cls) ? p.cls : '';
@@ -242,7 +244,11 @@ function showProfileForm(done, cancel) {
   document.getElementById('pf-name').value = p.name || app.user.name || '';
   document.getElementById('pf-email').value = app.user.email;
   document.getElementById('pf-msg').textContent = '';
-  document.getElementById('pf-cancel').classList.toggle('hidden', !cancel);
+  const note = document.getElementById('pf-teacher');
+  if (note) note.classList.toggle('hidden', !app.isTeacher);
+  const cancelBtn = document.getElementById('pf-cancel');
+  cancelBtn.textContent = app.isTeacher ? '略過，直接看測驗說明' : '取消';
+  cancelBtn.classList.toggle('hidden', !cancel);
   showSection('quiz-profile');
 }
 
@@ -254,6 +260,11 @@ async function saveProfile(e) {
   if (!body.cls) { msg.textContent = '請點選部別與班級。'; return; }
   if (!body.seat) { msg.textContent = '請點選座號。'; return; }
   if (!body.name) { msg.textContent = '請輸入姓名。'; return; }
+  if (app.isTeacher) {   // 教師預覽：檢查流程跟學生一樣，但不送出
+    toast(`教師預覽：${body.cls} ${body.seat} 號 ${body.name} 檢查通過（不儲存，成績記在「教師」）`);
+    if (pf.done) pf.done();
+    return;
+  }
   btn.disabled = true;
   msg.textContent = '';
   try {

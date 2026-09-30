@@ -118,6 +118,7 @@ function fillStatusSelect() {
   if (isRead()) opts.push(['suspected', '可疑音檔'], ['unreviewed', '可疑音檔且未審查']);
   opts.push(['cheat', '判定作弊'], ['retest', '需重測']);
   if (!isRead()) opts.push(['low', '低於 60 分'], ['hidden', '有離開頁面']);
+  opts.push(['adjusted', '有調整分數'], ['reviewed', '已審查（有審查人員）']);
   sel.innerHTML = opts.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
   if (opts.some(o => o[0] === cur)) sel.value = cur;
 }
@@ -146,7 +147,9 @@ function adminFilter(opts) {
       (status === 'cheat' && a.verdict === '判定作弊') ||
       (status === 'retest' && a.verdict === '需重測') ||
       (status === 'low' && Number(a.total) < 60) ||
-      (status === 'hidden' && Number(a.hidden) > 0)) &&
+      (status === 'hidden' && Number(a.hidden) > 0) ||
+      (status === 'adjusted' && isAdjusted(a)) ||
+      (status === 'reviewed' && !!a.reviewTime)) &&
     (!q || (a.name + ' ' + a.email).toLowerCase().includes(q)));
 }
 
@@ -167,6 +170,22 @@ function adminSorter() {
 
 function verdictHtml(v) {
   return v ? `<span class="verdict ${VERDICT_CLASS[v] || ''}">${escapeHtml(v)}</span>` : '<span class="hint">未審查</span>';
+}
+
+/* 分數：total＝目前有效分數；orig＝系統自動評分；adjusted＝老師調整後的分數（空白＝沒調整） */
+const isAdjusted = a => a.adjusted !== '' && a.adjusted != null;
+const origScore = a => (a.orig !== '' && a.orig != null ? a.orig : a.total);
+
+/* 審查者：收件程式記下儲存審查的教師帳號姓名（舊紀錄只有信箱） */
+function reviewerLabel(a) {
+  if (a.reviewerName) return a.reviewerName;
+  return a.reviewer ? String(a.reviewer).split('@')[0] : '';
+}
+
+function reviewLogHtml(log) {
+  if (!log) return '';
+  return `<details class="review-log"><summary>審查紀錄（${log.split('\n').length} 筆）</summary>` +
+    `<div>${log.split('\n').map(escapeHtml).join('<br>')}</div></details>`;
 }
 
 /* ---------- 列表 ---------- */
@@ -191,8 +210,9 @@ function renderAdminTable() {
             <div><b>${escapeHtml(a.cls)}${a.seat ? '-' + escapeHtml(a.seat) : ''} ${escapeHtml(a.name)}</b> <span class="hint">第 ${a.attempt} 次</span></div>
             <div class="hint">${escapeHtml(a.time)}｜${escapeHtml(lessonShort(a.lesson))}</div>
             <div>${read ? (a.suspected > 0 ? `<b>⚠️ 可疑音檔 ${a.suspected} 句</b>　` : '') : `答對 ${a.correct}/${a.count}　`}${verdictHtml(a.verdict)}</div>
+            ${a.reviewTime ? `<div class="hint">審查：${escapeHtml(reviewerLabel(a))}　${escapeHtml(a.reviewTime)}</div>` : ''}
           </div>
-          <div class="ad-card-side"><div class="ad-card-score">${a.total}</div>${reviewBtn(a)}</div>
+          <div class="ad-card-side"><div class="ad-card-score">${a.total}</div>${isAdjusted(a) ? `<div class="hint">原始 ${origScore(a)}</div>` : ''}${reviewBtn(a)}</div>
         </div>`).join('') || '<div class="hint">沒有符合條件的紀錄</div>');
   } else {
     const head = read
@@ -202,17 +222,21 @@ function renderAdminTable() {
       <td>${chk(a)}</td>
       <td>${escapeHtml(a.time)}</td><td>${escapeHtml(a.cls)}</td><td>${escapeHtml(a.seat)}</td>
       <td title="${escapeHtml(a.email)}">${escapeHtml(a.name)}</td><td title="${escapeHtml(lessonLabel(a.lesson))}">${escapeHtml(lessonShort(a.lesson))}</td>
-      <td>${a.attempt}</td><td><b>${a.total}</b></td>
+      <td>${a.attempt}</td>
+      <td>${isAdjusted(a) ? origScore(a) : `<b>${a.total}</b>`}</td>
+      <td>${isAdjusted(a) ? `<b class="adjusted">${a.adjusted}</b>` : ''}</td>
       ${read
         ? `<td>${a.suspected > 0 ? '⚠️ ' + a.suspected : ''}</td><td>${a.listens}</td><td>${a.hidden || ''}</td>`
         : `<td>${a.correct} / ${a.count}</td><td>${a.seconds || ''}</td><td>${a.hidden || ''}</td>`}
       <td>${verdictHtml(a.verdict)}</td>
+      <td>${escapeHtml(reviewerLabel(a))}</td>
+      <td class="nowrap">${escapeHtml(a.reviewTime || '')}</td>
       <td>${reviewBtn(a)}</td>
     </tr>`).join('');
     html = `<table class="admin-table">
       <tr><th><input type="checkbox" id="ad-all" ${allChecked}></th>
-        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>總分</th>${head}<th>審查</th><th></th></tr>` +
-      (rows || '<tr><td colspan="13">沒有符合條件的紀錄</td></tr>') + '</table>';
+        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>原始分數</th><th>調整後分數</th>${head}<th>審查</th><th>審查人員</th><th>審查時間</th><th></th></tr>` +
+      (rows || '<tr><td colspan="16">沒有符合條件的紀錄</td></tr>') + '</table>';
   }
   document.getElementById('ad-list').innerHTML = html;
   document.getElementById('ad-count').textContent =
@@ -241,13 +265,23 @@ async function loadAdmin() {
 
 /* ---------- 檢核 ---------- */
 
-function reviewFooter(a) {
+function reviewFooter(a, d) {
   const radios = ['', '通過', '需重測', '判定作弊'].map(v =>
     `<label><input type="radio" name="rv-verdict" value="${v}" ${(a.verdict || '') === v ? 'checked' : ''}> ${v || '未審查'}</label>`).join('');
-  return `
+  // 朗讀測驗：系統評分含「模仿音調」，準確度有限，老師聽過錄音後可手動調整總分（空白＝用原始分數）
+  const adjust = a.cat === 'READ' ? `
+    <div class="score-adjust">
+      <b>分數調整</b>　原始分數 <b>${origScore(a)}</b>　→　調整後分數
+      <input type="number" id="rv-adjust" min="0" max="100" step="1" inputmode="numeric" value="${isAdjusted(a) ? escapeHtml(a.adjusted) : ''}" placeholder="不調整">
+      <span class="hint">（0～100 整數；清空＝恢復原始分數）</span>
+    </div>` : '';
+  const who = a.reviewTime
+    ? `<div class="hint">上次儲存審查：<b>${escapeHtml(reviewerLabel(a))}</b>${a.reviewer ? `（${escapeHtml(a.reviewer)}）` : ''}　${escapeHtml(a.reviewTime)}</div>` : '';
+  return `${adjust}
     <div><b>審查結果</b>（「判定作弊」的那次不計入最高分）</div>
     <div class="verdict-choices">${radios}</div>
     <textarea class="review-note" id="rv-note" rows="2" maxlength="500" placeholder="備註（選填）">${escapeHtml(a.note || '')}</textarea>
+    ${who}${reviewLogHtml(d && d.log)}
     <div class="quiz-actions">
       <button class="qbtn" id="rv-save">💾 儲存審查</button>
       <button class="qbtn danger" id="rv-delete">🗑️ 刪除這筆</button>
@@ -266,18 +300,30 @@ function bindReviewFooter(a) {
     const body_ = { action: 'admin_review', attemptId: a.id, verdict: verdict, note: note };
     // 題型測驗：一併送出「允許」勾選的題目（依檢核結果重新計分）
     if (a.cat !== 'READ') body_.allow = [...body.querySelectorAll('.rv-allow:checked')].map(c => Number(c.dataset.k));
+    // 朗讀測驗：手動調整分數（空白＝取消調整）
+    const adj = document.getElementById('rv-adjust');
+    if (adj) {
+      const v = adj.value.trim();
+      if (v !== '' && !(/^\d{1,3}$/.test(v) && Number(v) <= 100)) { toast('調整後分數請填 0～100 的整數，或清空'); return; }
+      body_.adjust = v === '' ? '' : Number(v);
+    }
     btn.disabled = true;
     try {
       const res = await apiFor(a.id, body_);
       a.verdict = verdict;
       a.note = note;
-      const regraded = res.total != null && (res.total !== a.total || res.correct !== a.correct);
-      if (res.total != null) { a.total = res.total; a.correct = res.correct; }
+      const regraded = res.total != null && (res.total !== a.total || (res.correct != null && res.correct !== a.correct));
+      if (res.total != null) { a.total = res.total; if (res.correct != null) a.correct = res.correct; }
+      if (res.orig != null) a.orig = res.orig;
+      if (res.adjusted !== undefined) a.adjusted = res.adjusted;
+      if (res.reviewTime) { a.reviewer = res.reviewer; a.reviewerName = res.reviewerName; a.reviewTime = res.reviewTime; }
       adminPlayer.pause();
       closeModal();
       renderAdminTable();
-      if (body_.allow && body_.allow.length && res.total == null) {
-        toast('⚠️ 審查結果已儲存，但收件程式尚未更新到支援「允許」的版本，分數沒有重新計算。請部署新版本後再勾選一次。');
+      if (!res.reviewTime) {
+        toast('⚠️ 審查結果已儲存，但收件程式尚未更新到記錄審查人員／調整分數的版本，請部署新版本。');
+      } else if (a.cat === 'READ') {
+        toast(regraded ? `已儲存審查結果，總分改為 ${a.total} 分（原始 ${origScore(a)}）` : '已儲存審查結果');
       } else {
         toast(regraded ? `已儲存審查結果，重新計分為 ${a.total} 分（答對 ${a.correct}/${a.count}）` : '已儲存審查結果');
       }
@@ -328,8 +374,8 @@ function openQuizReview(a, d) {
   openModal(`
     <h3>🔍 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
     <div class="hint">${escapeHtml(a.email)}｜${escapeHtml(catName(a.cat))}｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜
-      總分 <b>${a.total}</b>｜答對 ${a.correct}/${a.count}｜作答 ${a.seconds || 0} 秒｜離開頁面 ${a.hidden || 0} 次</div>
-    ${listHtml}${reviewFooter(a)}`, true);
+      總分 <b>${a.total}</b>${isAdjusted(a) ? `（原始 ${origScore(a)}）` : ''}｜答對 ${a.correct}/${a.count}｜作答 ${a.seconds || 0} 秒｜離開頁面 ${a.hidden || 0} 次</div>
+    ${listHtml}${reviewFooter(a, d)}`, true);
   bindReviewFooter(a);
 }
 
@@ -361,8 +407,8 @@ function openReadReview(a, d) {
       <tr><th>#</th><th>句子</th><th>分數</th><th>播放偵測</th><th></th><th>聽</th></tr>${items}</table>`;
   openModal(`
     <h3>🎧 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
-    <div class="hint">${escapeHtml(a.email)}｜朗讀測驗｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜總分 <b>${a.total}</b>｜離開頁面 ${a.hidden || 0} 次</div>
-    ${listHtml}${reviewFooter(a)}`, true);
+    <div class="hint">${escapeHtml(a.email)}｜朗讀測驗｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜總分 <b>${a.total}</b>${isAdjusted(a) ? `（原始 ${origScore(a)}）` : ''}｜離開頁面 ${a.hidden || 0} 次</div>
+    ${listHtml}${reviewFooter(a, d)}`, true);
   const body = document.getElementById('quiz-modal-body');
   body.querySelectorAll('[data-play]').forEach(btn => btn.addEventListener('click', () => playStudentAudio(a.id, btn.dataset.play, btn)));
   body.querySelectorAll('[data-ref]').forEach(btn => btn.addEventListener('click', () => {

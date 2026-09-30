@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第1課 媠花｜咱來餾生份字線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">📖</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -119,8 +120,8 @@
   <script>
     const LESSON = {"id":"SIANN-CHUANHWA-B3L1","kind":"SIANN","kindName":"咱來餾生份字","book":"全華第3冊","bookFull":"全華版國中第3冊","title":"第1課 媠花","items":[{"no":1,"page":8,"ty":"對","tl":"tuì / uì","md":"從(9)"},{"no":2,"page":8,"ty":"今仔日","tl":"kin-á-ji̍t / li̍t","md":"今天、今日"},{"no":3,"page":8,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要"},{"no":4,"page":8,"ty":"逐工","tl":"ta̍k-kang","md":"每天"},{"no":5,"page":8,"ty":"呵咾","tl":"o-ló","md":"讚美、表揚"},{"no":6,"page":8,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":7,"page":8,"ty":"上","tl":"siōng","md":"最…；空間位置"},{"no":8,"page":8,"ty":"𠢕","tl":"gâu","md":"能幹；擅某事；易發生"},{"no":9,"page":8,"ty":"媠","tl":"suí","md":"漂亮的、美麗的"},{"no":10,"page":8,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":11,"page":8,"ty":"仝","tl":"kāng / kâng","md":"相同、無差異"},{"no":12,"page":8,"ty":"親像","tl":"tshin-tshiūnn / tshan-tshiūnn","md":"好像、好比"},{"no":13,"page":8,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":14,"page":8,"ty":"款","tl":"khuán","md":"種類(5)"},{"no":15,"page":8,"ty":"咱","tl":"lán","md":"我們；我們的；您、您們"},{"no":16,"page":9,"ty":"西北雨","tl":"sai-pak-hōo","md":"雷陣雨"},{"no":17,"page":9,"ty":"一目𥍉","tl":"tsi̍t-ba̍k-nih","md":"指時間短暫"},{"no":18,"page":9,"ty":"連鞭","tl":"liâm-mi / liâm-pinn","md":"立刻；即時"},{"no":19,"page":9,"ty":"過去","tl":"kuè--khì / kuè--khì","md":"指時限已過/從前"},{"no":20,"page":9,"ty":"紲","tl":"suà","md":"接、續"},{"no":21,"page":9,"ty":"落","tl":"lo̍h","md":"下降(11)"},{"no":22,"page":9,"ty":"虹","tl":"khīng","md":"彩虹"},{"no":23,"page":9,"ty":"色水","tl":"sik-tsuí","md":"顏色"},{"no":24,"page":9,"ty":"無","tl":"bô","md":"修飾形容詞或動詞(7)"},{"no":25,"page":9,"ty":"煩惱","tl":"huân-ló","md":"煩悶，不快活"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

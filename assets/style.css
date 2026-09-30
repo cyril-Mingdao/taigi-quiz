@@ -2035,6 +2035,17 @@
     .chip.on .cnt { background: var(--yellow); color: var(--black); }
     .admin-sep { border: 0; border-top: 2px dashed var(--line); margin: 12px 0 4px; }
 
+    /* 管理頁：分數調整、審查人員（2026-10-01） */
+    .admin-table .adjusted { color: #b3261e; }
+    .admin-table td.nowrap { white-space: nowrap; }
+    .score-adjust { margin: 12px 0; padding: 10px 12px; border: 2px solid var(--yellow); border-radius: 12px; background: #fffbe6; line-height: 2; }
+    .score-adjust input { width: 6em; font-size: 1.05em; padding: 4px 8px; margin: 0 4px; border: 2px solid var(--line); border-radius: 8px; }
+    .review-log { margin: 6px 0; font-size: 0.9em; color: #555; }
+    .review-log summary { cursor: pointer; }
+    .review-log div { margin-top: 4px; padding: 6px 10px; background: #f6f6f6; border-radius: 8px; }
+    /* 教師預覽學生填寫基本資料頁 */
+    .teacher-preview { margin: 8px 0; padding: 8px 12px; border-radius: 10px; background: #fffbe6; border: 2px dashed var(--yellow); }
+
     @media (max-width: 640px) {
       .qz-options { grid-template-columns: 1fr; gap: 10px; }
       .qz-opt { font-size: 1.15em; min-height: 58px; padding: 10px 12px; }

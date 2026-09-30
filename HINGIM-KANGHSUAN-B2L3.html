@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第3課 工作犬｜形音義線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">🔤</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -119,8 +120,8 @@
   <script>
     const LESSON = {"id":"HINGIM-KANGHSUAN-B2L3","kind":"HINGIM","kindName":"形音義","book":"康軒第2冊","bookFull":"康軒版國中第2冊","title":"第3課 工作犬","items":[{"no":1,"page":44,"ty":"佮","tl":"kah","md":"和(4)","syl":[["k","ah","4","不變"]]},{"no":2,"page":44,"ty":"古錐","tl":"kóo-tsui","md":"可愛","syl":[["k","óo","2","1"],["ts","ui","1","不變"]]},{"no":3,"page":44,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動","syl":[["t","iānn","7","3"],["t","iānn","7","不變"]]},{"no":4,"page":44,"ty":"飼","tl":"tshī","md":"畜養(4)","syl":[["tsh","ī","7","不變"]]},{"no":5,"page":44,"ty":"嘛","tl":"mā","md":"也；都；不耐煩語氣","syl":[["m","ā","7","不變"]]},{"no":6,"page":44,"ty":"鬥","tl":"tàu","md":"幫忙(7)","syl":[["t","àu","3","不變"]]},{"no":7,"page":44,"ty":"工課","tl":"khang-khuè","md":"工作、事情","syl":[["kh","ang","1","7"],["kh","uè","3","不變"]]},{"no":8,"page":44,"ty":"𪜶","tl":"in","md":"他們；他們的","syl":[["無","in","1","不變"]]},{"no":9,"page":44,"ty":"咱","tl":"lán","md":"我們；我們的；您、您們","syl":[["l","án","2","不變"]]},{"no":10,"page":44,"ty":"熟似","tl":"si̍k-sāi","md":"熟識","syl":[["s","i̍k","8","4"],["s","āi","7","不變"]]},{"no":11,"page":44,"ty":"遮","tl":"tsia","md":"這、這裡","syl":[["ts","ia","1","不變"]]},{"no":12,"page":44,"ty":"利","tl":"lāi","md":"器物或能力尖銳(3)","syl":[["l","āi","7","不變"]]},{"no":13,"page":44,"ty":"定著","tl":"tiānn-tio̍h","md":"穩重；一定；決定","syl":[["t","iānn","7","3"],["t","io̍h","8","不變"]]},{"no":14,"page":44,"ty":"搜揣","tl":"tshiau-tshuē/tshē","md":"搜索；搜尋","syl":[["tsh","iau","1","7"],["tsh","uē","7","不變"]]},{"no":15,"page":44,"ty":"幫贊","tl":"pang-tsān","md":"幫助","syl":[["p","ang","1","7"],["ts","ān","7","不變"]]},{"no":16,"page":45,"ty":"扭掠","tl":"liú-lia̍h","md":"敏捷","syl":[["l","iú","2","1"],["l","ia̍h","8","不變"]]},{"no":17,"page":45,"ty":"𠢕","tl":"gâu","md":"能幹；擅長；易發生","syl":[["g","âu","5","不變"]]},{"no":18,"page":45,"ty":"鼻","tl":"phīnn","md":"聞氣味(6)","syl":[["ph","īnn","7","不變"]]},{"no":19,"page":45,"ty":"佇","tl":"tī","md":"在某個地方/時間","syl":[["t","ī","7","不變"]]},{"no":20,"page":45,"ty":"危險","tl":"guî-hiám/huî","md":"不安全","syl":[["g","uî","5","7"],["h","iám","2","不變"]]},{"no":21,"page":45,"ty":"𬦰","tl":"peh","md":"爬、攀登","syl":[["p","eh","4","不變"]]},{"no":22,"page":45,"ty":"懸","tl":"kuân","md":"高(4)","syl":[["k","uân","5","不變"]]},{"no":23,"page":45,"ty":"軁","tl":"nǹg","md":"穿；鑽營","syl":[["n","ǹg","3","不變"]]},{"no":24,"page":45,"ty":"目金","tl":"ba̍k-kim","md":"眼明亮、視力好(9)","syl":[["b","a̍k","8","4"],["k","im","1","不變"]]},{"no":25,"page":45,"ty":"會曉","tl":"ē-hiáu/hiáng","md":"知道、懂得","syl":[["無","ē","7","3"],["h","iáu","2","不變"]]},{"no":26,"page":45,"ty":"環境","tl":"khuân-kíng","md":"周圍、空間、資源等","syl":[["kh","uân","5","7"],["k","íng","2","不變"]]},{"no":27,"page":45,"ty":"共","tl":"kā","md":"把；給；跟；幫…","syl":[["k","ā","7","不變"]]},{"no":28,"page":45,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛","syl":[["b","a̍k","8","4"],["ts","iu","1","不變"]]},{"no":29,"page":45,"ty":"𤆬路","tl":"tshuā-lōo","md":"帶路、領路","syl":[["tsh","uā","7","3"],["l","ōo","7","不變"]]},{"no":30,"page":45,"ty":"行","tl":"kiânn","md":"行進(5)","syl":[["k","iânn","5","不變"]]},{"no":31,"page":46,"ty":"檢疫","tl":"kiám-i̍k","md":"檢疫","syl":[["k","iám","2","1"],["無","i̍k","8","不變"]]},{"no":32,"page":46,"ty":"好鼻獅","tl":"hó-phīnn-sai","md":"嗅覺靈敏的人","syl":[["h","ó","2","1"],["ph","īnn","7","3"],["s","ai","1","不變"]]},{"no":33,"page":46,"ty":"敢","tl":"kám","md":"表疑問；有膽識","syl":[["k","ám","2","不變"]]},{"no":34,"page":46,"ty":"紮","tl":"tsah","md":"攜帶","syl":[["ts","ah","4","不變"]]},{"no":35,"page":46,"ty":"果子","tl":"kué-tsí/ké","md":"水果","syl":[["k","ué","2","1"],["ts","í","2","不變"]]},{"no":36,"page":46,"ty":"違禁品","tl":"uî-kìm-phín","md":"違禁品","syl":[["無","uî","5","7"],["k","ìm","3","2"],["ph","ín","2","不變"]]},{"no":37,"page":46,"ty":"溫馴","tl":"un-sûn","md":"溫順","syl":[["無","un","1","7"],["s","ûn","5","不變"]]},{"no":38,"page":46,"ty":"安搭","tl":"an-tah","md":"安撫；安頓","syl":[["無","an","1","7"],["t","ah","4","不變"]]},{"no":39,"page":47,"ty":"會當","tl":"ē-tàng","md":"可以","syl":[["無","ē","7","3"],["t","àng","3","不變"]]},{"no":40,"page":47,"ty":"咧","tl":"teh/leh","md":"在、正在；副詞後綴","syl":[["t","eh","4","不變"]]},{"no":41,"page":47,"ty":"時陣","tl":"sî-tsūn","md":"時候","syl":[["s","î","5","7"],["ts","ūn","7","不變"]]},{"no":42,"page":47,"ty":"毋通","tl":"m̄-thang","md":"不可以","syl":[["無","m̄","7","3"],["th","ang","1","不變"]]},{"no":43,"page":47,"ty":"攪吵","tl":"kiáu-tshá","md":"打擾、攪亂、驚動","syl":[["k","iáu","2","1"],["tsh","á","2","不變"]]}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

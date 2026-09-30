@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第2課 茂林的Rukai族佮烏秫米祭｜咱來鬥句線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">🧩</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -118,8 +119,8 @@
   <script>
     const LESSON = {"id":"TAUKU-YUDA-B1L2","kind":"TAUKU","kindName":"咱來鬥句","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第2課 茂林的Rukai族佮烏秫米祭","items":[{"no":1,"page":22,"ty":"个","tl":"ê","md":"個","sent":"伊規个人攏愣去","parts":["伊","規","个","人攏愣去"]},{"no":2,"page":22,"ty":"遐","tl":"hia","md":"那","sent":"你的物件佇遐","parts":["你的","物件","佇","遐"]},{"no":3,"page":22,"ty":"烏秫米","tl":"oo-tsu̍t-bí","md":"黑糯米","sent":"聽講烏秫米蓋營養","parts":["聽講","烏秫米","蓋","營養"]},{"no":4,"page":22,"ty":"逐","tl":"ta̍k","md":"每","sent":"逐个人攏有，免搶","parts":["逐","个","人","攏有，免搶"]},{"no":5,"page":22,"ty":"攏","tl":"lóng","md":"都","sent":"攏是伊佇遐使弄","parts":["攏","是伊","佇遐","使弄"]},{"no":6,"page":22,"ty":"對","tl":"tuì","md":"從","sent":"彼隻狗對佗位來的","parts":["彼隻狗","對","佗位","來的"]},{"no":7,"page":22,"ty":"予","tl":"hōo","md":"給予","sent":"你毋通予伊騙去","parts":["你","毋通","予","伊騙去"]},{"no":8,"page":22,"ty":"𪜶","tl":"in","md":"他們","sent":"𪜶是我上好的朋友","parts":["𪜶","是","我上好的","朋友"]},{"no":9,"page":22,"ty":"嘛是","tl":"mā sī","md":"也是","sent":"這站代誌看起來嘛是歹舞","parts":["這站代誌","看起來","嘛是","歹舞"]},{"no":10,"page":22,"ty":"無濟","tl":"bô-tsē","md":"不多","sent":"褲袋仔的錢賰無濟","parts":["褲袋仔","的錢","賰","無濟"]},{"no":11,"page":22,"ty":"傳統","tl":"thuân-thóng","md":"傳統","sent":"彼是阮兜的傳統","parts":["彼","是","阮兜的","傳統"]},{"no":12,"page":22,"ty":"佮","tl":"kah","md":"和","sent":"你敢欲佮我去𨑨迌","parts":["你敢欲","佮","我","去𨑨迌"]},{"no":13,"page":23,"ty":"品","tl":"phín","md":"約定","sent":"若欲耍就愛先品予好","parts":["若欲耍","就愛先","品","予好"]},{"no":14,"page":23,"ty":"著愛","tl":"tio̍h-ài","md":"就要","sent":"你著愛共房間摒摒咧","parts":["你","著愛","共房間","摒摒咧"]},{"no":15,"page":23,"ty":"兜","tl":"tau","md":"家","sent":"阮欲來去阿媽兜","parts":["阮","欲來去","阿媽","兜"]},{"no":16,"page":23,"ty":"無錢工","tl":"bô-tsînn-kang","md":"無酬工作","sent":"我無愛做彼種無錢工","parts":["我","無愛做","彼種","無錢工"]},{"no":17,"page":23,"ty":"毋但","tl":"m̄-nā","md":"不但","sent":"這毋但是害著伊一人爾","parts":["這","毋但","是害著","伊一人爾"]},{"no":18,"page":23,"ty":"袂使得","tl":"bē/buē-sái-tit","md":"不可以","sent":"欲耍就袂使得變面","parts":["欲耍","就","袂使得","變面"]},{"no":19,"page":23,"ty":"愛人仔","tl":"ài-jîn-á","md":"心儀對象","sent":"伊已經有愛人仔囉","parts":["伊","已經有","愛人仔","囉"]},{"no":20,"page":23,"ty":"偝","tl":"āinn","md":"背人","sent":"彼个人偝一个囡仔","parts":["彼个人","偝","一个","囡仔"]},{"no":21,"page":23,"ty":"無品","tl":"bô-phín","md":"人品卑劣","sent":"烏白擲糞埽的人誠無品","parts":["烏白擲","糞埽的人","誠","無品"]},{"no":22,"page":23,"ty":"真濟","tl":"tsin-tsē","md":"很多","sent":"真濟人攏愛食檨仔","parts":["真濟","人","攏愛食","檨仔"]},{"no":23,"page":23,"ty":"袂少","tl":"bē/buē-tsió","md":"不少","sent":"檨仔有袂少的品種","parts":["檨仔","有","袂少","的品種"]},{"no":24,"page":23,"ty":"條直","tl":"tiâu-ti̍t","md":"坦率","sent":"伊真正有夠條直","parts":["伊","真正","有夠","條直"]},{"no":25,"page":23,"ty":"鬥陣","tl":"tàu-tīn","md":"相處","sent":"伊的人誠好鬥陣","parts":["伊的人","誠","好","鬥陣"]},{"no":26,"page":23,"ty":"佇","tl":"tī","md":"在","sent":"你徛佇遐創啥","parts":["你","徛","佇","遐創啥"]},{"no":27,"page":23,"ty":"踮","tl":"tiàm","md":"在…","sent":"你乖乖踮厝就好","parts":["你","乖乖","踮","厝就好"]},{"no":28,"page":23,"ty":"和諧","tl":"hô-hâi","md":"和諧","sent":"班級的和諧愛靠逐家","parts":["班級的","和諧","愛靠","逐家"]},{"no":29,"page":23,"ty":"相伨","tl":"sio-thīn","md":"相互扶持","sent":"有你來相伨誠好","parts":["有你","來","相伨","誠好"]},{"no":30,"page":23,"ty":"環境","tl":"khuân-kíng","md":"環境","sent":"這馬環境無仝矣","parts":["這馬","環境","無","仝矣"]}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

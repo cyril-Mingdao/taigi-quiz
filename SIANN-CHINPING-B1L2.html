@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第2課 嘛有火星文｜咱來餾生份字線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">📖</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -119,8 +120,8 @@
   <script>
     const LESSON = {"id":"SIANN-CHINPING-B1L2","kind":"SIANN","kindName":"咱來餾生份字","book":"真平第1冊","bookFull":"真平版國中第1冊","title":"第2課 嘛有火星文","items":[{"no":1,"page":20,"ty":"歹勢","tl":"pháinn-sè","md":"不好意思/害羞"},{"no":2,"page":20,"ty":"欲","tl":"beh / bueh","md":"要/將要/若是"},{"no":3,"page":20,"ty":"按怎","tl":"án-tsuánn / nuá / ná","md":"怎麼、怎樣"},{"no":4,"page":20,"ty":"參","tl":"tsham","md":"和/一起/晉謁"},{"no":5,"page":20,"ty":"𨑨迌","tl":"tshit-thô / thit-thô","md":"遊玩/玩弄/混"},{"no":6,"page":20,"ty":"愛","tl":"ài","md":"喜歡/要 (4)"},{"no":7,"page":20,"ty":"按呢","tl":"án-ne / án-ni","md":"這樣、如此"},{"no":8,"page":20,"ty":"嘿","tl":"--heh / --hennh","md":"肯定/驚訝語氣"},{"no":9,"page":20,"ty":"後擺","tl":"āu-pái","md":"下次/將來"},{"no":10,"page":20,"ty":"紮","tl":"tsah","md":"攜帶"},{"no":11,"page":20,"ty":"挽","tl":"bán","md":"採(6)"},{"no":12,"page":20,"ty":"食","tl":"tsia̍h","md":"吃(8)"},{"no":13,"page":20,"ty":"伴手","tl":"phuānn-tshiú","md":"小禮物"},{"no":14,"page":20,"ty":"捌","tl":"bat / pat","md":"懂/認識/曾經"},{"no":15,"page":20,"ty":"代誌","tl":"tāi-tsì","md":"事情"},{"no":16,"page":20,"ty":"感心","tl":"kám-sim","md":"感動、感激"},{"no":17,"page":20,"ty":"毋甘","tl":"m̄-kam","md":"捨不得/難過"},{"no":18,"page":20,"ty":"啥物","tl":"siánn-mih / mi̍h","md":"什麼"},{"no":19,"page":21,"ty":"歡喜","tl":"huann-hí","md":"高興/消遣"},{"no":20,"page":21,"ty":"毋過","tl":"m̄-koh / m̄-kò / m̄-kù","md":"不過"},{"no":21,"page":21,"ty":"莫","tl":"mài","md":"不要"},{"no":22,"page":21,"ty":"予","tl":"hōo","md":"動詞後綴(6)"},{"no":23,"page":21,"ty":"毋是","tl":"m̄ sī","md":"不是"},{"no":24,"page":21,"ty":"著","tl":"tio̍h","md":"對(8)"},{"no":25,"page":21,"ty":"共","tl":"kā","md":"向(4)"},{"no":26,"page":21,"ty":"烏白","tl":"oo-pe̍h","md":"亂來/黑白"},{"no":27,"page":21,"ty":"橫直","tl":"huâinn-ti̍t / huînn-ti̍t","md":"橫豎、反正"},{"no":28,"page":21,"ty":"咱","tl":"lán","md":"我們/我們的/您們"},{"no":29,"page":21,"ty":"毋著","tl":"m̄-tio̍h","md":"不對"},{"no":30,"page":21,"ty":"湠","tl":"thuànn","md":"蔓延/傳染"},{"no":31,"page":21,"ty":"時到","tl":"sî kàu","md":"到時候"},{"no":32,"page":21,"ty":"歹勢","tl":"pháinn-sè","md":"不好意思/害羞"},{"no":33,"page":21,"ty":"閣","tl":"koh","md":"又/反倒(3)"},{"no":34,"page":21,"ty":"擺","tl":"pái / páinn","md":"搖動/次數/借貸"},{"no":35,"page":21,"ty":"失禮","tl":"sit-lé","md":"向某人賠罪"},{"no":36,"page":21,"ty":"隨","tl":"suî","md":"跟從/即刻/各個"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

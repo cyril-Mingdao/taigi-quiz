@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第2課 茂林的Rukai族｜形音義線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">🔤</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -119,8 +120,8 @@
   <script>
     const LESSON = {"id":"HINGIM-YUDA-B1L2","kind":"HINGIM","kindName":"形音義","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第2課 茂林的Rukai族","items":[{"no":1,"page":22,"ty":"个","tl":"ê","md":"個","syl":[["無","ê","5","不變"]]},{"no":2,"page":22,"ty":"遐","tl":"hia","md":"那","syl":[["h","ia","1","不變"]]},{"no":3,"page":22,"ty":"烏秫米","tl":"oo-tsu̍t-bí","md":"黑糯米","syl":[["無","oo","1","7"],["ts","u̍t","8","4"],["b","í","2","不變"]]},{"no":4,"page":22,"ty":"逐","tl":"ta̍k","md":"每","syl":[["t","a̍k","8","不變"]]},{"no":5,"page":22,"ty":"攏","tl":"lóng","md":"都","syl":[["l","óng","2","不變"]]},{"no":6,"page":22,"ty":"對","tl":"tuì","md":"從","syl":[["t","uì","3","不變"]]},{"no":7,"page":22,"ty":"予","tl":"hōo","md":"給予","syl":[["h","ōo","7","不變"]]},{"no":8,"page":22,"ty":"𪜶","tl":"in","md":"他們","syl":[["無","in","1","不變"]]},{"no":9,"page":22,"ty":"嘛是","tl":"mā-sī","md":"也是","syl":[["m","ā","7","3"],["s","ī","7","不變"]]},{"no":10,"page":22,"ty":"無濟","tl":"bô-tsē","md":"不多","syl":[["b","ô","5","7"],["ts","ē","7","不變"]]},{"no":11,"page":22,"ty":"傳統","tl":"thuân-thóng","md":"傳統","syl":[["th","uân","5","7"],["th","óng","2","不變"]]},{"no":12,"page":22,"ty":"佮","tl":"kah","md":"和","syl":[["k","ah","4","不變"]]},{"no":13,"page":23,"ty":"品","tl":"phín","md":"約定","syl":[["ph","ín","2","不變"]]},{"no":14,"page":23,"ty":"著愛","tl":"tio̍h-ài","md":"就要","syl":[["t","io̍h","8","3"],["無","ài","3","不變"]]},{"no":15,"page":23,"ty":"兜","tl":"tau","md":"家","syl":[["t","au","1","不變"]]},{"no":16,"page":23,"ty":"無錢工","tl":"bô-tsînn-kang","md":"無酬工作","syl":[["b","ô","5","7"],["ts","înn","5","7"],["k","ang","1","不變"]]},{"no":17,"page":23,"ty":"毋但","tl":"m̄-nā","md":"不但","syl":[["無","m̄","7","3"],["n","ā","7","不變"]]},{"no":18,"page":23,"ty":"袂使得","tl":"bē-sái-tit/buē","md":"不可以","syl":[["b","ē","7","3"],["s","ái","2","1"],["t","it","4","不變"]]},{"no":19,"page":23,"ty":"愛人仔","tl":"ài-jîn-á","md":"心儀對象","syl":[["無","ài","3","2"],["j","în","5","7"],["無","á","2","不變"]]},{"no":20,"page":23,"ty":"偝","tl":"āinn","md":"背人","syl":[["無","āinn","7","不變"]]},{"no":21,"page":23,"ty":"無品","tl":"bô-phín","md":"人品卑劣","syl":[["b","ô","5","7"],["ph","ín","2","不變"]]},{"no":22,"page":23,"ty":"真濟","tl":"tsin-tsē","md":"很多","syl":[["ts","in","1","7"],["ts","ē","7","不變"]]},{"no":23,"page":23,"ty":"袂少","tl":"bē-tsió/buē","md":"不少","syl":[["b","ē","7","3"],["ts","ió","2","不變"]]},{"no":24,"page":23,"ty":"條直","tl":"tiâu-ti̍t","md":"坦率","syl":[["t","iâu","5","7"],["t","i̍t","8","不變"]]},{"no":25,"page":23,"ty":"鬥陣","tl":"tàu-tīn","md":"相處","syl":[["t","àu","3","2"],["t","īn","7","不變"]]},{"no":26,"page":23,"ty":"佇","tl":"tī","md":"在","syl":[["t","ī","7","不變"]]},{"no":27,"page":23,"ty":"踮","tl":"tiàm","md":"在…","syl":[["t","iàm","3","不變"]]},{"no":28,"page":23,"ty":"和諧","tl":"hô-hâi","md":"和諧","syl":[["h","ô","5","7"],["h","âi","5","不變"]]},{"no":29,"page":23,"ty":"相伨","tl":"sio-thīn","md":"相互扶持","syl":[["s","io","1","7"],["th","īn","7","不變"]]},{"no":30,"page":23,"ty":"環境","tl":"khuân-kíng","md":"環境","syl":[["kh","uân","5","7"],["k","íng","2","不變"]]}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第4課 喝玲瑯，踅街路｜選詞塌空線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">✏️</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -118,8 +119,8 @@
   <script>
     const LESSON = {"id":"SUANSU-CHUANHWA-B3L4","kind":"SUANSU","kindName":"選詞塌空","book":"全華第3冊","bookFull":"全華版國中第3冊","title":"第4課 喝玲瑯，踅街路","items":[{"no":1,"page":72,"ty":"注文","tl":"tsù-bûn","md":"預訂、預約。事先訂購。源自日語「注文（ちゅうもん）」","sent":"這項物件做袂赴通賣，你若欲愛著注文"},{"no":2,"page":72,"ty":"米芳","tl":"bí-phang","md":"爆米花。塊狀食用的傳統食品","sent":"阮規家伙仔攏足愛食磅米芳的"},{"no":3,"page":72,"ty":"走","tl":"tsáu","md":"跑。 離開。 逃。 走動。 偏離","sent":"伊走無去矣"},{"no":4,"page":72,"ty":"親像","tl":"tshin-tshiūnn / tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款"},{"no":5,"page":72,"ty":"桌頂拈柑","tl":"toh-tíng ni-kam","md":"輕而易舉","sent":"彼層代誌對伊來講袂輸桌頂拈柑咧"},{"no":6,"page":72,"ty":"毋管","tl":"m̄-kuán","md":"不論、無論","sent":"毋管是啥人共你問，你攏袂使講"},{"no":7,"page":72,"ty":"攏","tl":"lóng","md":"都、皆、全部","sent":"逐家攏莫去"},{"no":8,"page":73,"ty":"磅","tl":"pōng","md":"度量輕重。 炸開。 重量的單位。1磅=0.454公斤。量測體溫","sent":"炭空挖塗炭，著愛先用磅子磅"},{"no":9,"page":73,"ty":"敢","tl":"kám","md":"有膽識，毫不畏懼的。 表疑問。豈，難道","sent":"這敢是你的？"},{"no":10,"page":73,"ty":"䢢拄䢢","tl":"tshiāng-tú-tshiāng","md":"正巧、碰巧、剛剛好","sent":"我有代誌想欲佮你參詳，䢢拄䢢去拄著你"},{"no":11,"page":73,"ty":"拄","tl":"tú","md":"抵。互換。剛才。遇見。頂撞。連接兩個相同形容詞，來反駁對方","sent":"伊拄走無偌久爾爾"},{"no":12,"page":73,"ty":"爾爾","tl":"niā-niā","md":"而已","sent":"我規身軀干焦十箍爾爾"},{"no":13,"page":73,"ty":"這馬","tl":"tsit-má","md":"現在","sent":"這馬的人攏罕得寫批矣"},{"no":14,"page":73,"ty":"恁","tl":"lín","md":"你們。你的。你們的","sent":"恁欲去佗位？"},{"no":15,"page":73,"ty":"生理","tl":"sing-lí","md":"生意、買賣","sent":"阮叔仔咧做一寡小生理"},{"no":16,"page":73,"ty":"加","tl":"ke","md":"添加。 比原來的數量多。 多餘","sent":"寄話會加，寄物會減"},{"no":17,"page":74,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像。一樣，沒有差別","sent":"這兩个皮包仔看著仝款仔仝款"},{"no":18,"page":74,"ty":"乎","tl":"--honnh","md":"反問語助詞，表示與問話者確認的語氣。 反問語助詞，帶有調侃的意味","sent":"你今仔日欲出去𨑨迌乎？"},{"no":19,"page":74,"ty":"記持","tl":"kì-tî","md":"記憶、記性","sent":"你記持誠䆀，隨講隨袂記得"},{"no":20,"page":74,"ty":"老主顧","tl":"lāu-tsú-kòo","md":"熟客","sent":"阿明是彼間店的老主顧"},{"no":21,"page":74,"ty":"會記得","tl":"ē-kì--tit","md":"記得(又唸作ē-kì--tsitē-kì--litē-kì--lihē-kì--eh)","sent":"你講過的話，敢閣會記得？"},{"no":22,"page":75,"ty":"燒燙燙","tl":"sio-thǹg-thǹg","md":"溫度很高會燙人","sent":"火鍋湯燒燙燙，若欲啉著愛細膩"},{"no":23,"page":75,"ty":"芳貢貢","tl":"phang-kòng-kòng","md":"形容香氣很盛","sent":"阮兜門口有種一欉月來香，天一下暗就規厝間芳貢貢"},{"no":24,"page":75,"ty":"知影","tl":"tsai-iánn","md":"知道、懂得","sent":"你敢知影伊叫做啥物名？"},{"no":25,"page":75,"ty":"這陣","tl":"tsit-tsūn","md":"現在。當下這個時刻","sent":"你這陣有啥物拍算？"},{"no":26,"page":75,"ty":"下晡","tl":"ē-poo","md":"下午","sent":"下晡我欲招阿美仔去𨑨迌"},{"no":27,"page":76,"ty":"捾","tl":"kuānn","md":"提。用手下垂提取東西。提把。計算成串的東西。富含","sent":"一大捾的荔枝"},{"no":28,"page":76,"ty":"喝","tl":"huah","md":"大聲喊叫。 喝叱","sent":"伊咧遏花，緊共喝予走"},{"no":29,"page":76,"ty":"上","tl":"siōng","md":"指空間位置。最…地，有些地區音變為thōng","sent":"上好是像你講的按呢"},{"no":30,"page":77,"ty":"燒唿唿","tl":"sio-hut-hut","md":"熱呼呼、熱騰騰","sent":"包仔拄炊好的，猶燒唿唿"},{"no":31,"page":77,"ty":"欲","tl":"beh / bueh","md":"要、想，表示意願。 將要、快要。 若是、如果，表示假設","sent":"欲落雨矣，咱緊來轉"},{"no":32,"page":77,"ty":"下港","tl":"ē-káng","md":"指臺灣南部地方","sent":"伊對下港起來臺北食頭路"},{"no":33,"page":77,"ty":"予","tl":"hōo","md":"給予。 被…。任由。 讓。 動詞後綴","sent":"我予你一个面子，這件代誌就準拄煞"},{"no":34,"page":77,"ty":"阮","tl":"guán / gún","md":"我們。我。我的","sent":"阮欲走矣，你咧？"},{"no":35,"page":77,"ty":"分張","tl":"pun-tiunn","md":"通常指小孩子慷慨大方願意將食物分給他人","sent":"這个囡仔誠分張"},{"no":36,"page":78,"ty":"這聲","tl":"tsit-siann","md":"這下子、這回。這一次、就在這時候","sent":"這聲伊走袂去矣"},{"no":37,"page":78,"ty":"袂赴市","tl":"bē-hù-tshī / buē-hù-tshī","md":"時間短暫，無法趕上或顧及","sent":"天欲暗矣，無較緊咧，就袂赴市矣"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

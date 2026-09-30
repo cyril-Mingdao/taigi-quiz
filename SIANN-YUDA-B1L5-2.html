@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第5課之2 情批｜咱來餾生份字線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=7c33c1e4" rel="stylesheet">
+  <link href="assets/style.css?v=ac20d9b3" rel="stylesheet">
  </head>
  <body>
   <main>
@@ -35,7 +35,7 @@
      <div class="mode-grid">
       <button class="mode-btn" id="mode-student" type="button">
        <span class="mode-icon">📖</span><b>學生模式</b>
-       <span class="hint">跟學生一樣點選班級、座號後作答，成績會記錄在系統</span>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
       </button>
       <button class="mode-btn" id="mode-admin" type="button">
        <span class="mode-icon">🛠️</span><b>教師管理</b>
@@ -48,6 +48,7 @@
     <section class="quiz-card hidden" id="quiz-profile" data-section>
      <h3>請填寫基本資料</h3>
      <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
      <form id="profile-form" class="profile-form" autocomplete="off">
       <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
       <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
@@ -119,8 +120,8 @@
   <script>
     const LESSON = {"id":"SIANN-YUDA-B1L5-2","kind":"SIANN","kindName":"咱來餾生份字","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第5課之2 情批","items":[{"no":1,"page":80,"ty":"拍開","tl":"phah-khui","md":"打開"},{"no":2,"page":80,"ty":"糖甘蜜甜","tl":"thn̂g-kam-bi̍t-tinn","md":"甜極了"},{"no":3,"page":80,"ty":"無","tl":"bô","md":"沒有"},{"no":4,"page":80,"ty":"啥物","tl":"siánn-mih / mi̍h","md":"什麼"},{"no":5,"page":80,"ty":"阮","tl":"gún / guán","md":"我的"},{"no":6,"page":80,"ty":"彼个","tl":"hit ê","md":"那個"},{"no":7,"page":80,"ty":"共","tl":"kā","md":"把"},{"no":8,"page":80,"ty":"共","tl":"kā","md":"向"},{"no":9,"page":80,"ty":"閣","tl":"koh","md":"又"},{"no":10,"page":80,"ty":"欲","tl":"beh / bueh","md":"要"},{"no":11,"page":80,"ty":"彼年","tl":"hit-nî","md":"那年"},{"no":12,"page":80,"ty":"歇熱","tl":"hioh-jua̍h","md":"暑假"},{"no":13,"page":80,"ty":"狗蟻","tl":"káu-hiā","md":"螞蟻"},{"no":14,"page":80,"ty":"攏","tl":"lóng","md":"都"},{"no":15,"page":80,"ty":"佇","tl":"tī","md":"在"},{"no":16,"page":80,"ty":"馬西馬西","tl":"má-se-má-se","md":"神智不清"},{"no":17,"page":80,"ty":"心肝底","tl":"sim-kuann-té","md":"心裡"},{"no":18,"page":81,"ty":"今","tl":"tann","md":"現在"},{"no":19,"page":81,"ty":"外","tl":"guā","md":"多"},{"no":20,"page":81,"ty":"冬","tl":"tang","md":"年"},{"no":21,"page":81,"ty":"矣","tl":"--ah","md":"語助詞"},{"no":22,"page":81,"ty":"嘛","tl":"mā","md":"也"},{"no":23,"page":81,"ty":"煞","tl":"suah","md":"竟然"},{"no":24,"page":81,"ty":"到今","tl":"kàu-tann","md":"到現在"},{"no":25,"page":81,"ty":"目油","tl":"ba̍k-iû","md":"淚液"}]};
   </script>
-  <script src="assets/common.js?v=5375e3f5"></script>
-  <script src="assets/engine.js?v=8b0ae8fe"></script>
+  <script src="assets/common.js?v=9c1cdefd"></script>
+  <script src="assets/engine.js?v=2d90caf9"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>
