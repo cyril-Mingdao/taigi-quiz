@@ -32,9 +32,9 @@ const bookOf = id => (catalogById[id] ? catalogById[id].book : OTHER_BOOK);
 const lessonLabel = id => (catalogById[id] ? `${catalogById[id].book} ${catalogById[id].title}` : id);
 const catName = id => (CATS.find(c => c.id === id) || { name: id }).name;
 
-/* 朗讀測驗的紀錄在 Voice-test 的收件程式，題型測驗（作答ID 開頭 Q-）在本站的收件程式 */
+/* 朗讀與題型測驗的紀錄都在同一個收件程式；題型測驗的作答ID 開頭是 Q- */
 const isQuizId = id => String(id || '').indexOf('Q-') === 0;
-const apiFor = (id, body) => api(body, isQuizId(id) ? undefined : QUIZ_CONFIG.readEndpoint);
+const apiFor = (id, body) => api(body);
 
 function catAttempts() {
   return admin.attempts.filter(a => (a.cat || 'READ') === admin.cat);
@@ -223,18 +223,8 @@ function renderAdminTable() {
 async function loadAdmin() {
   document.getElementById('ad-count').textContent = '⏳ 讀取中…';
   try {
-    // 兩邊分開讀：其中一邊失敗時，另一邊的紀錄照樣顯示
-    const [quiz, read] = await Promise.allSettled([
-      api({ action: 'admin_list' }),
-      api({ action: 'admin_list' }, QUIZ_CONFIG.readEndpoint)
-    ]);
-    if (quiz.status === 'rejected' && read.status === 'rejected') throw quiz.reason;
-    const quizList = quiz.status === 'fulfilled' ? quiz.value.attempts.filter(a => isQuizId(a.id)) : [];
-    const readList = read.status === 'fulfilled' ? read.value.attempts.filter(a => !isQuizId(a.id)) : [];
-    admin.attempts = quizList.concat(readList).map(a => Object.assign(a, { cat: a.cat || 'READ' }));
-    admin.loadWarn = [quiz.status === 'rejected' ? '題型測驗讀取失敗：' + (quiz.reason.message || quiz.reason) : '',
-      read.status === 'rejected' ? '朗讀測驗讀取失敗：' + (read.reason.message || read.reason) : ''].filter(Boolean).join('｜');
-    if (admin.loadWarn) toast('⚠️ ' + admin.loadWarn);
+    const data = await api({ action: 'admin_list' });
+    admin.attempts = data.attempts.map(a => Object.assign(a, { cat: a.cat || 'READ' }));
     admin.selected.clear();
     refreshFilters();
     if (admin.presetLesson && !admin.presetApplied) {
@@ -413,11 +403,7 @@ function confirmDelete(ids) {
     btn.textContent = '刪除中…';
     try {
       const purgeRoster = document.getElementById('del-roster').checked;
-      const quizIds = ids.filter(isQuizId);
-      const readIds = ids.filter(id => !isQuizId(id));
-      let deleted = 0;
-      if (quizIds.length) deleted += (await api({ action: 'admin_delete', attemptIds: quizIds, purgeRoster: purgeRoster })).deleted;
-      if (readIds.length) deleted += (await api({ action: 'admin_delete', attemptIds: readIds, purgeRoster: purgeRoster }, QUIZ_CONFIG.readEndpoint)).deleted;
+      const deleted = (await api({ action: 'admin_delete', attemptIds: ids, purgeRoster: purgeRoster })).deleted;
       closeModal();
       toast(`已刪除 ${deleted} 筆`);
       loadAdmin();

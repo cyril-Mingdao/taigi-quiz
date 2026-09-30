@@ -1,12 +1,11 @@
 /* 本土語線上測驗：共用模組（登入、班級座號、呼叫收件程式、對話框）
    臺中明道中學 詹宗龍 製作
-   題型測驗用自己的收件程式與成績試算表「題型線上測驗成績」（endpoint）；
-   管理頁的朗讀測驗資料仍向朗讀線上測驗（Voice-test）的收件程式讀取（readEndpoint）。 */
+   2026-09-30 起所有成績（朗讀測驗＋題型測驗）都送到同一個收件程式「點讀筆測驗錄音」
+   與同一份試算表「點讀筆線上測驗成績」，學生名單也只有一份。 */
 
 const QUIZ_CONFIG = {
   clientId: '860391262336-pbgnjm4lrelkcc266evtnbpg7o84v8ik.apps.googleusercontent.com',
-  endpoint: 'https://script.google.com/macros/s/AKfycbxQoPYPeWkEkouokXFPy1LetG_cga5k1lUNue4S9Rqz4qu1ANPvOzN4UYbGWsmwozMQ/exec',
-  readEndpoint: 'https://script.google.com/macros/s/AKfycbwdXwyAWKBqsWZLRQyonIrakb96rBV3SRx0NZ4urg4RgVaN8PrVhaDwwonXjIGFo31g/exec',
+  endpoint: 'https://script.google.com/macros/s/AKfycbwdXwyAWKBqsWZLRQyonIrakb96rBV3SRx0NZ4urg4RgVaN8PrVhaDwwonXjIGFo31g/exec',
   domain: 'ms.mingdao.edu.tw',
   adminUrl: 'https://cyril-mingdao.github.io/taigi-quiz/admin.html'
 };
@@ -292,8 +291,7 @@ function postToServer(body, url) {
   });
 }
 
-/* 呼叫收件程式；登入過期時跳出重新登入，登入後自動重試同一個動作。
-   url 省略＝題型測驗的收件程式；傳 QUIZ_CONFIG.readEndpoint＝朗讀測驗的收件程式 */
+/* 呼叫收件程式；登入過期時跳出重新登入，登入後自動重試同一個動作。url 省略＝QUIZ_CONFIG.endpoint */
 function api(body, url) {
   return postToServer(Object.assign({}, body, { idToken: app.user.idToken }), url).then(data => {
     if (data.ok) return data;
