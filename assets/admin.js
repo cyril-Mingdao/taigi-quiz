@@ -276,7 +276,11 @@ function bindReviewFooter(a) {
       adminPlayer.pause();
       closeModal();
       renderAdminTable();
-      toast(regraded ? `已儲存審查結果，重新計分為 ${a.total} 分（答對 ${a.correct}/${a.count}）` : '已儲存審查結果');
+      if (body_.allow && body_.allow.length && res.total == null) {
+        toast('⚠️ 審查結果已儲存，但收件程式尚未更新到支援「允許」的版本，分數沒有重新計算。請部署新版本後再勾選一次。');
+      } else {
+        toast(regraded ? `已儲存審查結果，重新計分為 ${a.total} 分（答對 ${a.correct}/${a.count}）` : '已儲存審查結果');
+      }
     } catch (err) {
       toast('儲存失敗：' + (err.message || err));
       btn.disabled = false;
