@@ -2069,3 +2069,7 @@
     /* 教師管理頁滿版（2026-10-01）：取消寬度上限，左右只留小邊距 */
     body.admin-page { padding-left: max(10px, 2vw); padding-right: max(10px, 2vw); }
     body.admin-page .container, body.admin-page.admin-mode .container { max-width: none; }
+    /* 標題列右上角的切換按鈕（首頁「教師管理」、管理頁「返回測驗列表」） */
+    .admin-entry { position: absolute; top: 46px; right: 16px; padding: 7px 18px; border: 2px solid var(--yellow); border-radius: 20px; color: var(--yellow); text-decoration: none; font-weight: bold; font-size: 0.95em; }
+    .admin-entry:hover { background: var(--yellow); color: var(--black); }
+    @media (max-width: 768px) { .admin-entry { position: static; display: inline-block; margin-bottom: 8px; padding: 4px 14px; font-size: 0.85em; } }
