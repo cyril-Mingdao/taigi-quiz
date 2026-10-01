@@ -2066,3 +2066,6 @@
       .hg-val { font-size: 1.05em; }
       .rs-table { font-size: 0.82em; }
     }
+    /* 教師管理頁滿版（2026-10-01）：取消寬度上限，左右只留小邊距 */
+    body.admin-page { padding-left: max(10px, 2vw); padding-right: max(10px, 2vw); }
+    body.admin-page .container, body.admin-page.admin-mode .container { max-width: none; }
