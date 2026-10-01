@@ -243,7 +243,11 @@
     .lesson:hover { background: var(--yellow-soft); }
     .lesson span { color: #666; font-size: 0.85em; white-space: nowrap; }
     .note { color: #555; line-height: 1.7; text-align: center; }
-    @media (max-width: 640px) { .book { padding: 16px; } }
+    @media (max-width: 640px) {
+      .book { padding: 16px; }
+      .kind-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .kind-nav a { padding: 6px 4px; font-size: 0.9em; text-align: center; white-space: nowrap; }
+    }
   </style>
   <script>
     (function () {
