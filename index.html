@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  本土語線上測驗｜測驗列表
+  台語課程線上測驗｜測驗列表
   臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
   課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
 -->
@@ -8,7 +8,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>本土語線上測驗</title>
+  <title>台語課程線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
   <link href="assets/style.css?v=b95752c5" rel="stylesheet">
  </head>
@@ -16,17 +16,18 @@
   <div class="container">
    <header class="header">
     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
-    <h1>📝 本土語線上測驗 📝</h1>
-    <h2>請先點選課本版本，再選題型與課次，用學校帳號（@ms.mingdao.edu.tw）登入後作答</h2>
+    <h1>📝 台語課程線上測驗 📝</h1>
+    <h2>限明道師生使用，請以@ms.mingdao.edu.tw帳號登入</h2>
    </header>
-   <nav class="kind-nav"><a href="#book1">📗 真平第1冊</a> <a href="#book2">📘 康軒第2冊</a> <a href="#book3">📙 育達全1冊</a> <a href="#book4">📕 全華第3冊</a></nav>
-    <section class="book" id="book1">
+   <nav class="kind-nav" id="book-nav"><a href="#CHINPING-B1" data-book="CHINPING-B1">📗 真平第1冊</a> <a href="#KANGHSUAN-B2" data-book="KANGHSUAN-B2">📘 康軒第2冊</a> <a href="#YUDA-B1" data-book="YUDA-B1">📙 育達全1冊</a> <a href="#CHUANHWA-B3" data-book="CHUANHWA-B3">📕 全華第3冊</a></nav>
+   <p class="pick-hint" id="pick-hint">👆 請先點選課本版本</p>
+    <section class="book hidden" id="CHINPING-B1">
      <h2>📗 真平版國中第1冊</h2>
      <h3>🎤 朗讀測驗</h3>
      <div class="hint">看課文、錄音朗讀，系統逐句評分</div>
      <div class="lessons">
        <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L1.html"><b>第1課 趣味的誤會</b><span>40 句</span></a>
-       <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L2.html"><b>第2課 啥？閩南語嘛有「火星文」！</b><span>29 句</span></a>
+       <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L2.html"><b>第2課 啥？台語嘛有火星文！</b><span>29 句</span></a>
        <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L3.html"><b>第3課 人佮獅</b><span>12 句</span></a>
        <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L4.html"><b>第4課 龜兔走標</b><span>20 句</span></a>
        <a class="lesson" href="https://cyril-mingdao.github.io/Voice-test/CHENPING-B1L5.html"><b>第5課 踅菜市</b><span>16 句</span></a>
@@ -36,7 +37,7 @@
      <div class="hint">聽音、看字，認識課文的生份字｜每次 25 題・每題 4 分</div>
      <div class="lessons">
        <a class="lesson" href="SIANN-CHINPING-B1L1.html"><b>第1課 趣味的誤會</b><span>41 詞</span></a>
-       <a class="lesson" href="SIANN-CHINPING-B1L2.html"><b>第2課 嘛有火星文</b><span>36 詞</span></a>
+       <a class="lesson" href="SIANN-CHINPING-B1L2.html"><b>第2課 啥？台語嘛有火星文！</b><span>36 詞</span></a>
        <a class="lesson" href="SIANN-CHINPING-B1L3.html"><b>第3課 人佮獅</b><span>62 詞</span></a>
        <a class="lesson" href="SIANN-CHINPING-B1L4.html"><b>第4課 龜兔走標</b><span>61 詞</span></a>
        <a class="lesson" href="SIANN-CHINPING-B1L5.html"><b>第5課 踅菜市</b><span>56 詞</span></a>
@@ -46,7 +47,7 @@
      <div class="hint">句子內底挖空，選出合適的語詞｜每次 25 題・每題 4 分</div>
      <div class="lessons">
        <a class="lesson" href="SUANSU-CHINPING-B1L1.html"><b>第1課 趣味的誤會</b><span>41 詞</span></a>
-       <a class="lesson" href="SUANSU-CHINPING-B1L2.html"><b>第2課 啥台語嘛有火星文</b><span>35 詞</span></a>
+       <a class="lesson" href="SUANSU-CHINPING-B1L2.html"><b>第2課 啥？台語嘛有火星文！</b><span>35 詞</span></a>
        <a class="lesson" href="SUANSU-CHINPING-B1L3.html"><b>第3課 人佮獅</b><span>62 詞</span></a>
        <a class="lesson" href="SUANSU-CHINPING-B1L4.html"><b>第4課 龜兔走標</b><span>83 詞</span></a>
        <a class="lesson" href="SUANSU-CHINPING-B1L5.html"><b>第5課 踅菜市</b><span>55 詞</span></a>
@@ -56,7 +57,7 @@
      <div class="hint">共語詞照順序排做一句｜每次 25 題・每題 4 分</div>
      <div class="lessons">
        <a class="lesson" href="TAUKU-CHINPING-B1L1.html"><b>第1課 趣味的誤會</b><span>41 詞</span></a>
-       <a class="lesson" href="TAUKU-CHINPING-B1L2.html"><b>第2課 啥台語嘛有火星文</b><span>36 詞</span></a>
+       <a class="lesson" href="TAUKU-CHINPING-B1L2.html"><b>第2課 啥？台語嘛有火星文！</b><span>36 詞</span></a>
        <a class="lesson" href="TAUKU-CHINPING-B1L3.html"><b>第3課 人佮獅</b><span>62 詞</span></a>
        <a class="lesson" href="TAUKU-CHINPING-B1L4.html"><b>第4課 龜兔走標</b><span>83 詞</span></a>
        <a class="lesson" href="TAUKU-CHINPING-B1L5.html"><b>第5課 踅菜市</b><span>56 詞</span></a>
@@ -66,14 +67,14 @@
      <div class="hint">拆解聲母、韻母、聲調、變調｜每次 25 題・每題 4 分（依答對格數按比例給分）</div>
      <div class="lessons">
        <a class="lesson" href="HINGIM-CHINPING-B1L1.html"><b>第1課 趣味的誤會</b><span>41 詞</span></a>
-       <a class="lesson" href="HINGIM-CHINPING-B1L2.html"><b>第2課 啥台語嘛有火星文</b><span>36 詞</span></a>
+       <a class="lesson" href="HINGIM-CHINPING-B1L2.html"><b>第2課 啥？台語嘛有火星文！</b><span>36 詞</span></a>
        <a class="lesson" href="HINGIM-CHINPING-B1L3.html"><b>第3課 人佮獅</b><span>62 詞</span></a>
        <a class="lesson" href="HINGIM-CHINPING-B1L4.html"><b>第4課 龜兔走標</b><span>82 詞</span></a>
        <a class="lesson" href="HINGIM-CHINPING-B1L5.html"><b>第5課 踅菜市</b><span>56 詞</span></a>
        <a class="lesson" href="HINGIM-CHINPING-B1L6.html"><b>第6課 割稻仔飯</b><span>39 詞</span></a>
      </div>
     </section>
-    <section class="book" id="book2">
+    <section class="book hidden" id="KANGHSUAN-B2">
      <h2>📘 康軒版國中第2冊</h2>
      <h3>📖 咱來餾生份字</h3>
      <div class="hint">聽音、看字，認識課文的生份字｜每次 25 題・每題 4 分</div>
@@ -112,7 +113,7 @@
        <a class="lesson" href="HINGIM-KANGHSUAN-B2L5.html"><b>第5課 媠花</b><span>25 詞</span></a>
      </div>
     </section>
-    <section class="book" id="book3">
+    <section class="book hidden" id="YUDA-B1">
      <h2>📙 育達版高中全1冊</h2>
      <h3>🎤 朗讀測驗</h3>
      <div class="hint">看課文、錄音朗讀，系統逐句評分</div>
@@ -179,7 +180,7 @@
        <a class="lesson" href="HINGIM-YUDA-B1L8.html"><b>第8課 翕相師傅</b><span>270 詞</span></a>
      </div>
     </section>
-    <section class="book" id="book4">
+    <section class="book hidden" id="CHUANHWA-B3">
      <h2>📕 全華版國中第3冊</h2>
      <h3>🎤 朗讀測驗</h3>
      <div class="hint">看課文、錄音朗讀，系統逐句評分</div>
@@ -228,6 +229,10 @@
     .kind-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
     .kind-nav a { padding: 8px 16px; border: 2px solid var(--black); border-radius: 20px; color: var(--black); text-decoration: none; font-weight: bold; }
     .kind-nav a:hover { background: var(--yellow-soft); }
+    .kind-nav a.active { background: var(--black); color: var(--yellow); }
+    .kind-nav { position: sticky; top: 0; z-index: 5; background: #fff; padding: 10px 0; }
+    .pick-hint { text-align: center; font-size: 1.15em; font-weight: bold; margin: 30px 0; }
+    .hidden { display: none !important; }
     .book { border: 2px solid var(--line); border-radius: 20px; padding: 22px 26px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); scroll-margin-top: 10px; }
     .book h2 { margin: 0 0 4px; }
     .book h3 { margin: 22px 0 2px; font-size: 1.08em; border-left: 6px solid var(--yellow); padding-left: 10px; }
@@ -240,5 +245,27 @@
     .note { color: #555; line-height: 1.7; text-align: center; }
     @media (max-width: 640px) { .book { padding: 16px; } }
   </style>
+  <script>
+    (function () {
+      var codes = ["CHINPING-B1","KANGHSUAN-B2","YUDA-B1","CHUANHWA-B3"];
+      function show(code, push) {
+        if (codes.indexOf(code) < 0) code = '';
+        codes.forEach(function (c) { document.getElementById(c).classList.toggle('hidden', c !== code); });
+        document.querySelectorAll('#book-nav a').forEach(function (a) { a.classList.toggle('active', a.dataset.book === code); });
+        document.getElementById('pick-hint').classList.toggle('hidden', !!code);
+        if (code) {
+          try { localStorage.setItem('quizBook', code); } catch (e) {}
+          if (push && location.hash !== '#' + code) history.replaceState(null, '', '#' + code);
+        }
+      }
+      document.querySelectorAll('#book-nav a').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.book, true); window.scrollTo(0, 0); });
+      });
+      var saved = '';
+      try { saved = localStorage.getItem('quizBook') || ''; } catch (e) {}
+      show(location.hash.slice(1) || saved, true);
+      window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+    })();
+  </script>
  </body>
 </html>
