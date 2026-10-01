@@ -2037,7 +2037,17 @@
 
     /* 管理頁：分數調整、審查人員（2026-10-01） */
     .admin-table .adjusted { color: #b3261e; }
-    .admin-table td.nowrap { white-space: nowrap; }
+    .admin-table th { line-height: 1.25; vertical-align: middle; }
+    /* 管理頁表格：橫式螢幕（寬於 640px）全部欄位一次顯示——放寬版面、時間與課次可換行、表頭兩行；
+       直式螢幕維持不換行，以左右滑軌（.admin-table-wrap overflow-x）瀏覽。手機（≤640px）另用卡片。 */
+    @media (orientation: landscape) and (min-width: 641px) {
+      body.admin-mode .container { max-width: min(1680px, 98vw); }
+      .admin-table { font-size: 0.85em; }
+      .admin-table th, .admin-table td { padding: 5px 3px; }
+      .admin-table td.when { white-space: normal; min-width: 5.4em; line-height: 1.25; }
+      .admin-table td.lesson { white-space: normal; min-width: 7em; text-align: left; line-height: 1.3; }
+      .admin-table .qbtn.small { padding: 4px 8px; }
+    }
     .score-adjust { margin: 12px 0; padding: 10px 12px; border: 2px solid var(--yellow); border-radius: 12px; background: #fffbe6; line-height: 2; }
     .score-adjust input { width: 6em; font-size: 1.05em; padding: 4px 8px; margin: 0 4px; border: 2px solid var(--line); border-radius: 8px; }
     .review-log { margin: 6px 0; font-size: 0.9em; color: #555; }

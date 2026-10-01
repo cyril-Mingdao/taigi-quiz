@@ -216,26 +216,26 @@ function renderAdminTable() {
         </div>`).join('') || '<div class="hint">沒有符合條件的紀錄</div>');
   } else {
     const head = read
-      ? '<th>可疑音檔</th><th>聽範例</th><th>離開頁面</th>'
-      : '<th>答對</th><th>作答秒數</th><th>離開頁面</th>';
+      ? '<th>可疑<br>音檔</th><th>聽<br>範例</th><th>離開<br>頁面</th>'
+      : '<th>答對</th><th>作答<br>秒數</th><th>離開<br>頁面</th>';
     const rows = list.map(a => `<tr class="${rowCls(a)}">
       <td>${chk(a)}</td>
-      <td>${escapeHtml(a.time)}</td><td>${escapeHtml(a.cls)}</td><td>${escapeHtml(a.seat)}</td>
-      <td title="${escapeHtml(a.email)}">${escapeHtml(a.name)}</td><td title="${escapeHtml(lessonLabel(a.lesson))}">${escapeHtml(lessonShort(a.lesson))}</td>
+      <td class="when">${escapeHtml(a.time)}</td><td>${escapeHtml(a.cls)}</td><td>${escapeHtml(a.seat)}</td>
+      <td title="${escapeHtml(a.email)}">${escapeHtml(a.name)}</td><td class="lesson" title="${escapeHtml(lessonLabel(a.lesson))}">${escapeHtml(lessonShort(a.lesson))}</td>
       <td>${a.attempt}</td>
       <td>${isAdjusted(a) ? origScore(a) : `<b>${a.total}</b>`}</td>
       <td>${isAdjusted(a) ? `<b class="adjusted">${a.adjusted}</b>` : ''}</td>
       ${read
         ? `<td>${a.suspected > 0 ? '⚠️ ' + a.suspected : ''}</td><td>${a.listens}</td><td>${a.hidden || ''}</td>`
-        : `<td>${a.correct} / ${a.count}</td><td>${a.seconds || ''}</td><td>${a.hidden || ''}</td>`}
+        : `<td class="nowrap">${a.correct}/${a.count}</td><td>${a.seconds || ''}</td><td>${a.hidden || ''}</td>`}
       <td>${verdictHtml(a.verdict)}</td>
       <td>${escapeHtml(reviewerLabel(a))}</td>
-      <td class="nowrap">${escapeHtml(a.reviewTime || '')}</td>
+      <td class="when">${escapeHtml(a.reviewTime || '')}</td>
       <td>${reviewBtn(a)}</td>
     </tr>`).join('');
     html = `<table class="admin-table">
       <tr><th><input type="checkbox" id="ad-all" ${allChecked}></th>
-        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>原始分數</th><th>調整後分數</th>${head}<th>審查</th><th>審查人員</th><th>審查時間</th><th></th></tr>` +
+        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>原始<br>分數</th><th>調整後<br>分數</th>${head}<th>審查</th><th>審查<br>人員</th><th>審查<br>時間</th><th></th></tr>` +
       (rows || '<tr><td colspan="16">沒有符合條件的紀錄</td></tr>') + '</table>';
   }
   document.getElementById('ad-list').innerHTML = html;
@@ -478,26 +478,33 @@ function confirmDelete(ids) {
   });
 }
 
-/* ---------- 成績 CSV（每人每課一列，判定作弊的那次不計入最高分） ---------- */
+/* ---------- 成績 CSV（每人每課一列，判定作弊的那次不計入最高分）
+   最高分、最近一次分數都是採計分數（有調整就是調整後分數），旁邊各附那一次的原始分數與調整後分數（空白＝沒調整） ---------- */
 
 function downloadCsv() {
   const map = {};
   adminFilter({ ignoreStatus: true }).slice().sort((a, b) => a.ts - b.ts).forEach(a => {
     const k = a.email + '|' + a.lesson;
-    const m = map[k] || (map[k] = { cls: a.cls, seat: a.seat, name: a.name, email: a.email, lesson: a.lesson, count: 0, best: '', latest: '', time: '', flag: 0, cheat: 0 });
+    const m = map[k] || (map[k] = { cls: a.cls, seat: a.seat, name: a.name, email: a.email, lesson: a.lesson, count: 0, best: '', bestOrig: '', bestAdj: '', latest: '', time: '', flag: 0, cheat: 0 });
     m.count++;
     if (a.verdict === '判定作弊') m.cheat++;
-    else m.best = Math.max(Number(m.best) || 0, Number(a.total) || 0);
+    else if (m.best === '' || (Number(a.total) || 0) > (Number(m.best) || 0)) {
+      m.best = Number(a.total) || 0; m.bestOrig = origScore(a); m.bestAdj = isAdjusted(a) ? a.adjusted : '';
+    }
     m.latest = a.total;
+    m.latestOrig = origScore(a);
+    m.latestAdj = isAdjusted(a) ? a.adjusted : '';
     m.time = a.time;
     if (a.suspected > 0) m.flag++;
     m.cls = a.cls; m.seat = a.seat; m.name = a.name;
   });
   const read = isRead();
-  const head = ['班級', '座號', '姓名', 'Email', '類別', '版本', '課次', '作答次數', '最高分', '最近一次分數', '最近作答時間']
+  const head = ['班級', '座號', '姓名', 'Email', '類別', '版本', '課次', '作答次數', '最高分', '最高分的原始分數', '最高分的調整後分數',
+    '最近一次分數', '最近一次原始分數', '最近一次調整後分數', '最近作答時間']
     .concat(read ? ['可疑音檔次數'] : [], ['判定作弊次數']);
   const rows = Object.values(map).sort(byClassSeat).map(m =>
-    [m.cls, m.seat, m.name, m.email, catName(admin.cat), bookOf(m.lesson), lessonShort(m.lesson), m.count, m.best, m.latest, m.time]
+    [m.cls, m.seat, m.name, m.email, catName(admin.cat), bookOf(m.lesson), lessonShort(m.lesson), m.count, m.best, m.bestOrig, m.bestAdj,
+      m.latest, m.latestOrig, m.latestAdj, m.time]
       .concat(read ? [m.flag] : [], [m.cheat]));
   const esc = v => /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const csv = '﻿' + [head, ...rows].map(r => r.map(esc).join(',')).join('\r\n');
