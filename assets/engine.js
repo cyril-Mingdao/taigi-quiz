@@ -384,6 +384,7 @@ async function submitQuiz() {
       lesson: LESSON.id,
       hiddenCount: quiz.hiddenCount,
       seconds: Math.round((Date.now() - quiz.startedAt) / 1000),
+      ip: await getClientIp(),
       items: quiz.records
     });
     quiz.submitted = true;

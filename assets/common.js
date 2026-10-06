@@ -292,6 +292,25 @@ function bindProfileForm() {
 
 /* ===================== 收件程式 ===================== */
 
+/* 取學生的公開 IP（防同一人代多人作答；僅供老師參考，可被偽造）。失敗或逾時回空字串，絕不擋送出成績 */
+let clientIpPromise = null;
+function getClientIp() {
+  if (!clientIpPromise) {
+    clientIpPromise = (async () => {
+      try {
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 3000);
+        const res = await fetch('https://api.ipify.org?format=json', { signal: ctl.signal });
+        clearTimeout(timer);
+        const ip = String((await res.json()).ip || '');
+        return /^[0-9a-fA-F:.]{3,45}$/.test(ip) ? ip : '';
+      } catch (e) { return ''; }
+    })();
+  }
+  return clientIpPromise;
+}
+getClientIp();
+
 function postToServer(body, url) {
   return fetch(url || QUIZ_CONFIG.endpoint, {
     method: 'POST',

@@ -14,7 +14,7 @@ const CATS = [
 const BOOK_ORDER = ['真平第1冊', '康軒第2冊', '育達全1冊', '全華第3冊'];
 const READ_SITE = 'https://cyril-mingdao.github.io/Voice-test/';
 
-const admin = { attempts: [], selected: new Set(), audioCache: {}, cat: 'READ', book: '', dept: '' };
+const admin = { attempts: [], selected: new Set(), audioCache: {}, cat: 'READ', book: '', dept: '', ipExclude: [] };
 const CLASS_ORDER = DEPARTMENTS.flatMap(d => d.blocks.flat().flatMap(g => g.classes));
 const TEACHER_DEPT = '教師';
 const OTHER_DEPT = '其他';
@@ -119,7 +119,7 @@ function fillStatusSelect() {
   if (isRead()) opts.push(['suspected', '可疑音檔'], ['unreviewed', '可疑音檔且未審查']);
   opts.push(['cheat', '判定作弊'], ['retest', '需重測']);
   if (!isRead()) opts.push(['low', '低於 60 分'], ['hidden', '有離開頁面']);
-  opts.push(['adjusted', '有調整分數'], ['reviewed', '已審查（有審查人員）']);
+  opts.push(['dupip', '重複 IP'], ['adjusted', '有調整分數'], ['reviewed', '已審查（有審查人員）']);
   sel.innerHTML = opts.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
   if (opts.some(o => o[0] === cur)) sel.value = cur;
 }
@@ -149,6 +149,7 @@ function adminFilter(opts) {
       (status === 'retest' && a.verdict === '需重測') ||
       (status === 'low' && Number(a.total) < 60) ||
       (status === 'hidden' && Number(a.hidden) > 0) ||
+      (status === 'dupip' && !!a.dupWith) ||
       (status === 'adjusted' && isAdjusted(a)) ||
       (status === 'reviewed' && !!a.reviewTime)) &&
     (!q || (a.name + ' ' + a.email).toLowerCase().includes(q)));
@@ -189,6 +190,42 @@ function reviewLogHtml(log) {
     `<div>${log.split('\n').map(escapeHtml).join('<br>')}</div></details>`;
 }
 
+/* ---------- 重複 IP ----------
+   同 IP ＋ 同課次 ＋ 不同學生（Email 不同），且 IP 不在排除清單（校內出口 IP）→ 標示。
+   IP 由學生網頁自報，僅供老師參考；舊紀錄沒有 IP 不參與判定。a.dupWith＝同 IP 的其他學生 */
+
+function computeDupIp() {
+  const groups = {};
+  admin.attempts.forEach(a => {
+    a.dupWith = null;
+    if (!a.ip || admin.ipExclude.includes(a.ip)) return;
+    const g = groups[a.lesson + '|' + a.ip] || (groups[a.lesson + '|' + a.ip] = {});
+    g[a.email] = a.cls + (a.seat ? '-' + a.seat : '') + ' ' + a.name;
+  });
+  admin.attempts.forEach(a => {
+    if (!a.ip || admin.ipExclude.includes(a.ip)) return;
+    const g = groups[a.lesson + '|' + a.ip];
+    if (Object.keys(g).length > 1) a.dupWith = Object.keys(g).filter(e => e !== a.email).map(e => g[e]);
+  });
+}
+
+const dupTitle = a => '同課次同 IP 還有：' + a.dupWith.join('、');
+const ipCell = a => !a.ip ? '' : a.dupWith
+  ? `<span class="dup-badge" title="${escapeHtml(dupTitle(a))}">⚠️ ${escapeHtml(a.ip)}</span>` : escapeHtml(a.ip);
+
+async function saveIpExclude() {
+  const input = document.getElementById('ad-ip-exclude');
+  try {
+    const data = await api({ action: 'admin_ip_exclude_set', list: input.value });
+    admin.ipExclude = data.ipExclude || [];
+    input.value = admin.ipExclude.join(', ');
+    computeDupIp();
+    fillStatusSelect();
+    renderAdminTable();
+    toast('已儲存排除 IP 清單');
+  } catch (err) { toast('儲存失敗：' + (err.message || err)); }
+}
+
 /* ---------- 列表 ---------- */
 
 function renderAdminTable() {
@@ -199,7 +236,7 @@ function renderAdminTable() {
   const read = isRead();
   const allChecked = list.length && admin.selected.size === list.length ? 'checked' : '';
   const chk = a => `<input type="checkbox" class="ad-chk" data-id="${escapeHtml(a.id)}" ${admin.selected.has(a.id) ? 'checked' : ''} aria-label="勾選">`;
-  const rowCls = a => a.verdict === '判定作弊' ? 'cheat' : (read && a.suspected > 0) ? 'suspect' : '';
+  const rowCls = a => a.verdict === '判定作弊' ? 'cheat' : (read && a.suspected > 0) ? 'suspect' : a.dupWith ? 'dupip' : '';
   const reviewBtn = a => `<button class="qbtn small" data-review="${escapeHtml(a.id)}">${read ? '🎧 檢核' : '🔍 檢核'}</button>`;
   let html;
   if (MOBILE.matches) {
@@ -211,6 +248,7 @@ function renderAdminTable() {
             <div><b>${escapeHtml(a.cls)}${a.seat ? '-' + escapeHtml(a.seat) : ''} ${escapeHtml(a.name)}</b> <span class="hint">第 ${a.attempt} 次</span></div>
             <div class="hint">${escapeHtml(a.time)}｜${escapeHtml(lessonShort(a.lesson))}</div>
             <div>${read ? (a.suspected > 0 ? `<b>⚠️ 可疑音檔 ${a.suspected} 句</b>　` : '') : `答對 ${a.correct}/${a.count}　`}${verdictHtml(a.verdict)}</div>
+            ${a.ip ? `<div class="hint">IP：${ipCell(a)}</div>` : ''}
             ${a.reviewTime ? `<div class="hint">審查：${escapeHtml(reviewerLabel(a))}　${escapeHtml(a.reviewTime)}</div>` : ''}
           </div>
           <div class="ad-card-side"><div class="ad-card-score">${a.total}</div>${isAdjusted(a) ? `<div class="hint">原始 ${origScore(a)}</div>` : ''}${reviewBtn(a)}</div>
@@ -226,6 +264,7 @@ function renderAdminTable() {
       <td>${a.attempt}</td>
       <td>${isAdjusted(a) ? origScore(a) : `<b>${a.total}</b>`}</td>
       <td>${isAdjusted(a) ? `<b class="adjusted">${a.adjusted}</b>` : ''}</td>
+      <td class="nowrap">${ipCell(a)}</td>
       ${read
         ? `<td>${a.suspected > 0 ? '⚠️ ' + a.suspected : ''}</td><td>${a.listens}</td><td>${a.hidden || ''}</td>`
         : `<td class="nowrap">${a.correct}/${a.count}</td><td>${a.seconds || ''}</td><td>${a.hidden || ''}</td>`}
@@ -236,8 +275,8 @@ function renderAdminTable() {
     </tr>`).join('');
     html = `<table class="admin-table">
       <tr><th><input type="checkbox" id="ad-all" ${allChecked}></th>
-        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>原始<br>分數</th><th>調整後<br>分數</th>${head}<th>審查</th><th>審查<br>人員</th><th>審查<br>時間</th><th></th></tr>` +
-      (rows || '<tr><td colspan="16">沒有符合條件的紀錄</td></tr>') + '</table>';
+        <th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>課次</th><th>次</th><th>原始<br>分數</th><th>調整後<br>分數</th><th>IP</th>${head}<th>審查</th><th>審查<br>人員</th><th>審查<br>時間</th><th></th></tr>` +
+      (rows || '<tr><td colspan="17">沒有符合條件的紀錄</td></tr>') + '</table>';
   }
   document.getElementById('ad-list').innerHTML = html;
   document.getElementById('ad-count').textContent =
@@ -250,6 +289,9 @@ async function loadAdmin() {
   try {
     const data = await api({ action: 'admin_list' });
     admin.attempts = data.attempts.map(a => Object.assign(a, { cat: a.cat || 'READ' }));
+    admin.ipExclude = data.ipExclude || [];
+    document.getElementById('ad-ip-exclude').value = admin.ipExclude.join(', ');
+    computeDupIp();
     admin.selected.clear();
     refreshFilters();
     if (admin.presetLesson && !admin.presetApplied) {
@@ -278,7 +320,9 @@ function reviewFooter(a, d) {
     </div>` : '';
   const who = a.reviewTime
     ? `<div class="hint">上次儲存審查：<b>${escapeHtml(reviewerLabel(a))}</b>${a.reviewer ? `（${escapeHtml(a.reviewer)}）` : ''}　${escapeHtml(a.reviewTime)}</div>` : '';
-  return `${adjust}
+  const ipLine = a.ip
+    ? `<div class="hint">作答 IP：<b>${escapeHtml(a.ip)}</b>${a.dupWith ? `　<span class="dup-badge">⚠️ 重複 IP：${escapeHtml(a.dupWith.join('、'))}</span>` : ''}</div>` : '';
+  return `${adjust}${ipLine}
     <div><b>審查結果</b>（「判定作弊」的那次不計入最高分）</div>
     <div class="verdict-choices">${radios}</div>
     <textarea class="review-note" id="rv-note" rows="2" maxlength="500" placeholder="備註（選填）">${escapeHtml(a.note || '')}</textarea>
@@ -486,7 +530,7 @@ function downloadCsv() {
   const map = {};
   adminFilter({ ignoreStatus: true }).slice().sort((a, b) => a.ts - b.ts).forEach(a => {
     const k = a.email + '|' + a.lesson;
-    const m = map[k] || (map[k] = { cls: a.cls, seat: a.seat, name: a.name, email: a.email, lesson: a.lesson, count: 0, best: '', bestOrig: '', bestAdj: '', latest: '', time: '', flag: 0, cheat: 0 });
+    const m = map[k] || (map[k] = { cls: a.cls, seat: a.seat, name: a.name, email: a.email, lesson: a.lesson, count: 0, best: '', bestOrig: '', bestAdj: '', latest: '', time: '', flag: 0, cheat: 0, ip: '', dup: 0 });
     m.count++;
     if (a.verdict === '判定作弊') m.cheat++;
     else if (m.best === '' || (Number(a.total) || 0) > (Number(m.best) || 0)) {
@@ -496,17 +540,19 @@ function downloadCsv() {
     m.latestOrig = origScore(a);
     m.latestAdj = isAdjusted(a) ? a.adjusted : '';
     m.time = a.time;
+    if (a.ip) m.ip = a.ip;
+    if (a.dupWith) m.dup++;
     if (a.suspected > 0) m.flag++;
     m.cls = a.cls; m.seat = a.seat; m.name = a.name;
   });
   const read = isRead();
   const head = ['班級', '座號', '姓名', 'Email', '類別', '版本', '課次', '作答次數', '最高分', '最高分的原始分數', '最高分的調整後分數',
     '最近一次分數', '最近一次原始分數', '最近一次調整後分數', '最近作答時間']
-    .concat(read ? ['可疑音檔次數'] : [], ['判定作弊次數']);
+    .concat(read ? ['可疑音檔次數'] : [], ['判定作弊次數', '最近作答IP', '重複IP次數']);
   const rows = Object.values(map).sort(byClassSeat).map(m =>
     [m.cls, m.seat, m.name, m.email, catName(admin.cat), bookOf(m.lesson), lessonShort(m.lesson), m.count, m.best, m.bestOrig, m.bestAdj,
       m.latest, m.latestOrig, m.latestAdj, m.time]
-      .concat(read ? [m.flag] : [], [m.cheat]));
+      .concat(read ? [m.flag] : [], [m.cheat, m.ip, m.dup]));
   const esc = v => /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const csv = '﻿' + [head, ...rows].map(r => r.map(esc).join(',')).join('\r\n');
   const link = document.createElement('a');
@@ -586,6 +632,7 @@ document.getElementById('ad-lesson').addEventListener('change', () => { fillClas
 document.getElementById('ad-search').addEventListener('input', renderAdminTable);
 document.getElementById('ad-refresh').addEventListener('click', loadAdmin);
 document.getElementById('ad-csv').addEventListener('click', downloadCsv);
+document.getElementById('ad-ip-save').addEventListener('click', saveIpExclude);
 document.getElementById('ad-delete').addEventListener('click', () => confirmDelete([...admin.selected]));
 document.getElementById('ad-student').addEventListener('click', () => {
   try { sessionStorage.setItem(TOKEN_KEY, app.user.idToken); } catch (e) {}
