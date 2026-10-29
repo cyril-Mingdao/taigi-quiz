@@ -2079,3 +2079,39 @@
     .ad-card.dupip { background: #fff4cc; }
     .dup-badge { background: #FFD400; color: #111; border-radius: 8px; padding: 0 6px; font-weight: bold; }
     #ad-ip-exclude { flex: 1; min-width: 220px; }
+
+    /* ===== 口說補測驗區（makeup.html，2026-10-30） ===== */
+    .mk-task-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 14px 0; }
+    .mk-task { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; text-align: left; padding: 14px 16px; border: 2px solid var(--black); border-radius: 16px; background: #fff; color: var(--black); font: inherit; cursor: pointer; }
+    .mk-task:hover { background: var(--yellow-soft); }
+    .mk-task.dim { border-color: #999; color: #555; }
+    .mk-task .mk-name { font-size: 1.12em; }
+    .mk-meta { font-size: 0.9em; color: #444; }
+    .mk-grade { display: inline-block; padding: 1px 8px; margin: 0 4px 2px 0; border-radius: 10px; background: var(--black); color: var(--yellow); font-size: 0.85em; font-weight: bold; }
+    .mk-grade.other { background: #f5f5f5; color: #666; border: 1px solid #ccc; }
+    .mk-state { font-weight: bold; white-space: nowrap; }
+    .mk-state.open { color: #1b7f3b; }
+    .mk-state.closed, .mk-state.expired { color: #b3261e; }
+    .mk-t-meta { margin: 4px 0 10px; line-height: 1.8; }
+    .mk-desc { white-space: pre-wrap; line-height: 1.7; padding: 12px 16px; border-left: 6px solid var(--yellow); background: #f5f5f5; border-radius: 8px; }
+    .mk-why { margin: 12px 0; font-weight: bold; }
+    .mk-recorder { margin-top: 10px; }
+    .mk-upload { position: relative; overflow: hidden; cursor: pointer; }
+    .mk-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .mk-preview { width: 100%; max-width: 520px; margin: 8px 0; }
+    .mk-table td { vertical-align: top; }
+    .mk-table .mk-td-name { text-align: left; min-width: 10em; }
+    .mk-table .mk-ops { white-space: nowrap; }
+    .mk-table .qbtn.small { margin-top: 4px; }
+    .mk-desc-short { white-space: normal; }
+    .mk-mine { display: inline-block; margin: 6px 0; }
+    .mk-player audio { width: 240px; margin-top: 4px; }
+    .mk-form { display: flex; flex-direction: column; gap: 14px; }
+    .mk-field { display: flex; flex-direction: column; gap: 6px; font-weight: bold; }
+    .mk-field input, .mk-field textarea { font: inherit; font-weight: normal; padding: 8px 10px; border: 2px solid #ccc; border-radius: 10px; }
+    .mk-field textarea { resize: vertical; }
+    .mk-check { font-weight: bold; }
+    @media (max-width: 640px) {
+      .mk-table { font-size: 0.85em; }
+      .mk-player audio { width: 180px; }
+    }

@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>台語課程線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=38745bc7" rel="stylesheet">
+  <link href="assets/style.css?v=5667edd0" rel="stylesheet">
  </head>
  <body class="index-page">
   <div class="container">
@@ -25,7 +25,7 @@
     <h1>📝 台語課程線上測驗 📝</h1>
     <h2>限明道師生使用，請以@ms.mingdao.edu.tw帳號登入</h2>
    </header>
-   <nav class="kind-nav" id="book-nav"><a href="#CHINPING-B1" data-book="CHINPING-B1">📗 真平第1冊</a> <a href="#KANGHSUAN-B2" data-book="KANGHSUAN-B2">📘 康軒第2冊</a> <a href="#YUDA-B1" data-book="YUDA-B1">📙 育達全1冊</a> <a href="#CHUANHWA-B3" data-book="CHUANHWA-B3">📕 全華第3冊</a></nav>
+   <nav class="kind-nav" id="book-nav"><a href="#CHINPING-B1" data-book="CHINPING-B1">📗 真平第1冊</a> <a href="#KANGHSUAN-B2" data-book="KANGHSUAN-B2">📘 康軒第2冊</a> <a href="#YUDA-B1" data-book="YUDA-B1">📙 育達全1冊</a> <a href="#CHUANHWA-B3" data-book="CHUANHWA-B3">📕 全華第3冊</a> <a href="makeup.html" class="nav-makeup">🎙️ 口說補測驗區</a></nav>
    <p class="pick-hint" id="pick-hint">👆 請先點選課本版本</p>
     <section class="book hidden" id="CHINPING-B1">
      <h2>📗 真平版國中第1冊</h2>
@@ -246,6 +246,8 @@
     .kind-nav a { padding: 8px 16px; border: 2px solid var(--black); border-radius: 20px; color: var(--black); text-decoration: none; font-weight: bold; }
     .kind-nav a:hover { background: var(--yellow-soft); }
     .kind-nav a.active { background: var(--black); color: var(--yellow); }
+    .kind-nav a.nav-makeup { background: var(--yellow); }
+    .kind-nav a.nav-makeup:hover { background: var(--yellow-deep); }
     .kind-nav { position: sticky; top: 0; z-index: 5; background: #fff; padding: 10px 0; }
     .pick-hint { text-align: center; font-size: 1.15em; font-weight: bold; margin: 30px 0; }
     .hidden { display: none !important; }
@@ -278,7 +280,7 @@
           if (push && location.hash !== '#' + code) history.replaceState(null, '', '#' + code);
         }
       }
-      document.querySelectorAll('#book-nav a').forEach(function (a) {
+      document.querySelectorAll('#book-nav a[data-book]').forEach(function (a) {
         a.addEventListener('click', function (e) { e.preventDefault(); show(a.dataset.book, true); window.scrollTo(0, 0); });
       });
       var saved = '';
