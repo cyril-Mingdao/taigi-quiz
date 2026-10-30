@@ -578,3 +578,6 @@ document.getElementById('mk-f-grades').addEventListener('click', e => {
 });
 document.getElementById('mk-form-el').addEventListener('submit', saveEditor);
 document.getElementById('mk-f-cancel').addEventListener('click', showAdmin);
+
+// 分頁裡還有沒過期的登入（從測驗頁或管理頁切過來）就直接沿用，不必重新登入
+tryStoredLogin();
