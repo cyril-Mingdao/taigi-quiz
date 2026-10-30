@@ -85,12 +85,14 @@ async function showStudentList() {
 
 function renderStudentList() {
   const box = document.getElementById('mk-task-list');
-  if (!mk.tasks.length) {
-    box.innerHTML = '<div class="hint">目前老師還沒有開設補測驗項目。</div>';
+  // 老師關閉收件的項目不顯示在學生介面（教師管理仍看得到，可以再開啟）
+  const shown = mk.tasks.filter(t => t.state !== 'closed');
+  if (!shown.length) {
+    box.innerHTML = '<div class="hint">目前沒有開放中的補測驗項目。</div>';
     return;
   }
-  const order = { open: 0, expired: 1, closed: 2 };
-  const list = mk.tasks.slice().sort((a, b) => (order[a.state] - order[b.state]) || (b.ts - a.ts));
+  const order = { open: 0, expired: 1 };
+  const list = shown.sort((a, b) => (order[a.state] - order[b.state]) || (b.ts - a.ts));
   box.innerHTML = list.map(t => {
     const mine = app.isTeacher || t.grades.includes(mk.grade);
     return `<button type="button" class="mk-task${t.state !== 'open' ? ' dim' : ''}" data-id="${escapeHtml(t.id)}">
