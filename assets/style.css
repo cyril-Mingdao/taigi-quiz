@@ -2096,8 +2096,6 @@
     .mk-desc { white-space: pre-wrap; line-height: 1.7; padding: 12px 16px; border-left: 6px solid var(--yellow); background: #f5f5f5; border-radius: 8px; }
     .mk-why { margin: 12px 0; font-weight: bold; }
     .mk-recorder { margin-top: 10px; }
-    .mk-upload { position: relative; overflow: hidden; cursor: pointer; }
-    .mk-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
     .mk-preview { width: 100%; max-width: 520px; margin: 8px 0; }
     .mk-table td { vertical-align: top; }
     .mk-table .mk-td-name { text-align: left; min-width: 10em; }

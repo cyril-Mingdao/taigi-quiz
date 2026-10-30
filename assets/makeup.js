@@ -3,10 +3,10 @@
    臺中明道中學 詹宗龍 製作（2026-10-30）
    - 教師管理：新增／修改／移除項目（名稱、年段、繳交期限、收件開關、測驗說明），只有建立者能改；
      所有教師都能聽繳交的錄音、下載繳交名單。
-   - 學生：看到所有項目，點選後錄音或上傳錄音檔繳交；限本年段、收件中、期限內才能送出。 */
+   - 學生：看到所有項目，點選後在網頁上登入錄音繳交（不開放上傳檔案，防代錄）；限本年段、收件中、期限內才能送出。 */
 
 const MK_GRADES = ['國一', '國二', '高一', '技高二', '國際部'];   // 與收件程式 MK_GRADES 一致
-const MK_MAX_BYTES = 20 * 1024 * 1024;
+const MK_MAX_BYTES = 20 * 1024 * 1024;   // 收件程式上限約 20 MB（10 分鐘的錄音遠低於此）
 const MK_MAX_REC_SEC = 10 * 60;
 const STATE_LABEL = { open: '🟢 收件中', closed: '⛔ 已關閉收件', expired: '⌛ 已超過期限' };
 
@@ -144,7 +144,6 @@ function resetRecording() {
   document.getElementById('mk-rec-btn').textContent = '🎙️ 開始錄音';
   document.getElementById('mk-rec-btn').classList.remove('danger');
   document.getElementById('mk-rec-time').textContent = '';
-  document.getElementById('mk-file').value = '';
   document.getElementById('mk-submit').disabled = true;
   document.getElementById('mk-msg').textContent = '';
 }
@@ -158,7 +157,7 @@ async function toggleRecord() {
   const btn = document.getElementById('mk-rec-btn');
   if (mk.rec && mk.rec.state === 'recording') { mk.rec.stop(); return; }
   if (!window.MediaRecorder || !navigator.mediaDevices) {
-    toast('這個瀏覽器不能錄音，請改用「上傳錄音檔」');
+    toast('這個瀏覽器不能錄音，請改用電腦版 Chrome 或 Edge');
     return;
   }
   let stream;
@@ -210,31 +209,6 @@ function setAudio(blob, seconds) {
   }
   document.getElementById('mk-msg').textContent = '';
   document.getElementById('mk-submit').disabled = false;
-}
-
-const EXT_MIME = { m4a: 'audio/mp4', mp4: 'audio/mp4', aac: 'audio/aac', mp3: 'audio/mpeg', wav: 'audio/wav', webm: 'audio/webm', ogg: 'audio/ogg', oga: 'audio/ogg' };
-
-function onFilePicked(e) {
-  const f = e.target.files[0];
-  if (!f) return;
-  const ext = (f.name.split('.').pop() || '').toLowerCase();
-  const mime = /^(audio|video)\//.test(f.type) ? f.type : EXT_MIME[ext] || '';
-  if (!mime) { toast('請選擇錄音檔（m4a、mp3、wav、webm、ogg）'); e.target.value = ''; return; }
-  if (mk.rec && mk.rec.state === 'recording') mk.rec.stop();
-  mk.mime = mime;
-  const blob = f.slice(0, f.size, mime);
-  setAudio(blob, 0);
-  document.getElementById('mk-rec-btn').textContent = '🎙️ 改用錄音';
-  const probe = new Audio();
-  probe.preload = 'metadata';
-  probe.onloadedmetadata = () => {
-    if (isFinite(probe.duration)) {
-      mk.seconds = probe.duration;
-      document.getElementById('mk-rec-time').textContent = `✅ 已選擇「${f.name}」（${fmtSec(mk.seconds)}），請先試聽再送出`;
-    }
-  };
-  probe.src = mk.url;
-  document.getElementById('mk-rec-time').textContent = `✅ 已選擇「${f.name}」，請先試聽再送出`;
 }
 
 function blobToBase64(blob) {
@@ -453,7 +427,6 @@ document.getElementById('mk-signout').addEventListener('click', signOut);
 document.getElementById('mk-back-admin').addEventListener('click', showAdmin);
 document.getElementById('mk-t-back').addEventListener('click', () => { resetRecording(); showStudentList(); });
 document.getElementById('mk-rec-btn').addEventListener('click', toggleRecord);
-document.getElementById('mk-file').addEventListener('change', onFilePicked);
 document.getElementById('mk-submit').addEventListener('click', submitAudio);
 
 document.getElementById('mk-new').addEventListener('click', () => openEditor(null));

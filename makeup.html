@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>口說補測驗區｜台語課程線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=5667edd0" rel="stylesheet">
+  <link href="assets/style.css?v=435f8f4c" rel="stylesheet">
  </head>
  <body class="makeup-page">
   <main>
@@ -24,7 +24,7 @@
      <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
      <a class="admin-entry" href="index.html">📝 返回測驗列表</a>
      <h1>🎙️ 口說補測驗區 🎙️</h1>
-     <h2>點選老師開設的項目，錄音或上傳錄音檔補繳</h2>
+     <h2>點選老師開設的項目，登入後在網頁上錄音補繳</h2>
     </header>
 
     <section class="quiz-card" id="quiz-gate" data-section>
@@ -91,11 +91,10 @@
       <h3>📤 繳交錄音</h3>
       <div class="quiz-actions">
        <button class="qbtn" id="mk-rec-btn" type="button">🎙️ 開始錄音</button>
-       <label class="qbtn light mk-upload">📁 上傳錄音檔<input type="file" id="mk-file" accept="audio/*,.m4a,.mp3,.wav,.webm,.ogg,.aac"></label>
       </div>
       <div class="hint" id="mk-rec-time"></div>
       <audio class="mk-preview hidden" id="mk-preview" controls></audio>
-      <div class="hint">錄音最長 10 分鐘；上傳檔案上限 20 MB（m4a、mp3、wav、webm、ogg）。可以重複繳交，每一次都會保留給老師。</div>
+      <div class="hint">請在本頁按「開始錄音」直接錄音（不開放上傳檔案），最長 10 分鐘，錄完先試聽再送出。可以重複繳交，每一次都會保留給老師。</div>
       <div class="quiz-actions"><button class="qbtn" id="mk-submit" type="button" disabled>✅ 送出給老師</button></div>
       <div class="warn" id="mk-msg"></div>
      </div>
@@ -142,7 +141,7 @@
    <div class="quiz-card" id="quiz-modal-body"></div>
   </div>
   <script src="assets/common.js?v=4f7d3c7e"></script>
-  <script src="assets/makeup.js?v=1e9a5ff9"></script>
+  <script src="assets/makeup.js?v=a11aa089"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>
