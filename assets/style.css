@@ -2106,7 +2106,7 @@
     .mk-player audio { width: 240px; margin-top: 4px; }
     .mk-form { display: flex; flex-direction: column; gap: 14px; }
     .mk-field { display: flex; flex-direction: column; gap: 6px; font-weight: bold; }
-    .mk-field input, .mk-field textarea { font: inherit; font-weight: normal; padding: 8px 10px; border: 2px solid #ccc; border-radius: 10px; }
+    .mk-field input, .mk-field textarea, .mk-field select { font: inherit; font-weight: normal; padding: 8px 10px; border: 2px solid #ccc; border-radius: 10px; }
     .mk-field textarea { resize: vertical; }
     .mk-check { font-weight: bold; }
     @media (max-width: 640px) {

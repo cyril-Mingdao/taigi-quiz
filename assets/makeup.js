@@ -7,7 +7,14 @@
 
 const MK_GRADES = ['國一', '國二', '高一', '技高二', '國際部'];   // 與收件程式 MK_GRADES 一致
 const MK_MAX_BYTES = 20 * 1024 * 1024;   // 收件程式上限約 20 MB（10 分鐘的錄音遠低於此）
-const MK_MAX_REC_SEC = 10 * 60;
+const MK_LEN_DEFAULT = 180;   // 聲音長度（錄音上限秒數）沒設定時的預設值，與收件程式一致
+const MK_LEN_OPTIONS = [30, 60, 90, 120, 180, 240, 300, 420, 600];
+const lenOf = t => Number(t && t.maxSec) || MK_LEN_DEFAULT;
+function fmtLen(s) {
+  s = Math.round(Number(s) || 0);
+  const m = Math.floor(s / 60), r = s % 60;
+  return [m ? m + ' 分' : '', r ? r + ' 秒' : ''].filter(Boolean).join(' ') || '0 秒';
+}
 const STATE_LABEL = { open: '🟢 收件中', closed: '⛔ 已關閉收件', expired: '⌛ 已超過期限' };
 
 const mk = {
@@ -91,6 +98,7 @@ function renderStudentList() {
       <span class="mk-meta">🧑‍🏫 ${escapeHtml(t.creatorName || t.creator)} 老師建立</span>
       <span class="mk-meta">${gradeBadges(t)}${mine ? '' : '<span class="mk-grade other">非本年段</span>'}</span>
       <span class="mk-meta">${stateBadge(t)}${t.deadline ? '　繳交期限：' + escapeHtml(t.deadline) : '　不限期限'}</span>
+      <span class="mk-meta">🎙️ 聲音長度：最長 ${fmtLen(lenOf(t))}</span>
       <span class="mk-meta">${t.mine.length ? `✅ 已繳交 ${t.mine.length} 次（最近 ${escapeHtml(t.mine[t.mine.length - 1].time)}）` : '尚未繳交'}</span>
     </button>`;
   }).join('');
@@ -106,7 +114,8 @@ function openTask(id) {
   document.getElementById('mk-t-name').textContent = t.name;
   document.getElementById('mk-t-meta').innerHTML =
     `🧑‍🏫 ${escapeHtml(t.creatorName || t.creator)} 老師建立　${gradeBadges(t)}<br>${stateBadge(t)}　` +
-    (t.deadline ? `繳交期限：<b>${escapeHtml(t.deadline)}</b>` : '不限期限');
+    (t.deadline ? `繳交期限：<b>${escapeHtml(t.deadline)}</b>` : '不限期限') +
+    `　🎙️ 聲音長度：最長 <b>${fmtLen(lenOf(t))}</b>（錄到時間會自動停止）`;
   document.getElementById('mk-t-desc').innerHTML = t.desc ? descHtml(t.desc) : '<span class="hint">（老師沒有填寫說明）</span>';
   const ok = canSubmit(t);
   let why = '';
@@ -187,8 +196,9 @@ async function toggleRecord() {
   btn.classList.add('danger');
   mk.timer = setInterval(() => {
     const s = (Date.now() - mk.startAt) / 1000;
-    document.getElementById('mk-rec-time').textContent = '🔴 錄音中 ' + fmtSec(s);
-    if (s >= MK_MAX_REC_SEC) rec.stop();
+    const max = lenOf(mk.current);
+    document.getElementById('mk-rec-time').textContent = '🔴 錄音中 ' + fmtSec(s) + ' / ' + fmtSec(max);
+    if (s >= max) rec.stop();
   }, 300);
 }
 
@@ -269,7 +279,7 @@ function renderAdminList() {
     box.innerHTML = '<div class="hint">還沒有補測驗項目，按「➕ 新增補測驗項目」建立。</div>';
     return;
   }
-  box.innerHTML = '<table class="admin-table mk-table"><thead><tr><th>名稱</th><th>建立者</th><th>年段</th><th>繳交期限</th><th>收件</th><th>繳交</th><th>操作</th></tr></thead><tbody>' +
+  box.innerHTML = '<table class="admin-table mk-table"><thead><tr><th>名稱</th><th>建立者</th><th>年段</th><th>繳交期限</th><th>聲音長度</th><th>收件</th><th>繳交</th><th>操作</th></tr></thead><tbody>' +
     list.map(t => {
       const own = t.creator === app.user.email;
       const id = escapeHtml(t.id);
@@ -278,6 +288,7 @@ function renderAdminList() {
         <td>${escapeHtml(t.creatorName || t.creator)}<div class="hint">${escapeHtml(t.created)}</div>${t.modified ? `<div class="hint">修改：${escapeHtml(t.modifierName)} ${escapeHtml(t.modified)}</div>` : ''}</td>
         <td>${gradeBadges(t)}</td>
         <td>${t.deadline ? escapeHtml(t.deadline) : '不限'}</td>
+        <td>${fmtLen(lenOf(t))}</td>
         <td>${stateBadge(t)}${own ? `<div><button class="qbtn small ${t.open ? 'light' : ''}" data-act="state" data-id="${id}" data-open="${t.open ? '0' : '1'}">${t.open ? '關閉收件' : '開啟收件'}</button></div>` : ''}</td>
         <td>${t.studentCount || 0} 人／${t.subCount || 0} 件<div><button class="qbtn small light" data-act="subs" data-id="${id}">🎧 查看</button></div></td>
         <td class="mk-ops">${own
@@ -294,6 +305,9 @@ function openEditor(t) {
   document.getElementById('mk-f-grades').innerHTML = MK_GRADES.map(g =>
     `<button type="button" class="chip${t && t.grades.includes(g) ? ' on' : ''}" data-grade="${g}">${g}</button>`).join('');
   document.getElementById('mk-f-deadline').value = t ? t.deadlineInput : '';
+  const cur = lenOf(t);
+  document.getElementById('mk-f-len').innerHTML = [...new Set(MK_LEN_OPTIONS.concat(cur))].sort((a, b) => a - b)
+    .map(n => `<option value="${n}"${n === cur ? ' selected' : ''}>${fmtLen(n)}</option>`).join('');
   document.getElementById('mk-f-open').checked = t ? t.open : true;
   document.getElementById('mk-f-desc').value = t ? t.desc : '';
   document.getElementById('mk-f-creator').textContent = t
@@ -311,6 +325,7 @@ async function saveEditor(e) {
     name: document.getElementById('mk-f-name').value.trim(),
     grades: [...document.querySelectorAll('#mk-f-grades .chip.on')].map(b => b.dataset.grade),
     deadline: document.getElementById('mk-f-deadline').value,
+    maxSec: Number(document.getElementById('mk-f-len').value),
     open: document.getElementById('mk-f-open').checked,
     desc: document.getElementById('mk-f-desc').value
   };
@@ -366,7 +381,7 @@ async function showSubs(t) {
       <td><button class="qbtn small" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}"></div></td>
     </tr>`).join('');
     openModal(`<h3>🎧 ${escapeHtml(t.name)}：繳交紀錄</h3>
-      <div class="hint">${escapeHtml(t.creatorName)} 老師建立｜年段 ${escapeHtml(t.grades.join('、'))}｜共 ${subsCache.length} 件</div>
+      <div class="hint">${escapeHtml(t.creatorName)} 老師建立｜年段 ${escapeHtml(t.grades.join('、'))}｜聲音長度 ${fmtLen(lenOf(t))}｜共 ${subsCache.length} 件</div>
       ${subsCache.length ? `<div class="admin-table-wrap"><table class="admin-table"><tr><th>班級</th><th>座號</th><th>姓名</th><th>第幾次</th><th>繳交時間</th><th>長度</th><th>錄音</th></tr>${rows}</table></div>` : '<div class="hint">還沒有學生繳交。</div>'}
       <div class="quiz-actions">${subsCache.length ? '<button class="qbtn light" id="mk-subs-csv">⬇️ 下載繳交名單 CSV</button>' : ''}<button class="qbtn light" onclick="closeModal()">關閉</button></div>`, true);
     const csvBtn = document.getElementById('mk-subs-csv');
@@ -397,8 +412,8 @@ async function playSub(i, btn) {
 }
 
 function downloadSubsCsv(t) {
-  const head = ['項目', '建立者', '班級', '座號', '姓名', 'Email', '第幾次', '繳交時間', '錄音秒數', '雲端檔案'];
-  const lines = [head].concat(subsCache.map(s => [t.name, t.creatorName, s.cls, s.seat, s.name, s.email, s.attempt, s.time, s.sec, s.fileUrl]))
+  const head = ['項目', '建立者', '聲音長度上限（秒）', '班級', '座號', '姓名', 'Email', '第幾次', '繳交時間', '錄音秒數', '雲端檔案'];
+  const lines = [head].concat(subsCache.map(s => [t.name, t.creatorName, lenOf(t), s.cls, s.seat, s.name, s.email, s.attempt, s.time, s.sec, s.fileUrl]))
     .map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(','));
   const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
   const a = document.createElement('a');

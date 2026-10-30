@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>口說補測驗區｜台語課程線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=435f8f4c" rel="stylesheet">
+  <link href="assets/style.css?v=c135d2db" rel="stylesheet">
  </head>
  <body class="makeup-page">
   <main>
@@ -94,7 +94,7 @@
       </div>
       <div class="hint" id="mk-rec-time"></div>
       <audio class="mk-preview hidden" id="mk-preview" controls></audio>
-      <div class="hint">請在本頁按「開始錄音」直接錄音（不開放上傳檔案），最長 10 分鐘，錄完先試聽再送出。可以重複繳交，每一次都會保留給老師。</div>
+      <div class="hint">請在本頁按「開始錄音」直接錄音（不開放上傳檔案），錄到老師設定的聲音長度會自動停止，錄完先試聽再送出。可以重複繳交，每一次都會保留給老師。</div>
       <div class="quiz-actions"><button class="qbtn" id="mk-submit" type="button" disabled>✅ 送出給老師</button></div>
       <div class="warn" id="mk-msg"></div>
      </div>
@@ -125,6 +125,7 @@
       <label class="mk-field">名稱<input id="mk-f-name" maxlength="40" placeholder="例：第3課 課文朗讀補測驗"></label>
       <div class="mk-field">開放年段（可複選）<div class="chip-row" id="mk-f-grades"></div></div>
       <label class="mk-field">繳交期限（留空＝不限期限）<input type="datetime-local" id="mk-f-deadline"></label>
+      <label class="mk-field">聲音長度（學生錄音的最長時間，錄到就自動停止）<select id="mk-f-len"></select></label>
       <label class="mk-check"><input type="checkbox" id="mk-f-open"> 開啟收件（取消勾選＝先建立、暫不收件）</label>
       <label class="mk-field">測驗說明<textarea id="mk-f-desc" rows="7" maxlength="3000" placeholder="例：請朗讀課本第 30 頁第 1～3 段，錄音 2 分鐘內，開頭先說班級、座號、姓名。"></textarea></label>
       <div class="hint" id="mk-f-creator"></div>
@@ -141,7 +142,7 @@
    <div class="quiz-card" id="quiz-modal-body"></div>
   </div>
   <script src="assets/common.js?v=4f7d3c7e"></script>
-  <script src="assets/makeup.js?v=a11aa089"></script>
+  <script src="assets/makeup.js?v=68fd8ef4"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>
