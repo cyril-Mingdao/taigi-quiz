@@ -533,13 +533,6 @@ function downloadSubsCsv(t) {
 
 /* ===================== 事件 ===================== */
 
-/* 教師管理畫面滿版（左右只留小邊距），其他畫面維持一般寬度 */
-const baseShowSection = showSection;
-showSection = function (id) {
-  baseShowSection(id);
-  document.body.classList.toggle('mk-wide', id === 'mk-admin');
-};
-
 app.onReady = () => {
   if (app.isTeacher) showChoice();
   else if (!app.profile) showProfileForm(showStudentList, null);
