@@ -2115,4 +2115,23 @@
     }
     .mk-subs td.mk-hot, .mk-hot-sample { background: var(--yellow); font-weight: bold; }
     .mk-hot-sample { padding: 0 6px; border-radius: 4px; }
-    .mk-subs td { white-space: nowrap; }
+    /* 口說補測驗：教師管理滿版、表格自動換行不出滑軌；窄螢幕改卡片（2026-10-30） */
+    body.makeup-page.mk-wide { padding-left: max(10px, 2vw); padding-right: max(10px, 2vw); }
+    body.makeup-page.mk-wide .container { max-width: none; }
+    .makeup-page .quiz-modal .quiz-card.wide { max-width: min(1500px, 96vw); width: 96vw; }
+    .mk-table, .mk-subs { white-space: normal; font-size: 0.92em; }
+    .mk-table th, .mk-table td, .mk-subs th, .mk-subs td { padding: 8px 6px; vertical-align: top; }
+    .mk-table .mk-td-name { min-width: 12em; max-width: 28em; }
+    .mk-table td[data-label="聲音長度"], .mk-table td[data-label="繳交"], .mk-table td[data-label="收件"], .mk-table th { white-space: nowrap; }
+    .mk-table .mk-ops { white-space: normal; min-width: 7em; }
+    .mk-table .mk-ops .qbtn { margin: 2px 0; }
+    .mk-subs .mk-td-name { min-width: 7em; }
+    .mk-subs .mk-player audio { width: 200px; max-width: 100%; }
+    @media (max-width: 900px) {
+      .mk-table, .mk-subs, .mk-table tbody, .mk-subs tbody, .mk-table tr, .mk-subs tr, .mk-table td, .mk-subs td { display: block; width: 100%; }
+      .mk-table thead, .mk-subs tr:first-child { display: none; }
+      .mk-table tr, .mk-subs tr { border: 2px solid var(--line); border-radius: 14px; margin: 0 0 12px; padding: 6px 10px; }
+      .mk-table td, .mk-subs td { border: 0; text-align: left; padding: 4px 0; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; max-width: none; min-width: 0; }
+      .mk-table td::before, .mk-subs td::before { content: attr(data-label); flex: 0 0 5.5em; font-weight: bold; color: #555; }
+      .mk-table td .qbtn, .mk-subs td .qbtn { margin-right: 6px; }
+    }

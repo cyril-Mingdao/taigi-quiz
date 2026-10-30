@@ -284,14 +284,14 @@ function renderAdminList() {
       const own = t.creator === app.user.email;
       const id = escapeHtml(t.id);
       return `<tr>
-        <td class="mk-td-name"><b>${escapeHtml(t.name)}</b>${t.desc ? `<div class="hint mk-desc-short">${escapeHtml(t.desc.slice(0, 60))}${t.desc.length > 60 ? '…' : ''}</div>` : ''}</td>
-        <td>${escapeHtml(t.creatorName || t.creator)}<div class="hint">${escapeHtml(t.created)}</div>${t.modified ? `<div class="hint">修改：${escapeHtml(t.modifierName)} ${escapeHtml(t.modified)}</div>` : ''}</td>
-        <td>${gradeBadges(t)}</td>
-        <td>${t.deadline ? escapeHtml(t.deadline) : '不限'}</td>
-        <td>${fmtLen(lenOf(t))}</td>
-        <td>${stateBadge(t)}${own ? `<div><button class="qbtn small ${t.open ? 'light' : ''}" data-act="state" data-id="${id}" data-open="${t.open ? '0' : '1'}">${t.open ? '關閉收件' : '開啟收件'}</button></div>` : ''}</td>
-        <td>${t.studentCount || 0} 人／${t.subCount || 0} 件<div><button class="qbtn small light" data-act="subs" data-id="${id}">🎧 查看</button></div></td>
-        <td class="mk-ops">${own
+        <td class="mk-td-name" data-label="名稱"><b>${escapeHtml(t.name)}</b>${t.desc ? `<div class="hint mk-desc-short">${escapeHtml(t.desc.slice(0, 80))}${t.desc.length > 80 ? '…' : ''}</div>` : ''}</td>
+        <td data-label="建立者">${escapeHtml(t.creatorName || t.creator)}<div class="hint">${escapeHtml(t.created)}</div>${t.modified ? `<div class="hint">修改：${escapeHtml(t.modifierName)} ${escapeHtml(t.modified)}</div>` : ''}</td>
+        <td data-label="年段">${gradeBadges(t)}</td>
+        <td data-label="繳交期限">${t.deadline ? escapeHtml(t.deadline).replace(' ', '<br>') : '不限'}</td>
+        <td data-label="聲音長度">${fmtLen(lenOf(t))}</td>
+        <td data-label="收件">${stateBadge(t)}${own ? `<div><button class="qbtn small ${t.open ? 'light' : ''}" data-act="state" data-id="${id}" data-open="${t.open ? '0' : '1'}">${t.open ? '關閉收件' : '開啟收件'}</button></div>` : ''}</td>
+        <td data-label="繳交">${t.studentCount || 0} 人／${t.subCount || 0} 件<div><button class="qbtn small light" data-act="subs" data-id="${id}">🎧 查看</button></div></td>
+        <td class="mk-ops" data-label="操作">${own
           ? `<button class="qbtn small light" data-act="edit" data-id="${id}">✏️ 修改</button> <button class="qbtn small danger" data-act="del" data-id="${id}">🗑️ 移除</button>`
           : '<span class="hint">只有建立者可修改</span>'}</td>
       </tr>`;
@@ -436,22 +436,22 @@ async function analyzeSilence(blob) {
 const f1 = v => (Math.round(v * 10) / 10).toFixed(1);
 function silenceCells(s) {
   const a = s.sil;
-  if (!a) return '<td colspan="6" class="hint">' + (s.silErr ? '⚠️ ' + escapeHtml(s.silErr) : '—') + '</td>';
-  if (a.empty) return '<td colspan="6" class="warn">幾乎沒有聲音（' + f1(a.dur) + ' 秒）</td>';
-  const hot = (cond, txt) => `<td${cond ? ' class="mk-hot"' : ''}>${txt}</td>`;
-  return hot(a.lead >= 3, f1(a.lead) + ' 秒') + hot(a.trail >= 3, f1(a.trail) + ' 秒') +
-    hot(a.ratio >= 0.5, f1(a.total) + ' 秒<div class="hint">' + Math.round(a.ratio * 100) + '%</div>') +
-    hot(a.longest >= 5, f1(a.longest) + ' 秒') + hot(a.longCount >= 3, a.longCount + ' 次') + `<td>${f1(a.speech)} 秒</td>`;
+  if (!a) return '<td colspan="6" class="hint" data-label="空白分析">' + (s.silErr ? '⚠️ ' + escapeHtml(s.silErr) : '—') + '</td>';
+  if (a.empty) return '<td colspan="6" class="warn" data-label="空白分析">幾乎沒有聲音（' + f1(a.dur) + ' 秒）</td>';
+  const hot = (label, cond, txt) => `<td data-label="${label}"${cond ? ' class="mk-hot"' : ''}>${txt}</td>`;
+  return hot('開頭空白', a.lead >= 3, f1(a.lead) + ' 秒') + hot('結尾空白', a.trail >= 3, f1(a.trail) + ' 秒') +
+    hot('總空白', a.ratio >= 0.5, f1(a.total) + ' 秒（' + Math.round(a.ratio * 100) + '%）') +
+    hot('最長停頓', a.longest >= 5, f1(a.longest) + ' 秒') + hot('停頓≥2秒', a.longCount >= 3, a.longCount + ' 次') + hot('說話時間', false, f1(a.speech) + ' 秒');
 }
 
 function renderSubsTable() {
   const box = document.getElementById('mk-subs-table');
   if (!box) return;
   const rows = subsCache.map((s, i) => `<tr>
-      <td>${escapeHtml(s.cls)}</td><td>${escapeHtml(s.seat)}</td><td class="mk-td-name">${escapeHtml(s.name)}<div class="hint">${escapeHtml(s.email)}</div></td>
-      <td>${s.attempt}</td><td>${escapeHtml(s.time)}</td><td>${s.sil ? fmtSec(s.sil.dur) : fmtSec(s.sec)}</td>
+      <td data-label="班級">${escapeHtml(s.cls)}</td><td data-label="座號">${escapeHtml(s.seat)}</td><td class="mk-td-name" data-label="姓名">${escapeHtml(s.name)}<div class="hint">${escapeHtml(s.email)}</div></td>
+      <td data-label="第幾次">${s.attempt}</td><td data-label="繳交時間">${escapeHtml(s.time).replace(' ', '<br>')}</td><td data-label="錄音長度">${s.sil ? fmtSec(s.sil.dur) : fmtSec(s.sec)}</td>
       ${silenceCells(s)}
-      <td><button class="qbtn small${s.playerHtml ? ' hidden' : ''}" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}">${s.playerHtml || ''}</div></td>
+      <td data-label="錄音"><button class="qbtn small${s.playerHtml ? ' hidden' : ''}" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}">${s.playerHtml || ''}</div></td>
     </tr>`).join('');
   box.innerHTML = `<table class="admin-table mk-subs"><tr><th>班級</th><th>座號</th><th>姓名</th><th>第幾次</th><th>繳交時間</th><th>錄音長度</th>
     <th>開頭空白</th><th>結尾空白</th><th>總空白</th><th>最長停頓</th><th>停頓≥2秒</th><th>說話時間</th><th>錄音</th></tr>${rows}</table>`;
@@ -532,6 +532,13 @@ function downloadSubsCsv(t) {
 }
 
 /* ===================== 事件 ===================== */
+
+/* 教師管理畫面滿版（左右只留小邊距），其他畫面維持一般寬度 */
+const baseShowSection = showSection;
+showSection = function (id) {
+  baseShowSection(id);
+  document.body.classList.toggle('mk-wide', id === 'mk-admin');
+};
 
 app.onReady = () => {
   if (app.isTeacher) showChoice();
