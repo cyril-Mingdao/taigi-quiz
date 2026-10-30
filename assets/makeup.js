@@ -369,23 +369,130 @@ function confirmDelete(t) {
 }
 
 let subsCache = [];
+
+/* ---------- 空白分析（老師端複算：下載實際錄音檔、在老師的瀏覽器解碼計算，不採信學生端數字） ---------- */
+const SIL = { frame: 0.02, minGap: 0.3, longGap: 2 };   // 每 20 毫秒一格；連續 0.3 秒以上小聲才算空白；2 秒以上算長停頓
+
+/** 下載一筆繳交的錄音（同一筆只下載一次，播放與分析共用） */
+async function subBlob(s) {
+  if (s.blob) return s.blob;
+  const d = await api({ action: 'admin_mk_audio', subId: s.id });
+  const bin = atob(d.data);
+  const bytes = new Uint8Array(bin.length);
+  for (let k = 0; k < bin.length; k++) bytes[k] = bin.charCodeAt(k);
+  s.blob = new Blob([bytes], { type: d.mime });
+  return s.blob;
+}
+
+/** 依音量找空白：門檻＝背景音（第 10 百分位）＋12 dB，但不超過最大音量 −20 dB、不低於 −55 dBFS */
+async function analyzeSilence(blob) {
+  const ac = new (window.AudioContext || window.webkitAudioContext)();
+  try {
+    const buf = await ac.decodeAudioData(await blob.arrayBuffer());
+    const n = Math.floor(SIL.frame * buf.sampleRate);
+    const ch = [];
+    for (let c = 0; c < buf.numberOfChannels; c++) ch.push(buf.getChannelData(c));
+    const db = [];
+    for (let i = 0; i + n <= buf.length; i += n) {
+      let sum = 0;
+      for (let k = i; k < i + n; k++) {
+        let v = 0;
+        for (const d of ch) v += d[k];
+        v /= ch.length;
+        sum += v * v;
+      }
+      db.push(10 * Math.log10(sum / n + 1e-12));
+    }
+    if (!db.length) return { dur: buf.duration, empty: true };
+    const sorted = db.slice().sort((x, y) => x - y);
+    const floor = sorted[Math.floor(sorted.length * 0.1)];
+    const peak = sorted[sorted.length - 1];
+    const thr = Math.max(-55, Math.min(floor + 12, peak - 20));
+    const voiced = db.map(v => v > thr);
+    const first = voiced.indexOf(true);
+    if (first < 0 || peak < -50) return { dur: buf.duration, empty: true };
+    const last = voiced.lastIndexOf(true);
+    const lead = first * SIL.frame;
+    const trail = Math.max(0, buf.duration - (last + 1) * SIL.frame);
+    let total = lead + trail, longest = 0, longCount = 0, run = 0;
+    for (let i = first; i <= last + 1; i++) {
+      if (i <= last && !voiced[i]) { run++; continue; }
+      const sec = run * SIL.frame;
+      if (sec >= SIL.minGap) {
+        total += sec;
+        longest = Math.max(longest, sec);
+        if (sec >= SIL.longGap) longCount++;
+      }
+      run = 0;
+    }
+    total = Math.min(total, buf.duration);
+    return { dur: buf.duration, lead: lead, trail: trail, total: total, ratio: total / buf.duration,
+      longest: longest, longCount: longCount, speech: buf.duration - total };
+  } finally {
+    ac.close();
+  }
+}
+
+const f1 = v => (Math.round(v * 10) / 10).toFixed(1);
+function silenceCells(s) {
+  const a = s.sil;
+  if (!a) return '<td colspan="6" class="hint">' + (s.silErr ? '⚠️ ' + escapeHtml(s.silErr) : '—') + '</td>';
+  if (a.empty) return '<td colspan="6" class="warn">幾乎沒有聲音（' + f1(a.dur) + ' 秒）</td>';
+  const hot = (cond, txt) => `<td${cond ? ' class="mk-hot"' : ''}>${txt}</td>`;
+  return hot(a.lead >= 3, f1(a.lead) + ' 秒') + hot(a.trail >= 3, f1(a.trail) + ' 秒') +
+    hot(a.ratio >= 0.5, f1(a.total) + ' 秒<div class="hint">' + Math.round(a.ratio * 100) + '%</div>') +
+    hot(a.longest >= 5, f1(a.longest) + ' 秒') + hot(a.longCount >= 3, a.longCount + ' 次') + `<td>${f1(a.speech)} 秒</td>`;
+}
+
+function renderSubsTable() {
+  const box = document.getElementById('mk-subs-table');
+  if (!box) return;
+  const rows = subsCache.map((s, i) => `<tr>
+      <td>${escapeHtml(s.cls)}</td><td>${escapeHtml(s.seat)}</td><td class="mk-td-name">${escapeHtml(s.name)}<div class="hint">${escapeHtml(s.email)}</div></td>
+      <td>${s.attempt}</td><td>${escapeHtml(s.time)}</td><td>${s.sil ? fmtSec(s.sil.dur) : fmtSec(s.sec)}</td>
+      ${silenceCells(s)}
+      <td><button class="qbtn small${s.playerHtml ? ' hidden' : ''}" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}">${s.playerHtml || ''}</div></td>
+    </tr>`).join('');
+  box.innerHTML = `<table class="admin-table mk-subs"><tr><th>班級</th><th>座號</th><th>姓名</th><th>第幾次</th><th>繳交時間</th><th>錄音長度</th>
+    <th>開頭空白</th><th>結尾空白</th><th>總空白</th><th>最長停頓</th><th>停頓≥2秒</th><th>說話時間</th><th>錄音</th></tr>${rows}</table>`;
+}
+
+/** 一次分析全部（同時 3 筆）；分析過的不重算 */
+async function analyzeAll(btn) {
+  btn.disabled = true;
+  const todo = subsCache.filter(s => !s.sil);
+  let done = 0;
+  const total = todo.length;
+  const worker = async () => {
+    while (todo.length) {
+      const s = todo.shift();
+      try { s.sil = await analyzeSilence(await subBlob(s)); s.silErr = ''; } catch (err) { s.silErr = '無法分析：' + (err.message || err); }
+      done++;
+      btn.textContent = `⏳ 分析中 ${done}／${total}`;
+      renderSubsTable();
+    }
+  };
+  await Promise.all([worker(), worker(), worker()]);
+  btn.textContent = '✅ 空白分析完成';
+}
+
 async function showSubs(t) {
   openModal(`<h3>🎧 ${escapeHtml(t.name)}：繳交紀錄</h3><div class="hint">⏳ 讀取中…</div>`, true);
   try {
     const d = await api({ action: 'admin_mk_subs', id: t.id });
     subsCache = (d.subs || []).sort((a, b) => String(a.cls).localeCompare(String(b.cls)) ||
       (Number(a.seat) || 0) - (Number(b.seat) || 0) || a.ts - b.ts);
-    const rows = subsCache.map((s, i) => `<tr>
-      <td>${escapeHtml(s.cls)}</td><td>${escapeHtml(s.seat)}</td><td>${escapeHtml(s.name)}<div class="hint">${escapeHtml(s.email)}</div></td>
-      <td>${s.attempt}</td><td>${escapeHtml(s.time)}</td><td>${fmtSec(s.sec)}</td>
-      <td><button class="qbtn small" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}"></div></td>
-    </tr>`).join('');
     openModal(`<h3>🎧 ${escapeHtml(t.name)}：繳交紀錄</h3>
       <div class="hint">${escapeHtml(t.creatorName)} 老師建立｜年段 ${escapeHtml(t.grades.join('、'))}｜聲音長度 ${fmtLen(lenOf(t))}｜共 ${subsCache.length} 件</div>
-      ${subsCache.length ? `<div class="admin-table-wrap"><table class="admin-table"><tr><th>班級</th><th>座號</th><th>姓名</th><th>第幾次</th><th>繳交時間</th><th>長度</th><th>錄音</th></tr>${rows}</table></div>` : '<div class="hint">還沒有學生繳交。</div>'}
-      <div class="quiz-actions">${subsCache.length ? '<button class="qbtn light" id="mk-subs-csv">⬇️ 下載繳交名單 CSV</button>' : ''}<button class="qbtn light" onclick="closeModal()">關閉</button></div>`, true);
+      ${subsCache.length ? `<div class="hint">按「🔍 分析空白」會下載每一份錄音，在這台電腦上計算音量很小（連續 0.3 秒以上）的時間。
+        <span class="mk-hot-sample">黃底</span>＝值得留意：開頭或結尾空白 ≥3 秒、總空白 ≥50%、最長停頓 ≥5 秒、停頓≥2秒 達 3 次。空白只代表很小聲，不一定是作弊，請搭配試聽判斷。</div>
+        <div class="admin-table-wrap" id="mk-subs-table"></div>` : '<div class="hint">還沒有學生繳交。</div>'}
+      <div class="quiz-actions">${subsCache.length ? '<button class="qbtn" id="mk-subs-sil">🔍 分析空白</button><button class="qbtn light" id="mk-subs-csv">⬇️ 下載繳交名單 CSV</button>' : ''}<button class="qbtn light" onclick="closeModal()">關閉</button></div>`, true);
+    renderSubsTable();
     const csvBtn = document.getElementById('mk-subs-csv');
     if (csvBtn) csvBtn.addEventListener('click', () => downloadSubsCsv(t));
+    const silBtn = document.getElementById('mk-subs-sil');
+    if (silBtn) silBtn.addEventListener('click', () => analyzeAll(silBtn));
   } catch (err) {
     openModal(`<h3>🎧 繳交紀錄</h3><div class="warn">⚠️ ${escapeHtml(err.message || err)}</div><div class="quiz-actions"><button class="qbtn light" onclick="closeModal()">關閉</button></div>`);
   }
@@ -397,11 +504,8 @@ async function playSub(i, btn) {
   btn.disabled = true;
   btn.textContent = '⏳ 載入中';
   try {
-    const d = await api({ action: 'admin_mk_audio', subId: s.id });
-    const bin = atob(d.data);
-    const bytes = new Uint8Array(bin.length);
-    for (let k = 0; k < bin.length; k++) bytes[k] = bin.charCodeAt(k);
-    const url = URL.createObjectURL(new Blob([bytes], { type: d.mime }));
+    const url = URL.createObjectURL(await subBlob(s));
+    s.playerHtml = `<audio controls src="${url}"></audio>`;
     box.innerHTML = `<audio controls autoplay src="${url}"></audio>`;
     btn.classList.add('hidden');
   } catch (err) {
@@ -412,9 +516,14 @@ async function playSub(i, btn) {
 }
 
 function downloadSubsCsv(t) {
-  const head = ['項目', '建立者', '聲音長度上限（秒）', '班級', '座號', '姓名', 'Email', '第幾次', '繳交時間', '錄音秒數', '雲端檔案'];
-  const lines = [head].concat(subsCache.map(s => [t.name, t.creatorName, lenOf(t), s.cls, s.seat, s.name, s.email, s.attempt, s.time, s.sec, s.fileUrl]))
-    .map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(','));
+  const head = ['項目', '建立者', '聲音長度上限（秒）', '班級', '座號', '姓名', 'Email', '第幾次', '繳交時間', '錄音秒數',
+    '開頭空白（秒）', '結尾空白（秒）', '總空白（秒）', '空白比例', '最長停頓（秒）', '停頓≥2秒次數', '說話時間（秒）', '雲端檔案'];
+  const lines = [head].concat(subsCache.map(s => {
+    const a = s.sil && !s.sil.empty ? s.sil : null;
+    const sil = a ? [f1(a.lead), f1(a.trail), f1(a.total), Math.round(a.ratio * 100) + '%', f1(a.longest), a.longCount, f1(a.speech)]
+      : [s.sil && s.sil.empty ? '幾乎沒有聲音' : '', '', '', '', '', '', ''];
+    return [t.name, t.creatorName, lenOf(t), s.cls, s.seat, s.name, s.email, s.attempt, s.time, s.sec].concat(sil, [s.fileUrl]);
+  })).map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(','));
   const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);

@@ -2113,3 +2113,6 @@
       .mk-table { font-size: 0.85em; }
       .mk-player audio { width: 180px; }
     }
+    .mk-subs td.mk-hot, .mk-hot-sample { background: var(--yellow); font-weight: bold; }
+    .mk-hot-sample { padding: 0 6px; border-radius: 4px; }
+    .mk-subs td { white-space: nowrap; }
