@@ -70,7 +70,6 @@ function initGoogleLogin() {
   google.accounts.id.initialize({
     client_id: QUIZ_CONFIG.clientId,
     callback: onCredential,
-    hd: QUIZ_CONFIG.domain,
     ux_mode: 'popup',
     auto_select: false,
     cancel_on_tap_outside: true
@@ -107,12 +106,7 @@ function onCredential(resp) {
 
 function useCredential(token, payload) {
   const email = String(payload.email || '').toLowerCase();
-  if (payload.hd !== QUIZ_CONFIG.domain || !email.endsWith('@' + QUIZ_CONFIG.domain)) {
-    document.getElementById('gate-msg').innerHTML =
-      `<span class="warn">⚠️ ${escapeHtml(email)} 不是學校帳號，請改用 @${QUIZ_CONFIG.domain} 登入。</span>`;
-    if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
-    return false;
-  }
+  // 帳號是否可用（明道網域或校外名單，例如金門大學）由收件程式判定，網頁不先擋
   try { sessionStorage.setItem(TOKEN_KEY, token); } catch (e) {}
   const sameUser = app.user && app.user.email === email;
   app.user = { idToken: token, email: email, name: payload.name || email, picture: payload.picture || '' };
@@ -157,6 +151,8 @@ async function afterLogin() {
     const d = await api({ action: 'profile_get' });
     app.isTeacher = !!d.isTeacher;
     app.profile = d.profile;
+    app.profileLocked = !!d.locked;   // 校外名單學生：班級座號姓名由老師設定，不能自己改
+    app.school = d.school || '';
     msg.textContent = '';
     if (app.onReady) app.onReady();
   } catch (err) {
@@ -235,6 +231,11 @@ function onProfileChipClick(e) {
     教師帳號進學生模式也會看到這一頁（預覽學生的畫面、人工檢查），但教師的選擇不送出、不儲存，
     成績一律記在班級「教師」（收件程式決定）。 */
 function showProfileForm(done, cancel) {
+  if (app.profileLocked && app.profile) {
+    toast(`你的資料由老師設定：${app.profile.cls} ${app.profile.seat} 號 ${app.profile.name}`);
+    if (done) done();
+    return;
+  }
   const p = app.profile || {};
   pf.cls = p.cls && deptOfClass(p.cls) ? p.cls : '';
   pf.dept = deptOfClass(pf.cls);

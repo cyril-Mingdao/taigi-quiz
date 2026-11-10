@@ -18,6 +18,8 @@ const admin = { attempts: [], selected: new Set(), audioCache: {}, cat: 'READ', 
 const CLASS_ORDER = DEPARTMENTS.flatMap(d => d.blocks.flat().flatMap(g => g.classes));
 const TEACHER_DEPT = '教師';
 const OTHER_DEPT = '其他';
+// 校外合作學校：班級欄＝校名（收件程式 CONFIG.EXTERNAL），管理頁當成一個「部別」
+const EXTERNAL_SCHOOLS = ['金門大學'];
 const OTHER_BOOK = '其他';
 const MOBILE = window.matchMedia('(max-width: 640px)');
 const adminPlayer = new Audio();
@@ -77,12 +79,15 @@ function fillLessonSelect() {
 }
 
 function deptOfAttempt(a) {
+  if (EXTERNAL_SCHOOLS.includes(a.cls)) return a.cls;
   return deptOfClass(a.cls) || (a.cls === TEACHER_DEPT ? TEACHER_DEPT : OTHER_DEPT);
 }
 
 function classRank(cls) {
   const i = CLASS_ORDER.indexOf(cls);
-  return i < 0 ? CLASS_ORDER.length + (cls === TEACHER_DEPT ? 1 : 0) : i;
+  if (i >= 0) return i;
+  const e = EXTERNAL_SCHOOLS.indexOf(cls);
+  return CLASS_ORDER.length + (e >= 0 ? 1 + e : cls === TEACHER_DEPT ? 1 + EXTERNAL_SCHOOLS.length : 0);
 }
 
 function lessonScope() {
@@ -92,7 +97,9 @@ function lessonScope() {
 
 function renderDeptChips() {
   const present = new Set(admin.attempts.map(deptOfAttempt));
-  const depts = [...DEPARTMENTS.map(d => d.name), ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))];
+  const depts = admin.school
+    ? [admin.school, ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]   // 校外教師只看得到自己學校
+    : [...DEPARTMENTS.map(d => d.name), ...[...EXTERNAL_SCHOOLS, TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))];
   document.getElementById('ad-depts').innerHTML = [['', '全部部別'], ...depts.map(d => [d, d])].map(([v, label]) =>
     `<button type="button" class="chip${admin.dept === v ? ' on' : ''}" data-dept-filter="${escapeHtml(v)}">${escapeHtml(label)}</button>`).join('');
 }
@@ -290,7 +297,9 @@ async function loadAdmin() {
     const data = await api({ action: 'admin_list' });
     admin.attempts = data.attempts.map(a => Object.assign(a, { cat: a.cat || 'READ' }));
     admin.ipExclude = data.ipExclude || [];
+    admin.school = data.school || '';   // 校外教師帳號（例如金門大學）：只回傳自己學校的紀錄
     document.getElementById('ad-ip-exclude').value = admin.ipExclude.join(', ');
+    document.querySelectorAll('#ad-ip-exclude, #ad-ip-save, a[href="makeup.html"]').forEach(el => el.classList.toggle('hidden', !!admin.school));
     computeDupIp();
     admin.selected.clear();
     refreshFilters();
@@ -453,14 +462,105 @@ function openReadReview(a, d) {
   openModal(`
     <h3>🎧 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
     <div class="hint">${escapeHtml(a.email)}｜朗讀測驗｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜總分 <b>${a.total}</b>${isAdjusted(a) ? `（原始 ${origScore(a)}）` : ''}｜離開頁面 ${a.hidden || 0} 次</div>
-    ${listHtml}${reviewFooter(a, d)}`, true);
+    ${dlAudioHtml(d)}${listHtml}${reviewFooter(a, d)}`, true);
   const body = document.getElementById('quiz-modal-body');
+  const dlBtn = document.getElementById('rv-dl-audio');
+  if (dlBtn) dlBtn.addEventListener('click', () => downloadAllAudio(a, d, dlBtn));
   body.querySelectorAll('[data-play]').forEach(btn => btn.addEventListener('click', () => playStudentAudio(a.id, btn.dataset.play, btn)));
   body.querySelectorAll('[data-ref]').forEach(btn => btn.addEventListener('click', () => {
     adminPlayer.src = `${refBase}s${btn.dataset.ref}.mp3`;
     adminPlayer.play().catch(() => toast('範例音播放失敗'));
   }));
   bindReviewFooter(a);
+}
+
+/* ---------- 一鍵下載這次作答的全部錄音（打包成 zip；zip 元件載入失敗就逐檔下載） ---------- */
+
+function dlAudioHtml(d) {
+  const files = d.files || [];
+  if (!files.length) return '<div class="hint">這次作答沒有錄音檔。</div>';
+  const mb = files.reduce((s, f) => s + (Number(f.size) || 0), 0) / 1048576;
+  return `<div class="quiz-actions" style="justify-content:flex-start"><button class="qbtn" id="rv-dl-audio">⬇️ 一鍵下載這次全部錄音（${files.length} 個檔，約 ${mb.toFixed(1)} MB）</button></div>`;
+}
+
+let jszipPromise = null;
+function loadJsZip() {
+  if (window.JSZip) return Promise.resolve(window.JSZip);
+  if (!jszipPromise) {
+    jszipPromise = new Promise((resolve, reject) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      sc.onload = () => (window.JSZip ? resolve(window.JSZip) : reject(new Error('JSZip 未載入')));
+      sc.onerror = () => { jszipPromise = null; reject(new Error('JSZip 載入失敗')); };
+      document.head.appendChild(sc);
+    });
+  }
+  return jszipPromise;
+}
+
+async function studentAudioBlob(attemptId, fileName) {
+  const key = attemptId + '/' + fileName;
+  if (!admin.audioCache[key]) {
+    const d = await apiFor(attemptId, { action: 'admin_audio', attemptId: attemptId, file: fileName });
+    const bin = atob(d.data);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    admin.audioCache[key] = URL.createObjectURL(new Blob([bytes], { type: d.mime }));
+  }
+  return (await fetch(admin.audioCache[key])).blob();
+}
+
+function saveBlob(blob, name) {
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = name;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(link.href), 60000);
+}
+
+async function downloadAllAudio(a, d, btn) {
+  const files = (d.files || []).slice();
+  if (!files.length) return;
+  const label = btn.textContent;
+  const safe = s => String(s == null ? '' : s).replace(/[\\/:*?"<>|\s]+/g, '');
+  const base = `${safe(a.lesson)}_${safe(a.cls)}-${safe(a.seat)}${safe(a.name)}_第${a.attempt}次`;
+  btn.disabled = true;
+  try {
+    const blobs = new Array(files.length);
+    let done = 0;
+    let next = 0;
+    const worker = async () => {   // 同時 3 個請求，避免收件程式忙不過來
+      while (next < files.length) {
+        const k = next++;
+        blobs[k] = await studentAudioBlob(a.id, files[k].name);
+        btn.textContent = `⏳ 下載中 ${++done}/${files.length}`;
+      }
+    };
+    btn.textContent = `⏳ 下載中 0/${files.length}`;
+    await Promise.all([worker(), worker(), worker()]);
+    let JSZip = null;
+    try { JSZip = await loadJsZip(); } catch (e) { JSZip = null; }
+    if (JSZip) {
+      btn.textContent = '⏳ 打包中…';
+      const zip = new JSZip();
+      files.forEach((f, k) => zip.file(f.name, blobs[k]));
+      saveBlob(await zip.generateAsync({ type: 'blob' }), base + '.zip');
+      toast(`已下載 ${files.length} 個錄音檔（${base}.zip）`);
+    } else {
+      for (let k = 0; k < files.length; k++) {
+        saveBlob(blobs[k], base + '_' + files[k].name);
+        await new Promise(r => setTimeout(r, 300));
+      }
+      toast(`壓縮元件載入失敗，已逐檔下載 ${files.length} 個錄音檔`);
+    }
+  } catch (err) {
+    toast('下載失敗：' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = label;
+  }
 }
 
 async function playStudentAudio(attemptId, fileName, btn) {
