@@ -453,7 +453,7 @@ function renderSubsTable() {
       <td data-label="班級">${escapeHtml(s.cls)}</td><td data-label="座號">${escapeHtml(s.seat)}</td><td class="mk-td-name" data-label="姓名">${escapeHtml(s.name)}<div class="hint">${escapeHtml(s.email)}</div></td>
       <td data-label="第幾次">${s.attempt}</td><td data-label="繳交時間">${escapeHtml(s.time).replace(' ', '<br>')}</td><td data-label="錄音長度">${s.sil ? fmtSec(s.sil.dur) : fmtSec(s.sec)}</td>
       ${silenceCells(s)}
-      <td data-label="錄音"><button class="qbtn small${s.playerHtml ? ' hidden' : ''}" data-play="${i}">▶ 播放</button> <a class="hint" href="${escapeHtml(s.fileUrl)}" target="_blank" rel="noopener">雲端</a><div class="mk-player" id="mk-player-${i}">${s.playerHtml || ''}</div></td>
+      <td data-label="錄音"><button class="qbtn small${s.playerHtml ? ' hidden' : ''}" data-play="${i}">▶ 播放</button><div class="mk-player" id="mk-player-${i}">${s.playerHtml || ''}</div></td>
     </tr>`).join('');
   box.innerHTML = `<table class="admin-table mk-subs"><tr><th>班級</th><th>座號</th><th>姓名</th><th>第幾次</th><th>繳交時間</th><th>錄音長度</th>
     <th>開頭空白</th><th>結尾空白</th><th>總空白</th><th>最長停頓</th><th>停頓≥2秒</th><th>說話時間</th><th>錄音</th></tr>${rows}</table>`;
