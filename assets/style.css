@@ -2136,3 +2136,13 @@
       .mk-table td::before, .mk-subs td::before { content: attr(data-label); flex: 0 0 5.5em; font-weight: bold; color: #555; }
       .mk-table td .qbtn, .mk-subs td .qbtn { margin-right: 6px; }
     }
+    /* 教師班級權限（總管理者勾選其他教師可檢視的班級，2026-11-11） */
+    .scope-teachers { margin: 8px 0 12px; }
+    .scope-dept { border: 2px solid var(--line); border-radius: 14px; padding: 8px 12px; margin: 0 0 10px; }
+    .scope-dept-head { display: flex; align-items: center; gap: 10px; font-weight: bold; margin-bottom: 6px; }
+    .scope-dept-head .cnt-txt { font-weight: normal; color: #555; font-size: 0.9em; }
+    .scope-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.6em, 1fr)); gap: 6px; }
+    .scope-grid label { display: flex; align-items: center; gap: 4px; padding: 4px 6px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; white-space: nowrap; }
+    .scope-grid label.on { background: var(--yellow); border-color: var(--black); font-weight: bold; }
+    .scope-grid input, .scope-dept-head input { width: 1.15em; height: 1.15em; accent-color: #111; }
+    .scope-sum { margin: 6px 0; }

@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>教師管理｜台語課程線上測驗</title>
   <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
-  <link href="assets/style.css?v=478a40fd" rel="stylesheet">
+  <link href="assets/style.css?v=5add3685" rel="stylesheet">
  </head>
  <body class="admin-page">
   <main>
@@ -65,8 +65,10 @@
       <button class="qbtn danger" id="ad-delete" disabled>🗑️ 刪除勾選</button>
       <button class="qbtn" id="ad-student">🎤 切換學生模式</button>
       <a class="qbtn light" href="makeup.html" style="text-decoration:none">🎙️ 口說補測驗管理</a>
+      <button class="qbtn light hidden" id="ad-scope">👥 教師班級權限</button>
       <button class="qbtn light" id="ad-signout">換帳號</button>
      </div>
+     <div class="hint hidden" id="ad-scope-hint"></div>
      <div class="hint" id="ad-count"></div>
      <div class="admin-table-wrap" id="ad-list"></div>
     </section>
@@ -77,7 +79,7 @@
   </div>
   <script src="assets/catalog.js?v=ce2de14d"></script>
   <script src="assets/common.js?v=6d29e15f"></script>
-  <script src="assets/admin.js?v=45dd1bd6"></script>
+  <script src="assets/admin.js?v=2bfd673b"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
  </body>
 </html>

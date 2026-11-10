@@ -1,7 +1,8 @@
 /*! 本土語線上測驗 — © 2026 詹宗龍（臺中明道中學）保留一切權利。 */
 /* 本土語線上測驗：整合教師管理頁（朗讀測驗＋生份字＋選詞塌空＋咱來鬥句＋形音義）
    臺中明道中學 詹宗龍 製作
-   教師名單由收件程式（CONFIG.TEACHERS）判定。朗讀測驗的錄音一律經收件程式轉送。
+   教師名單由收件程式（CONFIG.TEACHERS）判定。總管理者（CONFIG.SUPER_ADMINS）看得到所有班級，
+   並可用「👥 教師班級權限」勾選其他教師能看哪些班；其他教師只看得到被勾選的班級＋自己的紀錄。朗讀測驗的錄音一律經收件程式轉送。
    CATALOG（assets/catalog.js）列出所有課次：{id, cat, book, title, refBase?, sentences?} */
 
 const CATS = [
@@ -97,9 +98,13 @@ function lessonScope() {
 
 function renderDeptChips() {
   const present = new Set(admin.attempts.map(deptOfAttempt));
+  const mine = admin.myClasses;   // 一般教師：只列出有開放班級的部別
   const depts = admin.school
     ? [admin.school, ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]   // 校外教師只看得到自己學校
-    : [...DEPARTMENTS.map(d => d.name), ...[...EXTERNAL_SCHOOLS, TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))];
+    : mine
+      ? [...DEPARTMENTS.filter(d => d.blocks.flat().some(g => g.classes.some(c => mine.includes(c)))).map(d => d.name),
+        ...EXTERNAL_SCHOOLS.filter(s => mine.includes(s) || present.has(s)), ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]
+      : [...DEPARTMENTS.map(d => d.name), ...[...EXTERNAL_SCHOOLS, TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))];
   document.getElementById('ad-depts').innerHTML = [['', '全部部別'], ...depts.map(d => [d, d])].map(([v, label]) =>
     `<button type="button" class="chip${admin.dept === v ? ' on' : ''}" data-dept-filter="${escapeHtml(v)}">${escapeHtml(label)}</button>`).join('');
 }
@@ -111,7 +116,7 @@ function fillClassSelect() {
   lessonScope().forEach(a => { counts[a.cls] = (counts[a.cls] || 0) + 1; });
   const dept = DEPARTMENTS.find(d => d.name === admin.dept);
   let classes = dept
-    ? dept.blocks.flat().flatMap(g => g.classes)
+    ? dept.blocks.flat().flatMap(g => g.classes).filter(c => !admin.myClasses || admin.myClasses.includes(c))
     : [...new Set(admin.attempts.filter(a => !admin.dept || deptOfAttempt(a) === admin.dept).map(a => a.cls).filter(Boolean))];
   classes = classes.sort((x, y) => classRank(x) - classRank(y) || String(x).localeCompare(String(y)));
   sel.innerHTML = `<option value="">${admin.dept ? escapeHtml(admin.dept) + ' 全部班級' : '全部班級'}</option>` +
@@ -300,6 +305,16 @@ async function loadAdmin() {
     admin.school = data.school || '';   // 校外教師帳號（例如金門大學）：只回傳自己學校的紀錄
     document.getElementById('ad-ip-exclude').value = admin.ipExclude.join(', ');
     document.querySelectorAll('#ad-ip-exclude, #ad-ip-save, a[href="makeup.html"]').forEach(el => el.classList.toggle('hidden', !!admin.school));
+    admin.isSuper = !!data.isSuper;
+    admin.myClasses = Array.isArray(data.myClasses) ? data.myClasses : null;   // null＝不限（總管理者）或校外教師
+    document.getElementById('ad-scope').classList.toggle('hidden', !admin.isSuper);
+    const scopeHint = document.getElementById('ad-scope-hint');
+    scopeHint.classList.toggle('hidden', !admin.myClasses);
+    if (admin.myClasses) {
+      scopeHint.innerHTML = admin.myClasses.length
+        ? '👥 您可檢視的班級：' + admin.myClasses.slice().sort((x, y) => classRank(x) - classRank(y)).map(escapeHtml).join('、')
+        : '<span class="warn">⚠️ 目前尚未開放任何班級給您檢視（只看得到自己的作答紀錄），請洽詹宗龍老師在管理頁勾選。</span>';
+    }
     computeDupIp();
     admin.selected.clear();
     refreshFilters();
@@ -585,6 +600,116 @@ async function playStudentAudio(attemptId, fileName, btn) {
   }
 }
 
+/* ---------- 教師班級權限（只有總管理者看得到這個按鈕；伺服器也會再檢查） ---------- */
+
+const scopeEd = { teachers: [], classes: [], cur: '', picked: new Set(), dirty: false };
+
+function scopeGroups() {
+  const groups = DEPARTMENTS.map(d => ({ name: d.name, classes: d.blocks.flat().flatMap(g => g.classes).filter(c => scopeEd.classes.includes(c)) }));
+  const known = new Set(groups.flatMap(g => g.classes));
+  const rest = scopeEd.classes.filter(c => !known.has(c));
+  if (rest.length) groups.push({ name: '校外合作學校', classes: rest });
+  return groups.filter(g => g.classes.length);
+}
+
+const scopeTeacherLabel = t => (t.name ? `${t.name}（${t.email}）` : t.email);
+
+function renderScopeEditor() {
+  const t = scopeEd.teachers.find(x => x.email === scopeEd.cur);
+  const chips = scopeEd.teachers.map(x =>
+    `<button type="button" class="chip${x.email === scopeEd.cur ? ' on' : ''}" data-scope-t="${escapeHtml(x.email)}">` +
+    `${escapeHtml(scopeTeacherLabel(x))}<span class="cnt">${x.classes.length}</span></button>`).join('');
+  const groups = t ? scopeGroups().map((g, gi) => {
+    const n = g.classes.filter(c => scopeEd.picked.has(c)).length;
+    return `<div class="scope-dept">
+      <label class="scope-dept-head"><input type="checkbox" data-scope-dept="${gi}"${n === g.classes.length ? ' checked' : ''}>
+        ${escapeHtml(g.name)} 全選 <span class="cnt-txt">（已勾 ${n}／${g.classes.length} 班）</span></label>
+      <div class="scope-grid">${g.classes.map(c => `<label class="${scopeEd.picked.has(c) ? 'on' : ''}">` +
+        `<input type="checkbox" data-scope-cls="${escapeHtml(c)}"${scopeEd.picked.has(c) ? ' checked' : ''}>${escapeHtml(c)}</label>`).join('')}</div>
+    </div>`;
+  }).join('') : '<div class="hint">目前沒有其他教師帳號。</div>';
+  openModal(`
+    <h3>👥 教師班級權限</h3>
+    <div class="hint">先點選老師，再勾選這位老師可以看到的班級，按「✅ 確認儲存」後立即生效（老師按「🔄 重新整理」即可看到）。
+      沒勾任何班級的老師只看得到自己的作答紀錄；總管理者看得到所有班級。</div>
+    <div class="chip-row admin-books scope-teachers">${chips}</div>
+    ${t ? `<div class="scope-sum"><b>${escapeHtml(scopeTeacherLabel(t))}</b>：已勾選 <b>${scopeEd.picked.size}</b> 班${scopeEd.dirty ? '　<span class="warn">（尚未儲存）</span>' : ''}</div>` : ''}
+    ${groups}
+    <div class="quiz-actions">
+      ${t ? `<button class="qbtn" id="scope-save"${scopeEd.dirty ? '' : ' disabled'}>✅ 確認儲存</button>
+      <button class="qbtn light" id="scope-reset"${scopeEd.dirty ? '' : ' disabled'}>↩️ 復原</button>` : ''}
+      <button class="qbtn light" id="scope-close">關閉</button>
+    </div>`, true);
+  const body = document.getElementById('quiz-modal-body');
+  scopeGroups().forEach((g, gi) => {
+    const box = body.querySelector(`[data-scope-dept="${gi}"]`);
+    const n = g.classes.filter(c => scopeEd.picked.has(c)).length;
+    if (box) box.indeterminate = n > 0 && n < g.classes.length;
+  });
+}
+
+function scopeSelect(email) {
+  const t = scopeEd.teachers.find(x => x.email === email);
+  scopeEd.cur = t ? t.email : '';
+  scopeEd.picked = new Set(t ? t.classes : []);
+  scopeEd.dirty = false;
+  renderScopeEditor();
+}
+
+const scopeDiscardOk = () => !scopeEd.dirty || confirm('這位老師的勾選還沒儲存，要放棄變更嗎？');
+
+async function openScopeEditor() {
+  openModal('<h3>👥 教師班級權限</h3><div>⏳ 讀取中…</div>', true);
+  try {
+    const d = await api({ action: 'admin_scope_get' });
+    scopeEd.teachers = d.teachers || [];
+    scopeEd.classes = d.classes || [];
+    scopeSelect(scopeEd.teachers.some(x => x.email === scopeEd.cur) ? scopeEd.cur : (scopeEd.teachers[0] || {}).email || '');
+  } catch (err) {
+    openModal(`<h3>👥 教師班級權限</h3><div class="warn">⚠️ 讀取失敗：${escapeHtml(err.message || err)}</div>
+      <div class="hint">若訊息是「未知的管理動作」，代表收件程式尚未部署到支援班級權限的新版本。</div>
+      <div class="quiz-actions"><button class="qbtn light" id="scope-close">關閉</button></div>`, true);
+  }
+}
+
+async function saveScope() {
+  const t = scopeEd.teachers.find(x => x.email === scopeEd.cur);
+  if (!t) return;
+  const btn = document.getElementById('scope-save');
+  btn.disabled = true;
+  btn.textContent = '儲存中…';
+  try {
+    const order = scopeEd.classes;
+    const d = await api({ action: 'admin_scope_set', email: t.email, classes: [...scopeEd.picked].sort((x, y) => order.indexOf(x) - order.indexOf(y)) });
+    t.classes = d.classes || [];
+    scopeEd.picked = new Set(t.classes);
+    scopeEd.dirty = false;
+    renderScopeEditor();
+    toast(`已儲存：${t.name || t.email} 可檢視 ${t.classes.length} 班，立即生效`);
+  } catch (err) {
+    toast('儲存失敗：' + (err.message || err));
+    btn.disabled = false;
+    btn.textContent = '✅ 確認儲存';
+  }
+}
+
+document.getElementById('quiz-modal-body').addEventListener('click', e => {
+  const chip = e.target.closest('[data-scope-t]');
+  if (chip) { if (chip.dataset.scopeT !== scopeEd.cur && scopeDiscardOk()) scopeSelect(chip.dataset.scopeT); return; }
+  if (e.target.id === 'scope-save') saveScope();
+  else if (e.target.id === 'scope-reset') scopeSelect(scopeEd.cur);
+  else if (e.target.id === 'scope-close' && scopeDiscardOk()) { scopeEd.dirty = false; closeModal(); }
+});
+document.getElementById('quiz-modal-body').addEventListener('change', e => {
+  const c = e.target.dataset.scopeCls;
+  const gi = e.target.dataset.scopeDept;
+  if (c === undefined && gi === undefined) return;
+  if (c !== undefined) { if (e.target.checked) scopeEd.picked.add(c); else scopeEd.picked.delete(c); }
+  else scopeGroups()[Number(gi)].classes.forEach(x => { if (e.target.checked) scopeEd.picked.add(x); else scopeEd.picked.delete(x); });
+  scopeEd.dirty = true;
+  renderScopeEditor();
+});
+
 /* ---------- 刪除 ---------- */
 
 function confirmDelete(ids) {
@@ -739,6 +864,7 @@ document.getElementById('ad-student').addEventListener('click', () => {
   location.href = studentModeUrl();
 });
 document.getElementById('ad-signout').addEventListener('click', signOut);
+document.getElementById('ad-scope').addEventListener('click', openScopeEditor);
 MOBILE.addEventListener('change', () => { if (admin.attempts.length) renderAdminTable(); });
 
 const table = document.getElementById('ad-list');
