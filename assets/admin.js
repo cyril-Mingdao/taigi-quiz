@@ -426,7 +426,7 @@ function openQuizReview(a, d) {
     : `<table class="review-list"><tr><th>#</th><th>題目</th><th>學生作答</th><th>參考答案</th><th>得分</th><th>允許</th></tr>${rows}</table>`) +
     (hasWrong ? '<div class="hint">學生答案也說得通的題目，勾選「允許」後按「💾 儲存審查」，該題改以滿分（4 分）計並重新計算總分；取消勾選即恢復原判定。</div>' : '');
   openModal(`
-    <h3>🔍 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
+    <h3>🔍 檢核：${escapeHtml(a.cls)}${EXTERNAL_SCHOOLS.includes(a.cls) ? "" : " 班"} ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
     <div class="hint">${escapeHtml(a.email)}｜${escapeHtml(catName(a.cat))}｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜
       總分 <b>${a.total}</b>${isAdjusted(a) ? `（原始 ${origScore(a)}）` : ''}｜答對 ${a.correct}/${a.count}｜作答 ${a.seconds || 0} 秒｜離開頁面 ${a.hidden || 0} 次</div>
     ${listHtml}${reviewFooter(a, d)}`, true);
@@ -460,7 +460,7 @@ function openReadReview(a, d) {
   const listHtml = MOBILE.matches ? `<div>${items}</div>` : `<table class="review-list">
       <tr><th>#</th><th>句子</th><th>分數</th><th>播放偵測</th><th></th><th>聽</th></tr>${items}</table>`;
   openModal(`
-    <h3>🎧 檢核：${escapeHtml(a.cls)} 班 ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
+    <h3>🎧 檢核：${escapeHtml(a.cls)}${EXTERNAL_SCHOOLS.includes(a.cls) ? "" : " 班"} ${escapeHtml(a.seat)} 號 ${escapeHtml(a.name)}</h3>
     <div class="hint">${escapeHtml(a.email)}｜朗讀測驗｜${escapeHtml(lessonLabel(a.lesson))} 第 ${a.attempt} 次｜${escapeHtml(a.time)}｜總分 <b>${a.total}</b>${isAdjusted(a) ? `（原始 ${origScore(a)}）` : ''}｜離開頁面 ${a.hidden || 0} 次</div>
     ${dlAudioHtml(d)}${listHtml}${reviewFooter(a, d)}`, true);
   const body = document.getElementById('quiz-modal-body');

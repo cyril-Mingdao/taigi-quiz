@@ -153,6 +153,7 @@ async function afterLogin() {
     app.profile = d.profile;
     app.profileLocked = !!d.locked;   // 校外名單學生：班級座號姓名由老師設定，不能自己改
     app.school = d.school || '';
+    document.querySelectorAll('#btn-edit-profile, #mk-edit-profile').forEach(el => el.classList.toggle('hidden', app.profileLocked));
     msg.textContent = '';
     if (app.onReady) app.onReady();
   } catch (err) {
