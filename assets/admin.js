@@ -99,11 +99,11 @@ function lessonScope() {
 function renderDeptChips() {
   const present = new Set(admin.attempts.map(deptOfAttempt));
   const mine = admin.myClasses;   // 一般教師：只列出有開放班級的部別
-  const depts = admin.school
-    ? [admin.school, ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]   // 校外教師只看得到自己學校
-    : mine
+  const depts = mine   // 有班級權限設定（含校外教師）時只列開放的部別
       ? [...DEPARTMENTS.filter(d => d.blocks.flat().some(g => g.classes.some(c => mine.includes(c)))).map(d => d.name),
         ...EXTERNAL_SCHOOLS.filter(s => mine.includes(s) || present.has(s)), ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]
+      : admin.school
+      ? [admin.school, ...[TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))]   // 舊版收件程式：校外教師只看自己學校
       : [...DEPARTMENTS.map(d => d.name), ...[...EXTERNAL_SCHOOLS, TEACHER_DEPT, OTHER_DEPT].filter(d => present.has(d))];
   document.getElementById('ad-depts').innerHTML = [['', '全部部別'], ...depts.map(d => [d, d])].map(([v, label]) =>
     `<button type="button" class="chip${admin.dept === v ? ' on' : ''}" data-dept-filter="${escapeHtml(v)}">${escapeHtml(label)}</button>`).join('');
@@ -612,7 +612,7 @@ function scopeGroups() {
   return groups.filter(g => g.classes.length);
 }
 
-const scopeTeacherLabel = t => (t.name ? `${t.name}（${t.email}）` : t.email);
+const scopeTeacherLabel = t => (t.school ? `${t.school}・` : '') + (t.name ? `${t.name}（${t.email}）` : t.email);
 
 function renderScopeEditor() {
   const t = scopeEd.teachers.find(x => x.email === scopeEd.cur);

@@ -2146,3 +2146,8 @@
     .scope-grid label.on { background: var(--yellow); border-color: var(--black); font-weight: bold; }
     .scope-grid input, .scope-dept-head input { width: 1.15em; height: 1.15em; accent-color: #111; }
     .scope-sum { margin: 6px 0; }
+    /* 管理頁按鈕列一行排完不換行（2026-11-11）；寬度不夠時字縮小，再不夠才出現左右滑軌 */
+    @media (min-width: 641px) {
+      .admin-panel > .quiz-actions { flex-wrap: nowrap; gap: clamp(4px, 0.6vw, 8px); overflow-x: auto; }
+      .admin-panel > .quiz-actions .qbtn { flex: 0 0 auto; white-space: nowrap; padding: 9px clamp(8px, 1.1vw, 14px); font-size: clamp(0.7em, 1.15vw, 1em); }
+    }
