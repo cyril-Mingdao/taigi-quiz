@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜康軒版國中第4冊 第1課 鴛鴦菜脯卵（題庫來源：09_生份字\康軒國中第四冊\01成果-生字-第1課 鴛鴦菜脯卵.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放引用 oikasu 製作之 snd.js（https://oikasu1.github.io/snd/），程式與音檔著作權屬原作者；
+  其中部分音檔取自中華民國教育部《臺灣台語常用詞辭典》。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 鴛鴦菜脯卵｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=4daf13e8" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>康軒版國中第4冊 第1課 鴛鴦菜脯卵</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#KANGHSUAN-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-KANGHSUAN-B4L1","kind":"SIANN","kindName":"咱來餾生份字","book":"康軒第4冊","bookFull":"康軒版國中第4冊","title":"第1課 鴛鴦菜脯卵","items":[{"no":1,"page":12,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":2,"page":12,"ty":"早前","tl":"tsá-tsîng","md":"以前、從前"},{"no":3,"page":12,"ty":"食食","tl":"tsia̍h-si̍t","md":"飲食。"},{"no":4,"page":12,"ty":"欠缺","tl":"khiàm-khueh","md":"缺乏、短少"},{"no":5,"page":12,"ty":"阮","tl":"guán / gún","md":"我們/我/我的"},{"no":6,"page":12,"ty":"阿公","tl":"a-kong","md":"爺爺、外公"},{"no":7,"page":12,"ty":"阿媽","tl":"a-má","md":"奶奶/外婆"},{"no":8,"page":12,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴"},{"no":9,"page":12,"ty":"菜蔬","tl":"tshài-se/sue","md":"蔬菜"},{"no":10,"page":12,"ty":"囥","tl":"khǹg","md":"放置、存放"},{"no":11,"page":12,"ty":"誠","tl":"tsiânn","md":"很、非常"},{"no":12,"page":12,"ty":"要緊","tl":"iàu-kín","md":"重要/嚴重"},{"no":13,"page":12,"ty":"代誌","tl":"tāi-tsì","md":"事情"},{"no":14,"page":12,"ty":"寒天","tl":"kuânn-thinn","md":"冬天"},{"no":15,"page":12,"ty":"菜頭","tl":"tshài-thâu","md":"蘿蔔"},{"no":16,"page":12,"ty":"大出","tl":"tuā-tshut","md":"盛產（多指蔬果）"},{"no":17,"page":12,"ty":"豉","tl":"sīnn","md":"醃漬/刺痛感"},{"no":18,"page":12,"ty":"曝","tl":"pha̍k","md":"曬太陽"},{"no":19,"page":12,"ty":"菜脯","tl":"tshài-póo","md":"蘿蔔乾"},{"no":20,"page":12,"ty":"捷","tl":"tsia̍p","md":"次數很頻繁"},{"no":21,"page":12,"ty":"步數","tl":"pōo-sòo","md":"辦法、招數"},{"no":22,"page":13,"ty":"細漢","tl":"sè/suè-hàn","md":"小時候"},{"no":23,"page":13,"ty":"上","tl":"siōng","md":"最"},{"no":24,"page":13,"ty":"徛","tl":"khiā","md":"站立"},{"no":25,"page":13,"ty":"灶跤","tl":"tsàu-kha","md":"廚房"},{"no":26,"page":13,"ty":"幼幼","tl":"iù-iù","md":"細細的"},{"no":27,"page":13,"ty":"莫","tl":"mài","md":"不要"},{"no":28,"page":13,"ty":"遐","tl":"hiah","md":"那麼"},{"no":29,"page":13,"ty":"死鹹","tl":"sí-kiâm","md":"非常鹹"},{"no":30,"page":13,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著"},{"no":31,"page":13,"ty":"蔥仔珠","tl":"tshang-á-tsu","md":"蔥花"},{"no":32,"page":13,"ty":"敲","tl":"khà","md":"打"},{"no":33,"page":13,"ty":"抐","tl":"lā","md":"攪拌"},{"no":34,"page":13,"ty":"摻","tl":"tsham","md":"混合、加入"},{"no":35,"page":13,"ty":"臭臊","tl":"tshàu-tsho","md":"腥臭"},{"no":36,"page":13,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":37,"page":13,"ty":"赤赤赤","tl":"tshiah-tshiah-tshiah","md":"形容煎得赤黃焦香"},{"no":38,"page":13,"ty":"捀","tl":"phâng","md":"端"},{"no":39,"page":13,"ty":"桌頂","tl":"toh-tíng","md":"桌上"},{"no":40,"page":13,"ty":"無掛","tl":"bô-khuà/khà","md":"沒空、無暇"},{"no":41,"page":13,"ty":"拈","tl":"ni","md":"用手指輕輕取物"},{"no":42,"page":13,"ty":"窒喙空","tl":"that-tshuì-khang","md":"果腹、暫時止飢"},{"no":43,"page":14,"ty":"芳氣","tl":"phang-khuì","md":"香氣、香味"},{"no":44,"page":14,"ty":"十足","tl":"tsa̍p-tsiok","md":"充足、完全"},{"no":45,"page":14,"ty":"退時行","tl":"thè-sî-kiânn","md":"退流行、過時"},{"no":46,"page":14,"ty":"煮食","tl":"tsú-tsia̍h","md":"烹飪、做飯"},{"no":47,"page":14,"ty":"出","tl":"tshut","md":"計算菜肴的量詞，道"},{"no":48,"page":14,"ty":"古早味","tl":"kóo-tsá-bī","md":"傳統古老的味道"},{"no":49,"page":14,"ty":"見擺","tl":"kiàn-pái","md":"每次"},{"no":50,"page":14,"ty":"攢","tl":"tshuân","md":"張羅、準備"},{"no":51,"page":14,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比"},{"no":52,"page":14,"ty":"轉去","tl":"tńg--khì","md":"回去"},{"no":53,"page":14,"ty":"原在","tl":"guân-tsāi","md":"仍舊"},{"no":54,"page":14,"ty":"不時","tl":"put-sî","md":"隨時、經常"},{"no":55,"page":14,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動"},{"no":56,"page":14,"ty":"無相棄嫌","tl":"bô sio khì-hiâm","md":"不嫌棄"},{"no":57,"page":14,"ty":"啥人","tl":"siánn-lâng","md":"什麼人"},{"no":58,"page":14,"ty":"較早","tl":"khah-tsá","md":"以前；早一點"},{"no":59,"page":14,"ty":"粗俗","tl":"tshoo-sio̍k","md":"粗糙通俗、便宜的"},{"no":60,"page":14,"ty":"這馬","tl":"tsit-má","md":"現在"},{"no":61,"page":14,"ty":"煞","tl":"suah","md":"竟然"},{"no":62,"page":14,"ty":"手路菜","tl":"tshiú-lōo-tshài","md":"拿手好菜"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=a48841ed"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

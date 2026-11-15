@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜康軒版國中第4冊 第2課 寄話（題庫來源：11_咱來鬥句\05康軒版國中第4冊\02成果-鬥句-第2課 寄話.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 寄話｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=4daf13e8" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>康軒版國中第4冊 第2課 寄話</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#KANGHSUAN-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-KANGHSUAN-B4L2","kind":"TAUKU","kindName":"咱來鬥句","book":"康軒第4冊","bookFull":"康軒版國中第4冊","title":"第2課 寄話","items":[{"no":1,"page":30,"ty":"有緣","tl":"ū-iân","md":"有緣分","sent":"咱會當做伙讀冊，實在真有緣","parts":["咱會當","做伙讀冊，","實在真","有緣"]},{"no":2,"page":30,"ty":"相拄","tl":"sio-tú","md":"相逢、相遇","sent":"佇路裡佮人相拄，攏會相借問","parts":["佇路裡佮人","相拄，","攏會相借問"]},{"no":3,"page":30,"ty":"恁","tl":"lín","md":"你們/你的/你們的","sent":"恁欲去佗位？","parts":["恁","欲去","佗位？"]},{"no":4,"page":30,"ty":"超過","tl":"tshiau-kuè/kè","md":"超越、高出","sent":"伊的分數超過八十分","parts":["伊的","分數","超過","八十分"]},{"no":5,"page":30,"ty":"米","tl":"bí","md":"公尺","sent":"這條路有一百米長","parts":["這條路","有一百","米","長"]},{"no":6,"page":30,"ty":"一陣","tl":"tsi̍t tīn","md":"一群","sent":"公園有一陣囡仔咧跙流籠","parts":["公園有","一陣","囡仔咧","跙流籠"]},{"no":7,"page":30,"ty":"倚倚","tl":"uá-uá","md":"靠得很近","sent":"𪜶兩个倚倚坐做伙","parts":["𪜶兩个","倚倚","坐","做伙"]},{"no":8,"page":30,"ty":"相閃","tl":"sio-siám","md":"擦身而過","sent":"我佮第一名的機會相閃","parts":["我佮","第一名","的機會","相閃"]},{"no":9,"page":31,"ty":"阮","tl":"guán / gún","md":"我們/我/我的","sent":"阮欲走矣，你咧？","parts":["阮","欲走","矣，","你咧？"]},{"no":10,"page":31,"ty":"向","tl":"hiòng","md":"朝、對著","sent":"這間厝坐北向南","parts":["這間","厝坐北","向","南"]},{"no":11,"page":31,"ty":"中央","tl":"tiong-ng","md":"中間","sent":"學校的中央有一欉大樹","parts":["學校的","中央","有一","欉大樹"]},{"no":12,"page":31,"ty":"所在","tl":"sóo-tsāi","md":"地方","sent":"這个所在真鬧熱","parts":["這个","所在","真","鬧熱"]},{"no":13,"page":31,"ty":"上","tl":"siōng","md":"最","sent":"伊是我上好的朋友","parts":["伊是我","上好","的","朋友"]},{"no":14,"page":31,"ty":"岸","tl":"huānn","md":"水邊的陸地","sent":"船駛到岸邊矣","parts":["船","駛到","岸邊","矣"]},{"no":15,"page":31,"ty":"咱","tl":"lán","md":"我們；我們的；您、您們","sent":"咱著愛較斟酌咧","parts":["咱","著愛較","斟酌","咧"]},{"no":16,"page":31,"ty":"至少","tl":"tsì-tsió","md":"最少","sent":"這本冊至少愛兩百箍","parts":["這本冊","至少","愛","兩百箍"]},{"no":17,"page":31,"ty":"半個月","tl":"puànn kò gue̍h","md":"半個月","sent":"伊出國去半個月矣","parts":["伊出國","去","半個月","矣"]},{"no":18,"page":31,"ty":"航程","tl":"hâng-tîng","md":"航行的路程","sent":"對臺灣到日本的航程無偌久","parts":["對臺灣","到日本的","航程","無偌久"]},{"no":19,"page":31,"ty":"家鄉","tl":"ka-hiong","md":"故鄉","sent":"伊足久無轉去家鄉矣","parts":["伊足久","無轉去","家鄉","矣"]},{"no":20,"page":31,"ty":"船尾","tl":"tsûn-bué/bé","md":"船的尾部","sent":"伊徛佇船尾看海","parts":["伊徛","佇","船尾","看海"]},{"no":21,"page":31,"ty":"幾若","tl":"kuí-nā/lō/ā","md":"幾、若干","sent":"阮老爸昨昏掠著幾若隻鳥鼠","parts":["阮老爸","昨昏掠著","幾若","隻鳥鼠"]},{"no":22,"page":32,"ty":"毋知","tl":"m̄ tsai","md":"不知、不知道","sent":"阿明誠陰鴆，我定定攏毋知伊咧想啥","parts":["阿明誠陰鴆，","我定定攏","毋知","伊咧想啥"]},{"no":23,"page":32,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要","sent":"定定都睏到欲上課矣才欲起來","parts":["定定都睏到","欲","上課矣","才欲起來"]},{"no":24,"page":32,"ty":"佗位","tl":"tó-uī","md":"哪裡","sent":"恁兜是蹛佇佗位？","parts":["恁兜","是蹛佇","佗位？"]},{"no":25,"page":32,"ty":"敢","tl":"kám","md":"有膽識/疑問。豈","sent":"這敢是你的？","parts":["這","敢是","你","的？"]},{"no":26,"page":32,"ty":"會當","tl":"ē-tàng","md":"可以","sent":"你第一个要求我會當答應你","parts":["你第一个","要求我","會當","答應你"]},{"no":27,"page":32,"ty":"拜託","tl":"pài-thok","md":"請託、請人幫忙","sent":"拜託你共我鬥相共","parts":["拜託","你共我","鬥相共"]},{"no":28,"page":32,"ty":"勞煩","tl":"lô-huân","md":"請人幫忙的客氣話","sent":"勞煩你共伊提醒一下","parts":["勞煩","你共伊","提醒","一下"]},{"no":29,"page":32,"ty":"寄","tl":"kià","md":"寄送、委託；寄話：傳話","sent":"伊拜託我寄話予你","parts":["伊","拜託我","寄","話予你"]},{"no":30,"page":32,"ty":"一句話","tl":"tsi̍t kù uē","md":"一句話","sent":"伊一句話都無講就走矣","parts":["伊","一句話","都無講","就走矣"]},{"no":31,"page":32,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴","sent":"我予你一个面子，這件代誌就準拄煞","parts":["我","予","你一个面子，","這件代誌就準拄煞"]},{"no":32,"page":32,"ty":"故鄉","tl":"kòo-hiong","md":"家鄉","sent":"我真數念故鄉的親情朋友","parts":["我真數念","故鄉","的親情","朋友"]},{"no":33,"page":32,"ty":"伊","tl":"i","md":"他、她、牠、它","sent":"若講甲伊知，喙鬚會拍結","parts":["若講甲","伊","知，","喙鬚會拍結"]},{"no":34,"page":32,"ty":"共","tl":"kā","md":"給；跟；幫；把","sent":"我共你講，你毋通共別人講","parts":["我","共","你講，","你毋通共別人講"]},{"no":35,"page":32,"ty":"講","tl":"kóng","md":"說、講話","sent":"你講話愛較細聲咧","parts":["你","講話","愛較","細聲咧"]},{"no":36,"page":32,"ty":"平安","tl":"pîng-an","md":"平安無事","sent":"出門在外，平安上要緊","parts":["出門","在外，","平安","上要緊"]},{"no":37,"page":32,"ty":"日日","tl":"ji̍t-ji̍t","md":"每天","sent":"伊日日攏去公園散步","parts":["伊","日日","攏去","公園散步"]},{"no":38,"page":32,"ty":"思念","tl":"su-liām","md":"想念、懷念","sent":"伊真思念過身的阿媽","parts":["伊真","思念","過身的","阿媽"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=a48841ed"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

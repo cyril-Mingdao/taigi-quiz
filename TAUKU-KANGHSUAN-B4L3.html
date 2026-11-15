@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜康軒版國中第4冊 第3課 千途萬途，肯行就有前途（題庫來源：11_咱來鬥句\05康軒版國中第4冊\03成果-鬥句-第3課 千途萬途，肯行就有前途.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3課 千途萬途，肯行就有前途｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=4daf13e8" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>康軒版國中第4冊 第3課 千途萬途，肯行就有前途</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#KANGHSUAN-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#KANGHSUAN-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-KANGHSUAN-B4L3","kind":"TAUKU","kindName":"咱來鬥句","book":"康軒第4冊","bookFull":"康軒版國中第4冊","title":"第3課 千途萬途，肯行就有前途","items":[{"no":1,"page":52,"ty":"濟","tl":"tsē / tsuē","md":"多","sent":"真濟人予伊騙甲戇戇踅","parts":["真","濟","人予伊騙","甲戇戇踅"]},{"no":2,"page":52,"ty":"囝","tl":"kiánn","md":"兒女","sent":"伊有兩个囝","parts":["伊有","兩个","囝"]},{"no":3,"page":52,"ty":"擘腹","tl":"peh-pak","md":"擔心、煩惱","sent":"爸母定定為著囝兒操心擘腹","parts":["爸母定定為","著囝兒","操心","擘腹"]},{"no":4,"page":52,"ty":"刺鑿","tl":"tshì-tsha̍k","md":"使人心裡不舒服","sent":"伊講話真刺鑿，予人聽著袂爽快","parts":["伊講話真","刺鑿，","予人聽著袂爽快"]},{"no":5,"page":52,"ty":"導師","tl":"tō-su","md":"班導師","sent":"阮導師對學生真好","parts":["阮","導師","對學生","真好"]},{"no":6,"page":52,"ty":"操煩","tl":"tshau-huân","md":"操心煩惱","sent":"你莫為著我的代誌操煩","parts":["你莫為著","我的","代誌","操煩"]},{"no":7,"page":52,"ty":"遐爾","tl":"hiah-nī","md":"這麼","sent":"無彩你遐爾仔愛伊","parts":["無彩你","遐爾","仔","愛伊"]},{"no":8,"page":52,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動","sent":"阿美定定佮我講私奇話","parts":["阿美","定定","佮我講","私奇話"]},{"no":9,"page":52,"ty":"向望","tl":"ǹg-bāng","md":"盼望、希望","sent":"向望你會當好好仔做人","parts":["向望","你會當","好好仔","做人"]},{"no":10,"page":52,"ty":"較緊","tl":"khah-kín","md":"快一點","sent":"你較緊咧，欲袂赴矣","parts":["你","較緊","咧，","欲袂赴矣"]},{"no":11,"page":52,"ty":"𪜶","tl":"in","md":"他們；他們的","sent":"𪜶兩个感情真好","parts":["𪜶","兩个","感情","真好"]},{"no":12,"page":52,"ty":"真正","tl":"tsin-tsiànn","md":"真的、確實","sent":"伊真正是一个好人","parts":["伊","真正","是一个","好人"]},{"no":13,"page":52,"ty":"飛","tl":"pue/pe","md":"飛翔","sent":"鳥仔佇天頂飛","parts":["鳥仔","佇","天頂","飛"]},{"no":14,"page":52,"ty":"煞","tl":"suah","md":"卻","sent":"伊今仔來，煞欲隨轉去","parts":["伊今仔","來，","煞","欲隨轉去"]},{"no":15,"page":52,"ty":"顛倒","tl":"tian-tò","md":"反而","sent":"伊無欲來，阮顛倒較歡喜","parts":["伊無欲來，","阮","顛倒","較歡喜"]},{"no":16,"page":52,"ty":"掛心","tl":"khuà-sim","md":"掛念、放心不下","sent":"你免掛心，我會照顧家己","parts":["你免","掛心，","我會照顧家己"]},{"no":17,"page":52,"ty":"一目𥍉仔","tl":"tsi̍t-ba̍k-nih-á","md":"一瞬間、一眨眼","sent":"一目𥍉仔大學四年就過去矣","parts":["一目𥍉仔","大學四年","就","過去矣"]},{"no":18,"page":52,"ty":"屆","tl":"kài","md":"計算期別的單位","sent":"伊是阮學校第一屆的學生","parts":["伊是阮","學校第一","屆","的學生"]},{"no":19,"page":52,"ty":"這馬","tl":"tsit-má","md":"現在","sent":"這馬的人攏罕得寫批矣","parts":["這馬","的人攏","罕得","寫批矣"]},{"no":20,"page":52,"ty":"已經","tl":"í-king","md":"已經","sent":"糖仔已經攏分了矣","parts":["糖仔","已經","攏分","了矣"]},{"no":21,"page":52,"ty":"食頭路","tl":"tsia̍h-thâu-lōo","md":"上班、就業","sent":"伊佇𪜶阿叔遐食頭路","parts":["伊佇𪜶","阿叔","遐","食頭路"]},{"no":22,"page":54,"ty":"狀元才","tl":"tsiōng-guân-tsâi","md":"指非常聰明的人","sent":"伊讀冊逐擺攏考第一，真正是狀元才","parts":["伊讀冊逐擺","攏考第一，","真正是","狀元才"]},{"no":23,"page":54,"ty":"頭腦","tl":"thâu-náu","md":"腦筋","sent":"伊的頭腦真好","parts":["伊的","頭腦","真好"]},{"no":24,"page":54,"ty":"巧","tl":"khiáu","md":"聰明/奸詐","sent":"伊足巧的","parts":["伊足","巧","的"]},{"no":25,"page":54,"ty":"讀冊","tl":"tha̍k-tsheh","md":"讀書；上學","sent":"咱讀冊就毋通讀對尻脊骿去","parts":["咱","讀冊","就毋通讀","對尻脊骿去"]},{"no":26,"page":54,"ty":"綿爛","tl":"mî-nuā","md":"認真專注，堅持到底","sent":"伊練球真綿爛，逐工練甲暗暝","parts":["伊練球真","綿爛，","逐工練甲暗暝"]},{"no":27,"page":54,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"𪜶兜雖然散赤，毋過真幸福","parts":["𪜶兜雖然","散赤，","毋過","真幸福"]},{"no":28,"page":54,"ty":"當年","tl":"tong-nî","md":"那一年、過去的某一年","sent":"想著當年，伊閣是一个囡仔","parts":["想著","當年，","伊閣是一个囡仔"]},{"no":29,"page":54,"ty":"考牢","tl":"khó-tiâu","md":"考上","sent":"伊考牢第一志願的學校","parts":["伊","考牢","第一志願","的學校"]},{"no":30,"page":54,"ty":"紲落去","tl":"suà--lo̍h-khì","md":"接下去、接著","sent":"你講紲落去，我咧聽","parts":["你講","紲落去，","我咧聽"]},{"no":31,"page":54,"ty":"無蓋","tl":"bô kài","md":"不太、不怎麼","sent":"今仔日的天氣無蓋好","parts":["今仔日","的天氣","無蓋","好"]},{"no":32,"page":54,"ty":"理想","tl":"lí-sióng","md":"合乎心意的","sent":"這擺考試考了無蓋理想","parts":["這擺考試","考了","無蓋","理想"]},{"no":33,"page":54,"ty":"轉踅","tl":"tńg-se̍h","md":"轉身、轉圜","sent":"這个所在誠狹，真歹轉踅","parts":["這个所在","誠狹，","真歹","轉踅"]},{"no":34,"page":54,"ty":"工程師","tl":"kang-tîng-su","md":"工程師","sent":"阮阿兄是電腦工程師","parts":["阮阿兄","是","電腦","工程師"]},{"no":35,"page":54,"ty":"開發","tl":"khai-huat","md":"開發","sent":"這間公司咧開發新的產品","parts":["這間","公司咧","開發","新的產品"]},{"no":36,"page":54,"ty":"揣","tl":"tshuē/tshē","md":"尋找","sent":"物件愛收予好，才袂揣無","parts":["物件愛收予好，","才袂","揣","無"]},{"no":37,"page":54,"ty":"成就感","tl":"sîng-tsiū-kám","md":"成就感","sent":"家己做出來的物件，予人足有成就感","parts":["家己做出來","的物件，","予人足有","成就感"]},{"no":38,"page":54,"ty":"茫茫渺渺","tl":"bông-bông-biáu-biáu","md":"茫然、沒有把握","sent":"伊對未來感覺茫茫渺渺","parts":["伊對","未來","感覺","茫茫渺渺"]},{"no":39,"page":54,"ty":"日子","tl":"ji̍t-tsí","md":"日子","sent":"這段日子你辛苦矣","parts":["這段","日子","你","辛苦矣"]},{"no":40,"page":54,"ty":"總算","tl":"tsóng-sǹg","md":"終於","sent":"等規半工，伊總算來矣","parts":["等規半工，","伊","總算","來矣"]},{"no":41,"page":54,"ty":"恢復","tl":"khue-ho̍k","md":"回復","sent":"伊的身體已經恢復矣","parts":["伊的","身體已經","恢復","矣"]},{"no":42,"page":54,"ty":"自信","tl":"tsū-sìn","md":"自信","sent":"伊講話真有自信","parts":["伊","講話","真有","自信"]},{"no":43,"page":55,"ty":"大格雞","tl":"tuā-keh ke/kue","md":"喻大器晚成","sent":"大格雞慢啼，以後會有出脫","parts":["大格雞","慢啼，","以後會","有出脫"]},{"no":44,"page":55,"ty":"本底","tl":"pún-té/tué","md":"原本、本來","sent":"伊本底蹛佇臺北，後來才搬來臺中","parts":["伊","本底","蹛佇臺北，","後來才搬來臺中"]},{"no":45,"page":55,"ty":"發覺","tl":"huat-kak","md":"發現","sent":"我轉到厝才發覺鎖匙無去矣","parts":["我轉到厝才","發覺","鎖匙","無去矣"]},{"no":46,"page":55,"ty":"煮食","tl":"tsú-tsia̍h","md":"烹飪、做飯","sent":"阮阿母真𠢕煮食","parts":["阮","阿母","真𠢕","煮食"]},{"no":47,"page":55,"ty":"興趣","tl":"hìng-tshù","md":"感到有興致","sent":"你對政治敢有興趣？","parts":["你對","政治敢有","興趣？"]},{"no":48,"page":55,"ty":"出業","tl":"tshut-gia̍p","md":"畢業","sent":"伊拄高中出業","parts":["伊拄","高中","出業"]},{"no":49,"page":55,"ty":"允頭路","tl":"ín/ún-thâu-lōo","md":"找工作","sent":"伊拄畢業就去允頭路","parts":["伊拄","畢業","就去","允頭路"]},{"no":50,"page":55,"ty":"總舖師","tl":"tsóng-phòo-sai","md":"辦桌的廚師","sent":"這擺辦桌請的總舖師真有名","parts":["這擺","辦桌請的","總舖師","真有名"]},{"no":51,"page":55,"ty":"直直","tl":"ti̍t-ti̍t","md":"一直、不停","sent":"雨直直落，攏無欲停","parts":["雨","直直","落，","攏無欲停"]},{"no":52,"page":55,"ty":"呵咾","tl":"o-ló","md":"讚美、表揚","sent":"你一直共我呵咾，我會歹勢","parts":["你一直共我","呵咾，","我會歹勢"]},{"no":53,"page":55,"ty":"食苦","tl":"tsia̍h-khóo","md":"吃苦","sent":"少年人愛肯食苦","parts":["少年人","愛肯","食苦"]},{"no":54,"page":55,"ty":"少年家","tl":"siàu-liân-ke","md":"年輕人","sent":"彼个少年家真有禮貌","parts":["彼个","少年家","真有","禮貌"]},{"no":55,"page":55,"ty":"踮","tl":"tiàm/tàm","md":"在…","sent":"我踮遮等你","parts":["我","踮","遮","等你"]},{"no":56,"page":55,"ty":"翕熱","tl":"hip-jua̍h/lua̍h","md":"悶熱","sent":"最近的天氣誠翕熱","parts":["最近的","天氣","誠","翕熱"]},{"no":57,"page":55,"ty":"喝忝","tl":"huah-thiám","md":"喊累","sent":"伊做穡規工攏毋捌喝忝","parts":["伊做穡","規工","攏毋捌","喝忝"]},{"no":58,"page":55,"ty":"按算","tl":"àn-sǹg","md":"打算、計畫","sent":"你寒假按算欲去佗位𨑨迌？","parts":["你寒假","按算","欲去佗位","𨑨迌？"]},{"no":59,"page":55,"ty":"燖","tl":"tīm","md":"燉、隔水蒸煮","sent":"阿母定定燖補予我食","parts":["阿母定定","燖","補予","我食"]},{"no":60,"page":55,"ty":"湯頭","tl":"thng-thâu","md":"湯的底味","sent":"這間麵店的湯頭真好啉","parts":["這間","麵店的","湯頭","真好啉"]},{"no":61,"page":55,"ty":"苦甘仔苦甘","tl":"khóo-kam-á-khóo-kam","md":"苦中帶甘","sent":"這杯茶啉著苦甘仔苦甘","parts":["這杯","茶","啉著","苦甘仔苦甘"]},{"no":62,"page":55,"ty":"夢想","tl":"bāng-sióng","md":"夢想","sent":"伊的夢想是做一个老師","parts":["伊的","夢想","是做","一个老師"]},{"no":63,"page":56,"ty":"捅","tl":"thóng","md":"超過、多出來","sent":"伊今年三十捅歲矣","parts":["伊今","年三十","捅","歲矣"]},{"no":64,"page":56,"ty":"今仔","tl":"tann-á","md":"剛剛、剛才","sent":"伊今仔才出門","parts":["伊","今仔","才","出門"]},{"no":65,"page":56,"ty":"畢業","tl":"pit-gia̍p","md":"畢業","sent":"伊明年就欲畢業矣","parts":["伊明年","就欲","畢業","矣"]},{"no":66,"page":56,"ty":"伐","tl":"hua̍h","md":"跨越","sent":"伊一跤就伐過水溝仔","parts":["伊一跤就","伐","過","水溝仔"]},{"no":67,"page":56,"ty":"校門","tl":"hāu-mn̂g","md":"學校大門","sent":"阮佇校門口等你","parts":["阮佇","校門口","等你"]},{"no":68,"page":56,"ty":"選擇","tl":"suán-ti̍k","md":"選擇","sent":"你愛家己選擇欲行的路","parts":["你愛家己","選擇","欲行","的路"]},{"no":69,"page":56,"ty":"未來","tl":"bī-lâi","md":"將來","sent":"咱的未來愛靠家己拍拚","parts":["咱的","未來","愛靠","家己拍拚"]},{"no":70,"page":56,"ty":"方向","tl":"hong-hiòng","md":"方向","sent":"我揣無方向矣","parts":["我","揣無","方向","矣"]},{"no":71,"page":56,"ty":"免講","tl":"bián-kóng","md":"不用說、當然","sent":"伊遐爾仔拍拚，免講一定會成功","parts":["伊遐爾","仔拍拚，","免講","一定會成功"]},{"no":72,"page":56,"ty":"躊躇","tl":"tiû-tû","md":"猶豫不決","sent":"伊躊躇真久，才決定欲去","parts":["伊","躊躇","真久，","才決定欲去"]},{"no":73,"page":56,"ty":"佳哉","tl":"ka-tsài","md":"幸虧、好在","sent":"好佳哉有你替我求情，若無，我就慘矣","parts":["好","佳哉","有你替我求情，","若無，我就慘矣"]},{"no":74,"page":56,"ty":"人生","tl":"jîn-sing","md":"人生","sent":"人生親像一齣戲","parts":["人生","親像","一","齣戲"]},{"no":75,"page":56,"ty":"千途萬途","tl":"tshian tôo bān tôo","md":"各式各樣的路途、方法","sent":"人生有千途萬途，毋免驚揣無路","parts":["人生有","千途萬途，","毋免驚揣無路"]},{"no":76,"page":56,"ty":"恁","tl":"lín","md":"你們/你的/你們的","sent":"恁欲去佗位？","parts":["恁","欲去","佗位？"]},{"no":77,"page":56,"ty":"加","tl":"ke","md":"添加/多餘","sent":"寄話會加，寄物會減","parts":["寄話會","加，","寄物會減"]},{"no":78,"page":56,"ty":"試","tl":"tshì","md":"嘗試","sent":"你試看覓就知影","parts":["你","試","看覓","就知影"]},{"no":79,"page":56,"ty":"踏予在","tl":"ta̍h hōo tsāi","md":"踩穩","sent":"𬦰山的時，跤步愛踏予在","parts":["𬦰山的","時，","跤步愛","踏予在"]},{"no":80,"page":56,"ty":"相信","tl":"siong-sìn","md":"相信","sent":"我相信你一定做會到","parts":["我","相信","你一定","做會到"]},{"no":81,"page":56,"ty":"有步","tl":"ū-pōo","md":"有辦法","sent":"伊遮爾巧，一定有步","parts":["伊遮爾","巧，","一定","有步"]},{"no":82,"page":56,"ty":"光明","tl":"kong-bîng","md":"光明","sent":"認真拍拚的人，前途一定光明","parts":["認真拍拚","的人，","前途一定","光明"]},{"no":83,"page":56,"ty":"前途","tl":"tsiân-tôo","md":"前途","sent":"你好好仔讀冊，以後前途無量","parts":["你好好仔讀冊，","以後","前途","無量"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=a48841ed"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
