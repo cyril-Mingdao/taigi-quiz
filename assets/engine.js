@@ -58,12 +58,23 @@ function distractors(correct, values, n) {
   return pool.slice(0, n);
 }
 
-function audioText(tl) {
-  return String(tl || '').split(' ').map(s => s.split('/')[0].trim()).join(' ').trim();
+/* 發音取第一種完整讀音（2026-11-15 修正：不再只唸第一個音節、也不再把 / 後的異讀一起唸出來）
+   1.「A / B」整詞異讀取 A；2. 每個音節取 / 前的第一讀音；3. 音節數≠漢字數時改用第一個 / 之前整段 */
+function audioText(tl, han) {
+  let s = String(tl || '').trim();
+  if (!s || /^https?:\/\//.test(s)) return s;
+  s = s.split(/\s+\/\s+/)[0].replace(/\/\s+/g, '/');
+  const n = (String(han || '').match(/[㐀-鿿豈-﫿]|[\ud840-\ud8bf][\udc00-\udfff]/g) || []).length;
+  const cnt = t => t.split(/[\s\-]+/).filter(Boolean).length;
+  const tok = s.replace(/[^\s\-]+/g, w => w.split('/')[0]);
+  const first = s.split('/')[0].trim();
+  if (!n || cnt(tok) === n) return tok;
+  if (cnt(first) === n) return first;
+  return tok;
 }
 
-function playWord(tl, btn) {
-  const t = audioText(tl);
+function playWord(tl, btn, han) {
+  const t = audioText(tl, han);
   if (!t) return;
   try {
     if (/^https?:\/\//.test(t)) { new Audio(t).play().catch(() => {}); return; }
@@ -100,8 +111,8 @@ const KINDS = {
         <div class="qz-options"></div>`;
       if (audio) {
         const b = box.querySelector('.qz-play');
-        b.addEventListener('click', () => playWord(it.tl, b));
-        setTimeout(() => { if (quiz.questions[quiz.idx] === q) playWord(it.tl, b); }, 400);
+        b.addEventListener('click', () => playWord(it.tl, b, it.ty));
+        setTimeout(() => { if (quiz.questions[quiz.idx] === q) playWord(it.tl, b, it.ty); }, 400);
       }
       renderChoices(q, box.querySelector('.qz-options'));
     },
@@ -234,8 +245,8 @@ const KINDS = {
         <div class="hg-matrix"></div>
         <div class="qz-options"></div>`;
       const pb = box.querySelector('.qz-play');
-      pb.addEventListener('click', () => playWord(it.tl, pb));
-      setTimeout(() => { if (quiz.questions[quiz.idx] === q) playWord(it.tl, pb); }, 500);
+      pb.addEventListener('click', () => playWord(it.tl, pb, it.ty));
+      setTimeout(() => { if (quiz.questions[quiz.idx] === q) playWord(it.tl, pb, it.ty); }, 500);
       this.step(q, box);
     },
     drawMatrix(q, box) {
