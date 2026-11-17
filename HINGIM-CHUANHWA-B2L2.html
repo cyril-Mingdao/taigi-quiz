@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  形音義線上測驗｜全華版國中第2冊 第2課 討海人的期待 平安佮滿載（題庫來源：12_形音義\07全華版國中第2冊\02形音義-第2課 討海人的期待 平安佮滿載.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放引用 oikasu 製作之 snd.js（https://oikasu1.github.io/snd/），程式與音檔著作權屬原作者；
+  其中部分音檔取自中華民國教育部《臺灣台語常用詞辭典》。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 討海人的期待 平安佮滿載｜形音義線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=310bfd79" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🔤 形音義 🔤</h1>
+     <h2>全華版國中第2冊 第2課 討海人的期待 平安佮滿載</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🔤</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://oikasu1.github.io/snd/snd.js"></script>
+  <script>
+    const LESSON = {"id":"HINGIM-CHUANHWA-B2L2","kind":"HINGIM","kindName":"形音義","book":"全華第2冊","bookFull":"全華版國中第2冊","title":"第2課 討海人的期待 平安佮滿載","items":[{"no":1,"page":23,"ty":"細漢","tl":"sè/suè-hàn","md":"年齡較小的","syl":[["s","è","3","2"],["h","àn","3","不變"]]},{"no":2,"page":23,"ty":"註定","tl":"tsù-tiānn","md":"注定","syl":[["ts","ù","3","2"],["t","iānn","7","不變"]]},{"no":3,"page":23,"ty":"討海","tl":"thó-hái","md":"出海捕魚","syl":[["th","ó","2","1"],["h","ái","2","不變"]]},{"no":4,"page":23,"ty":"通人知","tl":"thong-lâng-tsai","md":"人盡皆知","syl":[["th","ong","1","7"],["l","âng","5","7"],["ts","ai","1","不變"]]},{"no":5,"page":23,"ty":"拄","tl":"tú","md":"遇到","syl":[["t","ú","2","不變"]]},{"no":6,"page":23,"ty":"戰湧","tl":"tsiàn íng","md":"迎戰海浪","syl":[["ts","iàn","3","2"],["無","íng","2","不變"]]},{"no":7,"page":23,"ty":"艱苦代","tl":"kan-khóo-tāi","md":"艱難痛苦的事","syl":[["k","an","1","7"],["kh","óo","2","1"],["t","āi","7","不變"]]},{"no":8,"page":23,"ty":"上","tl":"siōng","md":"最…；空間位置","syl":[["s","iōng","7","不變"]]},{"no":9,"page":23,"ty":"驚","tl":"kiann","md":"害怕/驚嚇/恐怕","syl":[["k","iann","1","不變"]]},{"no":10,"page":23,"ty":"報頭","tl":"pò-thâu","md":"風暴將來的兆頭","syl":[["p","ò","3","2"],["th","âu","5","不變"]]},{"no":11,"page":23,"ty":"徛","tl":"khiā","md":"站立","syl":[["kh","iā","7","不變"]]},{"no":12,"page":23,"ty":"袂在","tl":"bē/buē tsāi","md":"站不穩","syl":[["b","ē","7","3"],["ts","āi","7","不變"]]},{"no":13,"page":23,"ty":"眩船","tl":"hîn-tsûn","md":"暈船","syl":[["h","în","5","7"],["ts","ûn","5","不變"]]},{"no":14,"page":23,"ty":"閣較","tl":"koh-khah","md":"更加","syl":[["k","oh","4","2"],["kh","ah","4","不變"]]},{"no":15,"page":23,"ty":"害","tl":"hāi","md":"糟糕、嚴重","syl":[["h","āi","7","不變"]]},{"no":16,"page":23,"ty":"一工","tl":"tsi̍t kang","md":"一天","syl":[["ts","i̍t","8","4"],["k","ang","1","不變"]]},{"no":17,"page":23,"ty":"吐","tl":"thòo","md":"嘔吐","syl":[["th","òo","3","不變"]]},{"no":18,"page":23,"ty":"幾若擺","tl":"kuí-nā-pái","md":"好幾次","syl":[["k","uí","2","1"],["n","ā","7","3"],["p","ái","2","不變"]]},{"no":19,"page":23,"ty":"為著","tl":"uī-tio̍h","md":"為了","syl":[["無","uī","7","3"],["t","io̍h","8","不變"]]},{"no":20,"page":23,"ty":"罔","tl":"bóng","md":"姑且、將就","syl":[["b","óng","2","不變"]]},{"no":21,"page":23,"ty":"忍耐","tl":"jím-nāi","md":"忍耐","syl":[["j","ím","2","1"],["n","āi","7","不變"]]},{"no":22,"page":23,"ty":"出海","tl":"tshut-hái","md":"出海","syl":[["tsh","ut","4","8"],["h","ái","2","不變"]]},{"no":23,"page":23,"ty":"望天","tl":"bāng thinn","md":"仰望老天","syl":[["b","āng","7","3"],["th","inn","1","不變"]]},{"no":24,"page":23,"ty":"鬥","tl":"tàu","md":"幫忙","syl":[["t","àu","3","不變"]]},{"no":25,"page":23,"ty":"安排","tl":"an-pâi","md":"安排","syl":[["無","an","1","7"],["p","âi","5","不變"]]},{"no":26,"page":23,"ty":"魚群","tl":"hî-kûn","md":"魚群","syl":[["h","î","5","7"],["k","ûn","5","不變"]]},{"no":27,"page":23,"ty":"緊","tl":"kín","md":"快、迅速；表催促","syl":[["k","ín","2","不變"]]},{"no":28,"page":23,"ty":"倚","tl":"uá","md":"靠近；依附；模仿","syl":[["無","uá","2","不變"]]},{"no":29,"page":24,"ty":"透抽","tl":"thàu-thiu","md":"大型鎖管","syl":[["th","àu","3","2"],["th","iu","1","不變"]]},{"no":30,"page":24,"ty":"一網","tl":"tsi̍t bāng","md":"一網","syl":[["ts","i̍t","8","4"],["b","āng","7","不變"]]},{"no":31,"page":24,"ty":"十外","tl":"tsa̍p-guā","md":"十多","syl":[["ts","a̍p","8","4"],["g","uā","7","不變"]]},{"no":32,"page":24,"ty":"篩","tl":"thai","md":"大而淺的竹筐","syl":[["th","ai","1","不變"]]},{"no":33,"page":24,"ty":"紅魽","tl":"âng-kam","md":"杜氏鰤（魚類）","syl":[["無","âng","5","7"],["k","am","1","不變"]]},{"no":34,"page":24,"ty":"嘉鱲","tl":"ka-la̍h","md":"真鯛（魚類）","syl":[["k","a","1","7"],["l","a̍h","8","不變"]]},{"no":35,"page":24,"ty":"釣","tl":"tiò","md":"釣","syl":[["t","iò","3","不變"]]},{"no":36,"page":24,"ty":"規載","tl":"kui-tsài","md":"滿載而歸","syl":[["k","ui","1","7"],["ts","ài","3","不變"]]},{"no":37,"page":24,"ty":"掠","tl":"lia̍h","md":"抓","syl":[["l","ia̍h","8","不變"]]},{"no":38,"page":24,"ty":"阮","tl":"guán / gún","md":"我們/我/我的","syl":[["g","uán","2","不變"]]},{"no":39,"page":24,"ty":"期待","tl":"kî-thāi","md":"期待","syl":[["k","î","5","7"],["th","āi","7","不變"]]},{"no":40,"page":24,"ty":"入港","tl":"ji̍p-káng","md":"進港","syl":[["j","i̍p","8","4"],["k","áng","2","不變"]]},{"no":41,"page":24,"ty":"某","tl":"bóo","md":"妻子","syl":[["b","óo","2","不變"]]},{"no":42,"page":24,"ty":"笑咍咍","tl":"tshiò-hai-hai","md":"笑呵呵","syl":[["tsh","iò","3","2"],["h","ai","1","7"],["h","ai","1","不變"]]},{"no":43,"page":24,"ty":"歇睏","tl":"hioh/heh/hennh-khùn","md":"休息、歇息","syl":[["h","ioh","4","2"],["kh","ùn","3","不變"]]},{"no":44,"page":24,"ty":"招招來","tl":"tsio-tsio--lâi","md":"邀請過來","syl":[["ts","io","1","7"],["ts","io","1","不變"],["l","âi","5","輕聲"]]},{"no":45,"page":24,"ty":"大尾","tl":"tuā-bué/bé","md":"大條","syl":[["t","uā","7","3"],["b","ué","2","不變"]]},{"no":46,"page":24,"ty":"刣","tl":"thâi","md":"宰殺","syl":[["th","âi","5","不變"]]},{"no":47,"page":24,"ty":"一魚三食","tl":"tsi̍t hî sann tsia̍h","md":"一魚三吃","syl":[["ts","i̍t","8","4"],["h","î","5","7"],["s","ann","1","7"],["ts","ia̍h","8","不變"]]},{"no":48,"page":24,"ty":"酒菜","tl":"tsiú-tshài","md":"下酒菜","syl":[["ts","iú","2","1"],["tsh","ài","3","不變"]]},{"no":49,"page":24,"ty":"規桌","tl":"kui toh","md":"整桌","syl":[["k","ui","1","7"],["t","oh","4","不變"]]},{"no":50,"page":24,"ty":"豐沛","tl":"phong-phài","md":"菜餚豐盛","syl":[["ph","ong","1","7"],["ph","ài","3","不變"]]},{"no":51,"page":24,"ty":"啉","tl":"lim","md":"喝、飲","syl":[["l","im","1","不變"]]},{"no":52,"page":24,"ty":"哼","tl":"hainn","md":"哼（歌）","syl":[["h","ainn","1","不變"]]},{"no":53,"page":24,"ty":"逍遙","tl":"siau-iâu","md":"逍遙","syl":[["s","iau","1","7"],["無","iâu","5","不變"]]},{"no":54,"page":24,"ty":"自在","tl":"tsū-tsāi","md":"自在","syl":[["ts","ū","7","3"],["ts","āi","7","不變"]]},{"no":55,"page":24,"ty":"其實","tl":"kî-si̍t","md":"其實","syl":[["k","î","5","7"],["s","i̍t","8","不變"]]},{"no":56,"page":24,"ty":"免","tl":"bián","md":"不用、不必","syl":[["b","ián","2","不變"]]},{"no":57,"page":24,"ty":"滿載","tl":"buán-tsài","md":"滿載","syl":[["b","uán","2","1"],["ts","ài","3","不變"]]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=dd808b61"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

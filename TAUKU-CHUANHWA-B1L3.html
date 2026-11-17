@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜全華版國中第1冊 第3課 芫荽皮蛋豬血粿Pizza（題庫來源：11_咱來鬥句\06全華版國中第1冊\03成果-鬥句-第3課 芫荽皮蛋豬血粿Pizza.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3課 芫荽皮蛋豬血粿Pizza｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=310bfd79" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>全華版國中第1冊 第3課 芫荽皮蛋豬血粿Pizza</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-CHUANHWA-B1L3","kind":"TAUKU","kindName":"咱來鬥句","book":"全華第1冊","bookFull":"全華版國中第1冊","title":"第3課 芫荽皮蛋豬血粿Pizza","items":[{"no":1,"page":39,"ty":"芫荽","tl":"iân-sui","md":"香菜","sent":"你敢愛食芫荽?","parts":["你敢","愛食","芫荽?"]},{"no":2,"page":39,"ty":"皮蛋","tl":"phî-tàn","md":"皮蛋","sent":"皮蛋豆腐真好食","parts":["皮蛋","豆腐","真","好食"]},{"no":3,"page":39,"ty":"豬血粿","tl":"ti-hueh/huih-kué/ké","md":"豬血糕","sent":"夜市仔的豬血粿真好食","parts":["夜市仔","的","豬血粿","真好食"]},{"no":4,"page":39,"ty":"幾項","tl":"kuí hāng","md":"幾樣","sent":"我去市仔買幾項物件","parts":["我去","市仔買","幾項","物件"]},{"no":5,"page":39,"ty":"物件","tl":"mi̍h/mn̍gh-kiānn","md":"東西","sent":"這間店有真濟物件。","parts":["這間店","有真濟","物件。"]},{"no":6,"page":39,"ty":"鬥做伙","tl":"tàu tsò-hué","md":"湊在一起","sent":"共這幾項菜鬥做伙煮","parts":["共這","幾項菜","鬥做伙","煮"]},{"no":7,"page":39,"ty":"有夠","tl":"ū-kàu","md":"非常、真夠","sent":"今仔日有夠熱","parts":["今仔日","有夠","熱"]},{"no":8,"page":39,"ty":"唌人","tl":"siânn--lâng","md":"誘人","sent":"炸雞芳甲足唌人","parts":["炸","雞芳","甲足","唌人"]},{"no":9,"page":39,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"𪜶兜雖然散赤，毋過真幸福","parts":["𪜶兜雖然","散赤，","毋過","真幸福"]},{"no":10,"page":39,"ty":"想欲","tl":"siūnn-beh","md":"想要","sent":"我想欲去日本𨑨迌","parts":["我","想欲","去日本","𨑨迌"]},{"no":11,"page":39,"ty":"試","tl":"tshì","md":"嘗試","sent":"你敢欲試看覓？","parts":["你敢欲","試","看覓？"]},{"no":12,"page":39,"ty":"本來","tl":"pún-lâi","md":"原本","sent":"伊本來毋愛食菜","parts":["伊","本來","毋愛","食菜"]},{"no":13,"page":39,"ty":"驚","tl":"kiann","md":"害怕/驚嚇/恐怕","sent":"我啥物攏毋驚","parts":["我","啥物","攏毋","驚"]},{"no":14,"page":39,"ty":"好喙","tl":"hó-tshuì","md":"嘴甜、會說好話","sent":"這个囡仔真好喙，逐家愛","parts":["這个","囡仔真","好喙，","逐家愛"]},{"no":15,"page":39,"ty":"準講","tl":"tsún-kóng","md":"就算、即使","sent":"準講落雨，我嘛欲去","parts":["準講","落雨，","我嘛","欲去"]},{"no":16,"page":39,"ty":"佮意","tl":"kah-ì","md":"喜歡、滿意","sent":"我佮意的人就是你","parts":["我","佮意","的人","就是你"]},{"no":17,"page":39,"ty":"嘛","tl":"mā","md":"也；都；不耐煩語氣","sent":"遮的嘛攏是好的","parts":["遮的","嘛","攏是","好的"]},{"no":18,"page":39,"ty":"袂當","tl":"bē/buē-tàng","md":"不行、不能夠","sent":"咱已經袂當準時入場矣","parts":["咱已經","袂當","準時","入場矣"]},{"no":19,"page":39,"ty":"𪜶","tl":"in","md":"他們；他們的","sent":"𪜶兩个感情真好","parts":["𪜶","兩个","感情","真好"]},{"no":20,"page":39,"ty":"哪有","tl":"ná ū","md":"哪有、怎麼會有","sent":"哪有遮爾簡單的代誌","parts":["哪有","遮爾簡","單的","代誌"]},{"no":21,"page":39,"ty":"啥","tl":"siánn/sánn","md":"什麼","sent":"這是啥物件？","parts":["這是","啥物","件？"]},{"no":22,"page":39,"ty":"做伙","tl":"tsò-hué","md":"一起","sent":"咱兩个做伙來去𨑨迌","parts":["咱兩个","做伙","來去","𨑨迌"]},{"no":23,"page":39,"ty":"啦","tl":"--lah","md":"語尾助詞","sent":"好啦，我知矣啦","parts":["好","啦，","我知矣啦"]},{"no":24,"page":39,"ty":"兩个","tl":"nn̄g ê","md":"兩個","sent":"阮兜有兩个囡仔","parts":["阮","兜有","兩个","囡仔"]},{"no":25,"page":39,"ty":"敢會","tl":"kám ē","md":"會不會","sent":"明仔載敢會落雨？","parts":["明仔載","敢會","落雨？"]},{"no":26,"page":39,"ty":"扴味","tl":"ke̍h-bī","md":"味道彼此不相合","sent":"鹹的佮甜的鬥做伙會扴味","parts":["鹹的","佮甜的","鬥做伙會","扴味"]},{"no":27,"page":39,"ty":"共","tl":"kā","md":"給；跟；幫；把","sent":"我共你講，你毋通共別人講","parts":["我","共","你講，","你毋通共別人講"]},{"no":28,"page":39,"ty":"食材","tl":"si̍t-tsâi","md":"食材","sent":"這間店的食材真新鮮","parts":["這間","店的","食材","真新鮮"]},{"no":29,"page":39,"ty":"敆","tl":"kap","md":"接合；配合；調配","sent":"伊共兩本簿仔敆做伙","parts":["伊共兩","本簿仔","敆","做伙"]},{"no":30,"page":39,"ty":"醬","tl":"tsiùnn","md":"醬料","sent":"水餃愛搵醬才好食","parts":["水餃","愛搵","醬","才好食"]},{"no":31,"page":39,"ty":"若毋是","tl":"nā m̄ sī","md":"如果不是","sent":"若毋是你，我早就輸矣","parts":["若毋是","你，","我早","就輸矣"]},{"no":32,"page":39,"ty":"應該","tl":"ing-kai","md":"應該","sent":"伊應該欲到矣","parts":["伊","應該","欲","到矣"]},{"no":33,"page":39,"ty":"袂䆀","tl":"bē/buē-bái","md":"不錯","sent":"這間店裝潢了袂䆀","parts":["這間店","裝","潢了","袂䆀"]},{"no":34,"page":40,"ty":"感覺","tl":"kám-kak","md":"覺得","sent":"我感覺這个辦法袂䆀","parts":["我","感覺","這个辦","法袂䆀"]},{"no":35,"page":40,"ty":"羶","tl":"hiàn","md":"臊、腥味","sent":"羊肉有一个羶","parts":["羊","肉有","一个","羶"]},{"no":36,"page":40,"ty":"鬥陣","tl":"tàu-tīn","md":"結伴/交際往來","sent":"咱鬥陣來去","parts":["咱","鬥陣","來去"]},{"no":37,"page":40,"ty":"會當","tl":"ē-tàng","md":"可以","sent":"你第一个要求我會當答應你","parts":["你第一个","要求我","會當","答應你"]},{"no":38,"page":40,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合","sent":"我欲佮伊來去看電影","parts":["我欲","佮","伊來去","看電影"]},{"no":39,"page":40,"ty":"豬血","tl":"ti-hueh/huih","md":"豬血","sent":"豬血湯摻韭菜真芳","parts":["豬血","湯摻韭","菜","真芳"]},{"no":40,"page":40,"ty":"塗豆麩","tl":"thôo-tāu-hu","md":"花生粉","sent":"潤餅愛糝塗豆麩","parts":["潤餅","愛糝","塗豆麩"]},{"no":41,"page":40,"ty":"夜市仔","tl":"iā-tshī-á","md":"夜市","sent":"暗時來去夜市仔","parts":["暗時","來去","夜市仔"]},{"no":42,"page":40,"ty":"咧","tl":"teh/leh","md":"在；副詞後綴","sent":"伊咧讀冊","parts":["伊","咧","讀冊"]},{"no":43,"page":40,"ty":"賣","tl":"bē/buē","md":"賣","sent":"伊佇市仔賣菜","parts":["伊佇","市仔","賣","菜"]},{"no":44,"page":40,"ty":"糝","tl":"sám","md":"撒（粉狀物）","sent":"麵頂懸糝寡胡椒","parts":["麵頂懸","糝","寡","胡椒"]},{"no":45,"page":40,"ty":"定著","tl":"tiānn-tio̍h","md":"一定、必定","sent":"伊定著會來","parts":["伊","定著","會來"]},{"no":46,"page":40,"ty":"烘肉醬","tl":"hang-bah-tsiùnn","md":"烤肉醬","sent":"中秋節烘肉愛用烘肉醬","parts":["中秋節","烘肉","愛用","烘肉醬"]},{"no":47,"page":40,"ty":"所有","tl":"sóo-ū","md":"所有","sent":"所有的人攏到矣","parts":["所有","的人","攏","到矣"]},{"no":48,"page":40,"ty":"肉羶","tl":"bah-hiàn","md":"肉的腥羶味","sent":"羊肉的肉羶較重","parts":["羊","肉的","肉羶","較重"]},{"no":49,"page":40,"ty":"遮","tl":"tsia","md":"這、這裡","sent":"遮欲舉行一場歌唱比賽","parts":["遮","欲舉行一","場歌","唱比賽"]},{"no":50,"page":41,"ty":"招","tl":"tsio","md":"邀","sent":"明仔載我欲招伊去𨑨迌","parts":["明仔載","我欲","招","伊去𨑨迌"]},{"no":51,"page":41,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有、僅僅","sent":"干焦賰遮的菜爾爾，你欲無？","parts":["干焦","賰遮的","菜爾爾，","你欲無？"]},{"no":52,"page":41,"ty":"阮","tl":"guán / gún","md":"我們/我/我的","sent":"阮欲走矣，你咧？","parts":["阮","欲走","矣，","你咧？"]},{"no":53,"page":41,"ty":"一喙","tl":"tsi̍t tshuì","md":"一口","sent":"伊一喙就食了矣","parts":["伊","一喙","就食","了矣"]},{"no":54,"page":41,"ty":"咬落去","tl":"kā--lo̍h-khì","md":"咬下去","sent":"一喙咬落去，汁攏流出來","parts":["一喙","咬落去，","汁攏流出來"]},{"no":55,"page":41,"ty":"有影","tl":"ū-iánn","md":"真實不虛的","sent":"你講的話敢有影？","parts":["你講的","話敢","有影？"]},{"no":56,"page":41,"ty":"烘","tl":"hang","md":"烤","sent":"中秋節逐家烘肉","parts":["中秋","節逐家","烘","肉"]},{"no":57,"page":41,"ty":"逐家","tl":"ta̍k-ke","md":"大家；眾人","sent":"逐家攏是家己人，著愛互相照顧","parts":["逐家","攏是家己人，","著愛互","相照顧"]},{"no":58,"page":41,"ty":"好好仔","tl":"hó-hó-á","md":"好好地","sent":"你著好好仔歇睏","parts":["你著","好好仔","歇睏"]},{"no":59,"page":41,"ty":"鹹卵仁","tl":"kiâm-nn̄g-jîn","md":"鹹蛋黃","sent":"月餅內底有鹹卵仁","parts":["月餅","內底","有","鹹卵仁"]},{"no":60,"page":41,"ty":"芳氣","tl":"phang-khuì","md":"香氣","sent":"灶跤傳來飯的芳氣","parts":["灶跤傳","來","飯的","芳氣"]},{"no":61,"page":41,"ty":"本底","tl":"pún-té/tué","md":"本來、原本","sent":"我本底欲去，後來無閒","parts":["我","本底","欲去，","後來無閒"]},{"no":62,"page":41,"ty":"煩惱","tl":"huân-ló","md":"煩悶，不快活","sent":"醫生講伊無要緊，你毋免煩惱","parts":["醫生講伊","無要緊，","你毋免","煩惱"]},{"no":63,"page":41,"ty":"傷","tl":"siunn","md":"太、過分於","sent":"你按呢做傷超過矣。","parts":["你按呢做","傷","超過","矣。"]},{"no":64,"page":41,"ty":"飫","tl":"uì","md":"吃太多而厭膩","sent":"肥肉食傷濟會飫","parts":["肥肉食","傷濟","會","飫"]},{"no":65,"page":41,"ty":"薄餅","tl":"po̍h-piánn","md":"薄餅","sent":"這塊薄餅脆脆","parts":["這塊","薄餅","脆脆"]},{"no":66,"page":41,"ty":"脆脆","tl":"tshè-tshè","md":"酥脆","sent":"炸雞的皮脆脆","parts":["炸雞","的皮","脆脆"]},{"no":67,"page":41,"ty":"𩚨𩚨","tl":"khiū-khiū","md":"有彈性、有嚼勁","sent":"粉圓食起來𩚨𩚨","parts":["粉圓","食","起來","𩚨𩚨"]},{"no":68,"page":41,"ty":"搭峇","tl":"tah-bā","md":"合適、相配","sent":"紅酒配牛排真搭峇","parts":["紅酒配","牛排","真","搭峇"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=dd808b61"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

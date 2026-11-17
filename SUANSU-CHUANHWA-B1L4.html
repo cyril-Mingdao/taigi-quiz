@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  選詞塌空線上測驗｜全華版國中第1冊 第4課 生活中的AI（題庫來源：10_選詞塌空\06全華國中第1冊\04成果-選詞-第4課 生活中的AI.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 生活中的AI｜選詞塌空線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=310bfd79" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>✏️ 選詞塌空 ✏️</h1>
+     <h2>全華版國中第1冊 第4課 生活中的AI</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">✏️</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SUANSU-CHUANHWA-B1L4","kind":"SUANSU","kindName":"選詞塌空","book":"全華第1冊","bookFull":"全華版國中第1冊","title":"第4課 生活中的AI","items":[{"no":1,"page":56,"ty":"食飽未","tl":"tsia̍h-pá--buē","md":"吃飽了沒","sent":"阿伯，你食飽未？"},{"no":2,"page":56,"ty":"電腦","tl":"tiān-náu","md":"電腦","sent":"我用電腦查資料"},{"no":3,"page":56,"ty":"人工智慧","tl":"jîn-kang-tì-huī","md":"人工智慧","sent":"人工智慧會當鬥翻譯"},{"no":4,"page":56,"ty":"物件","tl":"mi̍h/mn̍gh-kiānn","md":"東西","sent":"這間店有真濟物件。"},{"no":5,"page":56,"ty":"多謝","tl":"to-siā","md":"謝謝","sent":"多謝你共我鬥相共"},{"no":6,"page":56,"ty":"關心","tl":"kuan-sim","md":"關心","sent":"老師真關心逐个學生"},{"no":7,"page":56,"ty":"啊","tl":"ah","md":"那、那麼（發語詞）","sent":"啊你欲去佗位？"},{"no":8,"page":56,"ty":"會曉","tl":"ē-hiáu/hiáng","md":"知道、懂得","sent":"這條歌你會曉唱--袂？"},{"no":9,"page":56,"ty":"創","tl":"tshòng","md":"做、弄","sent":"你咧創啥物？"},{"no":10,"page":56,"ty":"替","tl":"thè/thuè","md":"代換/為/代為","sent":"我替你寄批"},{"no":11,"page":56,"ty":"足濟","tl":"tsiok-tsē","md":"非常多","sent":"厝內有覕足濟虼蚻--的"},{"no":12,"page":56,"ty":"代誌","tl":"tāi-tsì","md":"事情","sent":"厝內大細項代誌攏是伊咧發落"},{"no":13,"page":56,"ty":"手機仔","tl":"tshiú-ki-á","md":"手機","sent":"上課毋通耍手機仔"},{"no":14,"page":56,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","sent":"我的鞋仔內底敢若有石頭仔，感覺砧砧"},{"no":15,"page":56,"ty":"鬥揣","tl":"tàu tshuē/tshē","md":"幫忙找","sent":"你會當共我鬥揣鎖匙無？"},{"no":16,"page":56,"ty":"抑是","tl":"ia̍h/iah/a̍h/ah-sī","md":"或是","sent":"你欲啉咖啡抑是欲啉茶？"},{"no":17,"page":56,"ty":"無聊","tl":"bô-liâu","md":"無聊","sent":"歇熱佇厝足無聊"},{"no":18,"page":56,"ty":"兼","tl":"kiam","md":"同時、並且","sent":"伊讀冊兼做工課"},{"no":19,"page":56,"ty":"笑詼","tl":"tshiò-khue/khe","md":"笑話、笑料","sent":"伊講的笑詼，有夠歹笑"},{"no":20,"page":57,"ty":"原來","tl":"guân-lâi","md":"原來","sent":"原來是你喔"},{"no":21,"page":57,"ty":"蹛","tl":"tuà","md":"居住/在/位置/過夜/任職","sent":"阿明仔蹛佇學校附近"},{"no":22,"page":57,"ty":"毋但","tl":"m̄-nā/ niā","md":"不只、不但","sent":"我看伊做的歹代誌毋但按呢"},{"no":23,"page":57,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"伊若真正按呢做，就傷超過矣"},{"no":24,"page":57,"ty":"管家","tl":"kuán-ke","md":"管家","sent":"伊是這間厝的管家"},{"no":25,"page":57,"ty":"厝裡","tl":"tshù--lí/--nih","md":"家裡","sent":"姑不將予伊佇厝裡歇睏"},{"no":26,"page":57,"ty":"電火","tl":"tiān-hué/hé","md":"電燈","sent":"出門愛記得禁電火"},{"no":27,"page":57,"ty":"冷氣","tl":"líng-khì","md":"冷氣","sent":"熱天開冷氣較涼"},{"no":28,"page":57,"ty":"摒掃","tl":"piànn-sàu","md":"打掃","sent":"過年進前愛摒掃厝內"},{"no":29,"page":57,"ty":"服務生","tl":"ho̍k-bū-sing","md":"服務生","sent":"餐廳的服務生真好禮"},{"no":30,"page":57,"ty":"餐廳","tl":"tshan-thiann","md":"餐廳","sent":"這間餐廳的菜真好食"},{"no":31,"page":57,"ty":"𤆬位","tl":"tshuā-uī","md":"帶位","sent":"服務生共阮𤆬位"},{"no":32,"page":57,"ty":"送菜","tl":"sàng tshài","md":"送菜上桌","sent":"機器人會鬥送菜"},{"no":33,"page":57,"ty":"有當時仔","tl":"ū-tang-sî-á","md":"有時候","sent":"彼隻狗有當時仔會出現"},{"no":34,"page":57,"ty":"跳舞","tl":"thiàu-bú","md":"跳舞","sent":"伊足愛跳舞"},{"no":35,"page":57,"ty":"弄","tl":"lāng","md":"把玩、戲耍","sent":"弄布袋戲尪仔"},{"no":36,"page":57,"ty":"笑咍咍","tl":"tshiò-hai-hai","md":"笑呵呵","sent":"阿公看著孫仔笑咍咍"},{"no":37,"page":57,"ty":"萬能","tl":"bān-lîng","md":"萬能","sent":"錢毋是萬能的"},{"no":38,"page":58,"ty":"存在","tl":"tsûn-tsāi","md":"存在","sent":"這个問題一直存在"},{"no":39,"page":58,"ty":"目的","tl":"bo̍k-ti̍k","md":"目的","sent":"讀冊的目的是啥物？"},{"no":40,"page":58,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要","sent":"定定都睏到欲上課矣才欲起來"},{"no":41,"page":58,"ty":"生活","tl":"sing-ua̍h","md":"生活","sent":"庄跤的生活真輕鬆"},{"no":42,"page":58,"ty":"省力","tl":"síng-la̍t","md":"省力","sent":"用車載較省力"},{"no":43,"page":58,"ty":"利便","tl":"lī-piān","md":"方便、便利","sent":"蹛佇都市交通較利便"},{"no":44,"page":58,"ty":"未來","tl":"bī-lâi","md":"未來","sent":"未來的世界會真無仝"},{"no":45,"page":58,"ty":"運將","tl":"ùn-tsiàng","md":"司機","sent":"計程車運將真好禮"},{"no":46,"page":58,"ty":"載","tl":"tsài","md":"載送","sent":"阿爸騎車載我去學校"},{"no":47,"page":58,"ty":"四界","tl":"sì-kè/kuè","md":"到處、處處","sent":"我𤆬伊出去附近四界蹓蹓咧"},{"no":48,"page":58,"ty":"𨑨迌","tl":"tshit-thô/thit-thô","md":"遊玩/玩弄/混","sent":"你明仔載欲佮阮去𨑨迌無?"},{"no":49,"page":58,"ty":"醫生","tl":"i-sing","md":"醫生","sent":"人無爽快愛去看醫生"},{"no":50,"page":58,"ty":"手術","tl":"tshiú-su̍t","md":"手術","sent":"阿公拄做完手術"},{"no":51,"page":58,"ty":"拆藥方","tl":"thiah-io̍h-hng","md":"根據處方買藥","sent":"提單去藥局拆藥方"},{"no":52,"page":58,"ty":"誠實","tl":"tsiânn-si̍t","md":"真實的","sent":"風颱欲來，敢是誠實的？"},{"no":53,"page":58,"ty":"蓋","tl":"kài","md":"超過/十分/塗抹/胡扯","sent":"我最近拄著一寡代誌，無蓋順序"},{"no":54,"page":58,"ty":"𠢕","tl":"gâu","md":"能幹；擅某事；易發生","sent":"阿母誠𠢕佮人講價"},{"no":55,"page":58,"ty":"按怎","tl":"án-tsuánn/nuá/ná","md":"怎麼、怎樣","sent":"到底著愛按怎做"},{"no":56,"page":58,"ty":"發明","tl":"huat-bîng","md":"發明","sent":"這是伊發明的物件"},{"no":57,"page":59,"ty":"工程師","tl":"kang-tîng-su","md":"工程師","sent":"阿叔是電腦工程師"},{"no":58,"page":59,"ty":"設計","tl":"siat-kè","md":"設計","sent":"這間厝是伊設計的"},{"no":59,"page":59,"ty":"模型","tl":"bôo-hîng","md":"模型","sent":"伊足愛做飛行機模型"},{"no":60,"page":59,"ty":"利用","tl":"lī-iōng","md":"利用","sent":"利用歇熱去學泅水"},{"no":61,"page":59,"ty":"資料","tl":"tsu-liāu","md":"資料","sent":"我去圖書館揣資料"},{"no":62,"page":59,"ty":"學習","tl":"ha̍k-si̍p","md":"學習","sent":"學習台語愛有耐心"},{"no":63,"page":59,"ty":"思考","tl":"su-khó","md":"思考","sent":"做代誌進前愛先思考"},{"no":64,"page":59,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合","sent":"我欲佮伊來去看電影"},{"no":65,"page":59,"ty":"解決","tl":"kái-kuat","md":"解決","sent":"這个問題愛緊解決"},{"no":66,"page":59,"ty":"問題","tl":"būn-tê","md":"問題","sent":"有問題就舉手問老師"},{"no":67,"page":59,"ty":"綿爛","tl":"mî-nuā","md":"專注認真、堅持","sent":"伊讀冊真綿爛"},{"no":68,"page":59,"ty":"吸收","tl":"khip-siu","md":"吸收","sent":"囡仔吸收智識真緊"},{"no":69,"page":59,"ty":"愈","tl":"jú/lú","md":"連接比較關係","sent":"天氣愈來愈熱"},{"no":70,"page":59,"ty":"智識","tl":"tì-sik","md":"知識","sent":"聽伊講話就知影伊真有智識"},{"no":71,"page":59,"ty":"厲害","tl":"lī-hāi","md":"厲害","sent":"伊泅水足厲害"},{"no":72,"page":59,"ty":"像","tl":"tshiūnn","md":"像","sent":"我欲像伊仝款認真"},{"no":73,"page":59,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別","sent":"這兩个皮包仔看著仝款仔仝款"},{"no":74,"page":59,"ty":"拚勢","tl":"piànn-sè","md":"拚命","sent":"伊讀冊真拚勢，這擺提頭名"},{"no":75,"page":59,"ty":"才","tl":"tsiah","md":"才","sent":"愛認真讀冊才會進步"},{"no":76,"page":59,"ty":"綴","tl":"tuè/tè","md":"跟、隨","sent":"你莫綴前綴後"},{"no":77,"page":59,"ty":"跤步","tl":"kha-pōo","md":"腳步、步伐","sent":"伊的跤步行甲真緊"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=dd808b61"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
