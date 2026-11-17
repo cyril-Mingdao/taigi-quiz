@@ -12,7 +12,20 @@ const CATS = [
   { id: 'TAUKU', icon: '🧩', name: '咱來鬥句' },
   { id: 'HINGIM', icon: '🔤', name: '形音義' }
 ];
-const BOOK_ORDER = ['真平第1冊', '康軒第2冊', '育達全1冊', '全華第3冊'];
+/* 版本排序與色塊（2026-11-17）：出版社 真平→康軒→全華→育達，同社依冊號；色塊＝各站分頁圖示（skill common.ICON） */
+const PUB_ORDER = ['真平', '康軒', '全華', '育達'];
+const PUB_CHAR = { 真平: '真', 康軒: '康', 全華: '華', 育達: '育' };
+const BOOK_BADGE = {
+  真平第1冊: ['#D32F2F', '#FFFFFF'], 康軒第1冊: ['#AD1457', '#FFFFFF'], 康軒第2冊: ['#1565C0', '#FFFFFF'],
+  康軒第3冊: ['#5D4037', '#FFFFFF'], 康軒第4冊: ['#6A1B9A', '#FFFFFF'], 全華第1冊: ['#00838F', '#FFFFFF'],
+  全華第2冊: ['#EF6C00', '#FFFFFF'], 全華第3冊: ['#2E7D32', '#FFFFFF'], 育達全1冊: ['#FFD400', '#111111']
+};
+const bookNum = b => { const m = String(b).match(/(\d+)冊/); return m ? +m[1] : 0; };
+const bookSortKey = b => { const p = PUB_ORDER.indexOf(String(b).slice(0, 2)); return (p < 0 ? 99 : p) * 100 + bookNum(b); };
+const bookBadge = b => {
+  const [bg, fg] = BOOK_BADGE[b] || ['#111111', '#FFFFFF'];
+  return `<span class="bdg" style="background:${bg};color:${fg}">${PUB_CHAR[String(b).slice(0, 2)] || '・'}</span>`;
+};
 const READ_SITE = 'https://cyril-mingdao.github.io/Voice-test/';
 
 const admin = { attempts: [], selected: new Set(), audioCache: {}, cat: 'READ', book: '', dept: '', ipExclude: [] };
@@ -56,20 +69,30 @@ function renderCatChips() {
 
 function adminBooks() {
   const books = [...new Set(CATALOG.filter(c => c.cat === admin.cat).map(c => c.book))]
-    .sort((x, y) => BOOK_ORDER.indexOf(x) - BOOK_ORDER.indexOf(y));
+    .sort((x, y) => bookSortKey(x) - bookSortKey(y));
   if (catAttempts().some(a => bookOf(a.lesson) === OTHER_BOOK)) books.push(OTHER_BOOK);
   return books;
 }
 
+/* 版本鈕：「全部版本」＋每家出版社一組（社名＋各冊鈕，依冊號由小到大） */
 function renderBookChips() {
-  document.getElementById('ad-books').innerHTML = [['', '全部版本'], ...adminBooks().map(b => [b, b])].map(([v, label]) =>
-    `<button type="button" class="chip${admin.book === v ? ' on' : ''}" data-book="${escapeHtml(v)}">${escapeHtml(label)}</button>`).join('');
+  const chip = (v, html) =>
+    `<button type="button" class="chip${admin.book === v ? ' on' : ''}" data-book="${escapeHtml(v)}">${html}</button>`;
+  const books = adminBooks();
+  const groups = [];
+  PUB_ORDER.forEach(pub => {
+    const bs = books.filter(b => String(b).slice(0, 2) === pub);
+    if (bs.length) groups.push(`<span class="pub-group"><span class="pub-lbl">${pub}</span>` +
+      bs.map(b => chip(b, `${bookBadge(b)}${escapeHtml(String(b).slice(2))}`)).join('') + '</span>');
+  });
+  const rest = books.filter(b => PUB_ORDER.indexOf(String(b).slice(0, 2)) < 0);
+  document.getElementById('ad-books').innerHTML = chip('', '全部版本') + groups.join('') + rest.map(b => chip(b, escapeHtml(b))).join('');
 }
 
 function fillLessonSelect() {
   const sel = document.getElementById('ad-lesson');
   const cur = sel.value;
-  const order = id => { const i = CATALOG.findIndex(c => c.id === id); return i < 0 ? 9999 : i; };
+  const order = id => { const i = CATALOG.findIndex(c => c.id === id); return i < 0 ? 999999 : bookSortKey(bookOf(id)) * 1000 + i; };
   const lessons = [...new Set([...CATALOG.filter(c => c.cat === admin.cat).map(c => c.id), ...catAttempts().map(a => a.lesson)])]
     .filter(id => !admin.book || bookOf(id) === admin.book)
     .sort((x, y) => order(x) - order(y));
