@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜育達創世紀版高中全1冊 第7課 歹看面的（題庫來源：11_咱來鬥句\11創世紀版高中全1冊\07成果-鬥句-第7課 歹看面的.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第7課 歹看面的｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=9c4e33cd" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>育達創世紀版高中全1冊 第7課 歹看面的</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-YUDA-B2L7","kind":"TAUKU","kindName":"咱來鬥句","book":"育達創世紀全1冊","bookFull":"育達創世紀版高中全1冊","title":"第7課 歹看面的","items":[{"no":1,"page":122,"ty":"搪著","tl":"tn̄g-tio̍h","md":"遇到。語氣完結時唸作tn̄g--tio̍h。","sent":"拄好搪著這个機會","parts":["拄好","搪著","這个","機會"]},{"no":2,"page":122,"ty":"躊躇","tl":"tiû-tû","md":"猶豫、遲疑。","sent":"我半絲仔躊躇都無","parts":["我半","絲仔","躊躇","都無"]},{"no":3,"page":122,"ty":"二步七仔","tl":"--jī-pōo-tshit-á / --lī-pōo-tshit-á","md":"形容人對事情有一點處理的本事、能力。","sent":"若無二步七仔，根本都無法度過五關","parts":["若無","二步七仔，","根本都無法度過五關"]},{"no":4,"page":122,"ty":"盡磅","tl":"tsīn-pōng","md":"形容事務已達最大極限，不可再往上增加。","sent":"共我透世人學著的功夫用甲盡磅","parts":["共我透世人","學著的","功夫用甲","盡磅"]},{"no":5,"page":122,"ty":"步數","tl":"pōo-sòo","md":"辦法、招數。","sent":"共我透世人學著的功夫用甲盡磅，步數盡展。","parts":["共我透世人學著的","功夫用甲盡磅，","步數","盡展。"]},{"no":6,"page":123,"ty":"定著","tl":"tiānn-tio̍h","md":"一定。","sent":"𪜶定著會𬦰起去你的頭殼頂","parts":["𪜶","定著","會𬦰起去","你的頭殼頂"]},{"no":7,"page":123,"ty":"斟酌","tl":"tsim-tsiok","md":"注意，特別仔細、專注做某事。","sent":"𪜶定著會𬦰起去你的頭殼頂，著愛較斟酌咧！","parts":["𪜶定著會𬦰起去你","的頭殼頂，著愛較","斟酌","咧！"]},{"no":8,"page":123,"ty":"挐氅氅","tl":"jû-tsháng-tsháng / lû-tsháng-tsháng","md":"形容非常雜亂，毫無頭緒。","sent":"聽伊按呢講，我心肝頭淡薄仔挐氅氅，毋知欲按怎。","parts":["聽伊按呢講，","我心肝頭淡薄仔","挐氅氅，","毋知欲按怎。"]},{"no":9,"page":123,"ty":"有範","tl":"ū-pān","md":"煞有其事，架式十足的樣子。","sent":"按呢看起來應該就較有範矣","parts":["按呢看起來","應該就較","有範","矣"]},{"no":10,"page":123,"ty":"面腔","tl":"bīn-tshiunn","md":"指看起來親切或兇惡的臉色或表情。","sent":"我就決定欲激一个面腔","parts":["我就決定","欲激","一个","面腔"]},{"no":11,"page":124,"ty":"激放放","tl":"kik-hòng-hòng","md":"散漫、馬虎。草率不認真。","sent":"抑是上課激放放，甚至是吵吵鬧鬧","parts":["抑是上課","激放放，","甚至是吵吵鬧鬧"]},{"no":12,"page":124,"ty":"好食睏","tl":"hó-tsia̍h-khùn","md":"吃得下、睡得著。引申為稱心如意。","sent":"我袂予恁遮好食睏。","parts":["我袂","予恁遮","好食睏。"]},{"no":13,"page":124,"ty":"盍","tl":"khah","md":"難道、怎麼，表示疑問的語氣。","sent":"欲愛𪜶乖乖仔聽老師的話，這盍有可能？","parts":["欲愛𪜶乖乖仔","聽老師的話，這","盍","有可能？"]},{"no":14,"page":124,"ty":"刣雞教猴","tl":"thâi-ke-kà-kâu / thâi-kue-kà-kâu","md":"比喻處罰一個人來警告其他的人。","sent":"我只好用刣雞教猴的步數來共𪜶嚇驚。","parts":["我只好用","刣雞教猴","的步數來","共𪜶嚇驚。"]},{"no":15,"page":124,"ty":"嚇驚","tl":"heh-kiann / hennh-kiann","md":"用言語或行為嚇人，使人害怕。","sent":"我只好用刣雞教猴的步數來共𪜶嚇驚。","parts":["我只好用刣雞教猴","的步數來共𪜶","嚇驚。"]},{"no":16,"page":124,"ty":"囡仔頭王","tl":"gín-á-thâu-ông","md":"孩子王。擅長指揮、帶領孩子的人。","sent":"彼个囡仔頭王隨喝講：「老師！我後擺毋敢矣啦！」","parts":["彼个","囡仔頭王","隨喝講：「老師！","我後擺毋敢矣啦！」"]},{"no":17,"page":124,"ty":"恬喌喌","tl":"tiām-tsiuh-tsiuh","md":"安靜無聲。","sent":"我看伊頭犁犁，規班攏恬喌喌。","parts":["我看伊頭犁犁，","規班攏","恬喌喌。"]},{"no":18,"page":125,"ty":"這聲","tl":"tsit-siann","md":"這下子。","sent":"這聲妥當矣！","parts":["這聲","妥當","矣！"]},{"no":19,"page":125,"ty":"歹衝衝","tl":"pháinn-tshìng-tshìng","md":"兇巴巴。","sent":"規間學校無半个毋捌我這个歹衝衝的老師","parts":["規間學校無半","个毋捌我這个","歹衝衝","的老師"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=dd808b61"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
