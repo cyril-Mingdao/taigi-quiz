@@ -1,9 +1,10 @@
 /*! 本土語線上測驗 — © 2026 詹宗龍（臺中明道中學）保留一切權利。 */
-/* 本土語線上測驗：題型測驗引擎（生份字／選詞塌空／咱來鬥句／形音義）
+/* 本土語線上測驗：題型測驗引擎（生份字／選詞塌空／咱來鬥句／形音義／心智圖配對）
    臺中明道中學 詹宗龍 製作
 
    規則：每次 25 題、每題 4 分（滿分 100）。每題作答後立即鎖定並跳下一題，不能回頭修改。
    形音義每題要依序選「聲母／韻母／聲調／變調」（每個音節 4 格），依答對格數按比例給分。
+   心智圖配對（2026-11-22）：每題一句課文，選出它屬於心智圖的佗一个區塊；選項沿用課堂遊戲頁審核過的 4 個（只打亂順序）。
    交卷後顯示分數與每題參考答案，成績送到收件程式；可以重複測驗，每次都會記錄。
    題庫（LESSON.items）由 build.py 從練習版網頁擷取後寫在各課頁面裡。 */
 
@@ -291,6 +292,27 @@ const KINDS = {
         steps: `${right}/${q.steps.length}`
       };
     }
+  },
+
+  /* 心智圖配對：看課文句子，選出它屬於心智圖的佗一个區塊（中層指標）；選項＝遊戲頁審核過的 4 個 */
+  SIMTI: {
+    modes: ['all'],
+    modeName: { all: '心智圖配對' },
+    build(item) {
+      return { correct: item.correct, options: shuffle(item.options.slice()) };
+    },
+    render(q, box) {
+      const it = q.item;
+      box.innerHTML = `
+        <div class="qz-ask">這句課文，是心智圖佗一个區塊的內容？</div>
+        <div class="qz-prompt sentence-q mm-sent">${escapeHtml(it.sent)}</div>
+        ${it.page ? `<div class="qz-hint">課本${escapeHtml(it.page)}</div>` : ''}
+        <div class="qz-options"></div>`;
+      renderChoices(q, box.querySelector('.qz-options'));
+    },
+    record(q, answer) {
+      return { q: q.item.sent, a: answer, c: q.correct, pts: answer === q.correct ? PER_Q : 0 };
+    }
   }
 };
 
@@ -464,7 +486,8 @@ document.getElementById('intro-rules').innerHTML = {
   SIANN: '<li>四種出題方式混合：聽音檔選台語、聽音檔選台羅、看台語選台羅、看台羅選台語。</li>',
   SUANSU: '<li>每題一句挖空的句子，選出最適合填入的台語語詞或台羅拼音。</li>',
   TAUKU: '<li>每題依順序點選語詞排成句子（有 2 个語詞是用袂著的），按「確定這題」送出。</li>',
-  HINGIM: '<li>每題依序選出每個音節的<b>聲母、韻母、聲調、變調</b>；每題 4 分依答對格數按比例給分。</li>'
+  HINGIM: '<li>每題依序選出每個音節的<b>聲母、韻母、聲調、變調</b>；每題 4 分依答對格數按比例給分。</li>',
+  SIMTI: '<li>每題一句課文，選出它屬於<b>心智圖的佗一个區塊</b>（四選一）。</li>'
 }[LESSON.kind] + document.getElementById('intro-rules').innerHTML;
 
 bindProfileForm();

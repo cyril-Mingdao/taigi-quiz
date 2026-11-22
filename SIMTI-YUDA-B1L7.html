@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達版高中全1冊 第7課 我的人生，我創造（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\YUDA-B1\L7.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第7課 我的人生，我創造｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達版高中全1冊 第7課 我的人生，我創造</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B1L7","kind":"SIMTI","kindName":"心智圖配對","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第7課 我的人生，我創造","items":[{"no":1,"sent":"細漢佇有天星的暗暝，定定佮小弟踮門口埕看天頂的天星","page":"第108頁","correct":"看天星的記持","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":2,"sent":"佮小弟踮門口埕看天頂","page":"第108頁","correct":"看天星的記持","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":3,"sent":"尤其是親像鱟桸的七星","page":"第108頁","correct":"看天星的記持","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":4,"sent":"閣會當揣著子午星","page":"第108頁","correct":"看天星的記持","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":5,"sent":"做阮的太空夢","page":"第108頁","correct":"看天星的記持","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":6,"sent":"阮小弟自細漢就袂愛讀冊","page":"第108頁","correct":"對讀冊的態度","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":7,"sent":"常在提厝裡害去的電器用品摸東摸西","page":"第108頁","correct":"對讀冊的態度","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":8,"sent":"拆開來研究","page":"第108頁","correct":"對讀冊的態度","options":["看天星的記持","對讀冊的態度","爸母的擔心","實際的成就"]},{"no":9,"sent":"爸母攏講伊讀冊毋讀冊","page":"第108頁","correct":"爸母的擔心","options":["對讀冊的態度","爸母的擔心","實際的成就","高職時期"]},{"no":10,"sent":"干焦愛烏白變東變西","page":"第108頁","correct":"爸母的擔心","options":["對讀冊的態度","爸母的擔心","實際的成就","高職時期"]},{"no":11,"sent":"後擺是欲靠啥物賺食","page":"第108頁","correct":"爸母的擔心","options":["對讀冊的態度","爸母的擔心","實際的成就","高職時期"]},{"no":12,"sent":"自細漢摸東摸西，摸出興趣","page":"第108頁","correct":"實際的成就","options":["爸母的擔心","實際的成就","高職時期","知影家境較困難"]},{"no":13,"sent":"厝內大大細細的電器用品，真濟嘛攏予伊修理甲好勢好勢","page":"第108頁","correct":"實際的成就","options":["爸母的擔心","實際的成就","高職時期","知影家境較困難"]},{"no":14,"sent":"真濟嘛攏予伊修理甲好勢好勢","page":"第108頁","correct":"實際的成就","options":["爸母的擔心","實際的成就","高職時期","知影家境較困難"]},{"no":16,"sent":"實在真無簡單","page":"第108頁","correct":"實際的成就","options":["爸母的擔心","實際的成就","高職時期","知影家境較困難"]},{"no":17,"sent":"為著欲替厝裡省錢，所以小弟選擇去讀私立學校的建教合作班","page":"第109頁","correct":"高職時期","options":["實際的成就","高職時期","知影家境較困難","當兵時期"]},{"no":18,"sent":"所以小弟選擇去讀私立學校的建教合作班。","page":"第109頁","correct":"高職時期","options":["實際的成就","高職時期","知影家境較困難","當兵時期"]},{"no":19,"sent":"別人咧讀冊的時陣，伊是佇工廠咧做工課","page":"第109頁","correct":"高職時期","options":["實際的成就","高職時期","知影家境較困難","當兵時期"]},{"no":20,"sent":"學生囡仔歡喜歇寒、歇熱會當相招出去𨑨迌的時，伊才轉去學校讀冊","page":"第109頁","correct":"高職時期","options":["實際的成就","高職時期","知影家境較困難","當兵時期"]},{"no":21,"sent":"知影家己的爸母無像別人兜遐好額","page":"第109頁","correct":"知影家境較困難","options":["高職時期","知影家境較困難","當兵時期","繼續深造"]},{"no":23,"sent":"逐擺攏考頭名領獎學金","page":"第109頁","correct":"知影家境較困難","options":["高職時期","知影家境較困難","當兵時期","繼續深造"]},{"no":24,"sent":"高職畢業就直接去做兵","page":"第109頁","correct":"當兵時期","options":["知影家境較困難","當兵時期","繼續深造","就業選擇"]},{"no":26,"sent":"實在予人感覺真貼心","page":"第109頁","correct":"當兵時期","options":["知影家境較困難","當兵時期","繼續深造","就業選擇"]},{"no":27,"sent":"退伍了後，小弟感覺伊家己的學識無夠懸","page":"第109頁","correct":"繼續深造","options":["當兵時期","繼續深造","就業選擇","福衛五號的成就"]},{"no":28,"sent":"所以就閣考二專","page":"第109頁","correct":"繼續深造","options":["當兵時期","繼續深造","就業選擇","福衛五號的成就"]},{"no":30,"sent":"就參加插班大學的考試","page":"第109頁","correct":"繼續深造","options":["當兵時期","繼續深造","就業選擇","福衛五號的成就"]},{"no":31,"sent":"尾仔考著高雄師大","page":"第109頁","correct":"繼續深造","options":["當兵時期","繼續深造","就業選擇","福衛五號的成就"]},{"no":32,"sent":"毋過彼个時陣無偌濟老師的缺","page":"第109頁","correct":"就業選擇","options":["繼續深造","就業選擇","福衛五號的成就","參與的角色"]},{"no":33,"sent":"伊就直接去考國家太空中心做工程師","page":"第109頁","correct":"就業選擇","options":["繼續深造","就業選擇","福衛五號的成就","參與的角色"]},{"no":34,"sent":"做工程師","page":"第109頁","correct":"就業選擇","options":["繼續深造","就業選擇","福衛五號的成就","參與的角色"]},{"no":35,"sent":"憑伊的專業技術佇遐做研究，是無啥困難的","page":"第109頁","correct":"就業選擇","options":["繼續深造","就業選擇","福衛五號的成就","參與的角色"]},{"no":36,"sent":"2017年八月二五，福衛五號送去美國","page":"第110頁","correct":"福衛五號的成就","options":["就業選擇","福衛五號的成就","參與的角色","小弟的心聲"]},{"no":37,"sent":"佇加州范登堡空軍基地順利發射升空","page":"第110頁","correct":"福衛五號的成就","options":["就業選擇","福衛五號的成就","參與的角色","小弟的心聲"]},{"no":38,"sent":"順利發射升空","page":"第110頁","correct":"福衛五號的成就","options":["就業選擇","福衛五號的成就","參與的角色","小弟的心聲"]},{"no":39,"sent":"這毋但是太空科技的成就","page":"第110頁","correct":"福衛五號的成就","options":["就業選擇","福衛五號的成就","參與的角色","小弟的心聲"]},{"no":40,"sent":"嘛是咱臺灣人的驕傲","page":"第110頁","correct":"福衛五號的成就","options":["就業選擇","福衛五號的成就","參與的角色","小弟的心聲"]},{"no":41,"sent":"會當參與遮爾盛大的工課","page":"第110頁","correct":"參與的角色","options":["福衛五號的成就","參與的角色","小弟的心聲","阿姊的回應"]},{"no":42,"sent":"而且閣予中心派去美國做第一線的觀察人員","page":"第110頁","correct":"參與的角色","options":["福衛五號的成就","參與的角色","小弟的心聲","阿姊的回應"]},{"no":43,"sent":"做第一線的觀察人員","page":"第110頁","correct":"參與的角色","options":["福衛五號的成就","參與的角色","小弟的心聲","阿姊的回應"]},{"no":44,"sent":"我佮意這項工課","page":"第110頁","correct":"小弟的心聲","options":["參與的角色","小弟的心聲","阿姊的回應","人生的啟示"]},{"no":45,"sent":"而且這嘛是我的本份","page":"第110頁","correct":"小弟的心聲","options":["參與的角色","小弟的心聲","阿姊的回應","人生的啟示"]},{"no":46,"sent":"我只是盡家己份內的責任爾爾","page":"第110頁","correct":"小弟的心聲","options":["參與的角色","小弟的心聲","阿姊的回應","人生的啟示"]},{"no":48,"sent":"我干焦是這个團隊內底一粒小小的螺絲釘啦","page":"第110頁","correct":"小弟的心聲","options":["參與的角色","小弟的心聲","阿姊的回應","人生的啟示"]},{"no":49,"sent":"恁逐家攏佇家己的工作上認真做到上周至","page":"第111頁","correct":"阿姊的回應","options":["小弟的心聲","阿姊的回應","人生的啟示","看天星的記持"]},{"no":50,"sent":"嘛佮團隊保持上好的連結","page":"第111頁","correct":"阿姊的回應","options":["小弟的心聲","阿姊的回應","人生的啟示","看天星的記持"]},{"no":51,"sent":"才有今仔日的成果","page":"第111頁","correct":"阿姊的回應","options":["小弟的心聲","阿姊的回應","人生的啟示","看天星的記持"]},{"no":52,"sent":"若是有任何一粒螺絲釘落去，就袂當完成這个重要的任務矣","page":"第111頁","correct":"阿姊的回應","options":["小弟的心聲","阿姊的回應","人生的啟示","看天星的記持"]},{"no":53,"sent":"對阮小弟身軀頂，我看著伊靠家己的意志創造伊美好的人生","page":"第111頁","correct":"人生的啟示","options":["阿姊的回應","人生的啟示","看天星的記持","對讀冊的態度"]},{"no":54,"sent":"靠家己的意志創造伊美好的人生","page":"第111頁","correct":"人生的啟示","options":["阿姊的回應","人生的啟示","看天星的記持","對讀冊的態度"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

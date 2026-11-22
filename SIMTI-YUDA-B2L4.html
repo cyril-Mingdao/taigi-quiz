@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達創世紀版高中全1冊 第4課 用魚仔做的冊（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\YUDA-B2\L4.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 用魚仔做的冊｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達創世紀版高中全1冊 第4課 用魚仔做的冊</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B2L4","kind":"SIMTI","kindName":"心智圖配對","book":"育達創世紀全1冊","bookFull":"育達創世紀版高中全1冊","title":"第4課 用魚仔做的冊","items":[{"no":1,"sent":"「冊」有幾若種形式，有一般的紙本冊、有紅嬰仔咧耍的布冊，嘛有現此時上時行的電子冊","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":2,"sent":"「冊」有幾若種形式，有一般的紙本冊、有紅嬰仔咧耍的布冊","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":3,"sent":"有一般的紙本冊、有紅嬰仔咧耍的布冊","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":4,"sent":"有一般的紙本冊、有紅嬰仔咧耍的布冊，嘛有現此時上時行的電子冊","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":5,"sent":"嘛有現此時上時行的電子冊","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":7,"sent":"而且這本冊毋是用看的，是用食的。","page":"第64頁","correct":"無仝形式的冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":8,"sent":"佇阮臺南，有一種真有特色的料理號做「魚冊」，伊毋但會當直接食嘛會使煮湯，食沙茶爐的時","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":9,"sent":"佇阮臺南，有一種真有特色的料理號做「魚冊」","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":10,"sent":"有一種真有特色的料理號做「魚冊」","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":11,"sent":"有一種真有特色的料理號做「魚冊」，伊毋但會當直接食嘛會使煮湯","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":12,"sent":"伊毋但會當直接食嘛會使煮湯","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":13,"sent":"不時都會看著伊的形影。","page":"第64頁","correct":"臺南的魚冊","options":["無仝形式的冊","臺南的魚冊","現流仔狗母魚","拍魚漿"]},{"no":14,"sent":"做「魚冊」主要的原料是現流仔的狗母魚，這種魚仔肉質較幼，而且有特別的甜味，食著嘛較𩚨，不而過伊袂凍得","page":"第64頁","correct":"現流仔狗母魚","options":["臺南的魚冊","現流仔狗母魚","拍魚漿","𫝻冊皮"]},{"no":15,"sent":"頭家會先共狗母魚的龍骨𠞭起來，用湯匙仔剾魚肉，才閣共魚肉囥入去機械內底紡","page":"第65頁","correct":"拍魚漿","options":["現流仔狗母魚","拍魚漿","𫝻冊皮","捲魚冊"]},{"no":16,"sent":"拍好的狗母魚漿較無黏性，這个時陣就愛那撋那摻鹽。","page":"第65頁","correct":"拍魚漿","options":["現流仔狗母魚","拍魚漿","𫝻冊皮","捲魚冊"]},{"no":17,"sent":"魚肉撒鹽才會掜倚來做規丸，看著頭家規丸捎起來摔，這个動作閣不止仔趣味。","page":"第65頁","correct":"拍魚漿","options":["現流仔狗母魚","拍魚漿","𫝻冊皮","捲魚冊"]},{"no":18,"sent":"講嘛真奇怪，魚漿煞愈摔愈𩚨。","page":"第65頁","correct":"拍魚漿","options":["現流仔狗母魚","拍魚漿","𫝻冊皮","捲魚冊"]},{"no":19,"sent":"頭家攑菜刀挖一寡仔魚漿，用刀喙佇菜砧頂面輕輕仔𫝻過去閣𫝻轉來","page":"第66頁","correct":"𫝻冊皮","options":["拍魚漿","𫝻冊皮","捲魚冊","故鄉的滋味"]},{"no":20,"sent":"一片薄縭絲閣有皺痕的魚漿皮就生出來矣。","page":"第66頁","correct":"𫝻冊皮","options":["拍魚漿","𫝻冊皮","捲魚冊","故鄉的滋味"]},{"no":21,"sent":"人講：「看花容易，繡花難。」","page":"第66頁","correct":"𫝻冊皮","options":["拍魚漿","𫝻冊皮","捲魚冊","故鄉的滋味"]},{"no":22,"sent":"看頭家涼勢仔涼勢的形，其實這項工夫是愛學足久的呢！","page":"第66頁","correct":"𫝻冊皮","options":["拍魚漿","𫝻冊皮","捲魚冊","故鄉的滋味"]},{"no":23,"sent":"閣來就愛用魚漿皮共豬肉餡和一枝芹菜捲起來，好食的魚冊就按呢完成囉！","page":"第66頁","correct":"捲魚冊","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":24,"sent":"有影足厚工的。","page":"第66頁","correct":"捲魚冊","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":25,"sent":"魚冊確實是一項手路菜，伊咬落去有魚仔的鮮，嘛有豬肉的芳，因為外型佮古冊仝款，攏會捲起來","page":"第66頁","correct":"捲魚冊","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":26,"sent":"所以見擺咧食這項料理的時，我攏會感覺家己足有氣質的。","page":"第66頁","correct":"捲魚冊","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":28,"sent":"阮阿爸這馬喙齒無啥會哺，毋過伊真數念少年時的滋味。","page":"第67頁","correct":"故鄉的滋味","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":29,"sent":"我攑鉸刀沓沓仔共魚冊鉸予幼幼，㧣去伊面頭前。","page":"第67頁","correct":"故鄉的滋味","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]},{"no":30,"sent":"那斟酌看伊滿足的笑容，那欣賞阿爸這本引𤆬我了解人生道理的「老人冊」。","page":"第67頁","correct":"人生的道理","options":["𫝻冊皮","捲魚冊","故鄉的滋味","人生的道理"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

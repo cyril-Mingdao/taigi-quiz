@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達版高中全1冊 第8課 翕相師傅（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\YUDA-B1\L8.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第8課 翕相師傅｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達版高中全1冊 第8課 翕相師傅</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B1L8","kind":"SIMTI","kindName":"心智圖配對","book":"育達全1冊","bookFull":"育達版高中全1冊","title":"第8課 翕相師傅","items":[{"no":1,"sent":"阮i--仔來臺北，提一張舊甲反黃的相片予我看","page":"第124頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":2,"sent":"一个生做膨皮、好笑神，真古錐的查埔囡仔，坐佇一條有半圓邊的竹篾仔椅仔內","page":"第124頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":3,"sent":"四十五年的青春，阮i--仔欲共啥人討？","page":"第124頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":4,"sent":"相片內底的胭脂敢是阮阿i家己愛媠點起去的？","page":"第125頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":5,"sent":"阮有一个阿叔佇戲園做辯士，彼是阮舅公傳予伊的工夫","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":6,"sent":"我彼時猶未入國民學校，對師傅紮來的兩箱仔家私真有趣味","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":7,"sent":"我問伊各種這陣想來真譀的問題，親像「翕相欲創啥？」","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":8,"sent":"伊講：「欲共人對物件的記持保存佇紙頂。」","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":9,"sent":"我若有趣味會當綴去，兼做伊的助手，伊會買一枝枝仔冰予我","page":"第126頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":10,"sent":"我替伊揹一跤講是「貯闊鏡頭的細跤箱仔」，伊騎鐵馬，我坐後斗行李架","page":"第126頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":11,"sent":"有一粒崙仔，邊仔一欉老榕仔，樹跤有一間土地公廟仔","page":"第127頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":12,"sent":"師傅那翕那笑笑應講：「是我家己倩我翕的，你看，畫面遮爾媠，無共這款記持留落來，敢毋是真拍損？」","page":"第128頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":13,"sent":"彼工是圳寮仔的頭人──人稱呼做「雲仔舍」的吳雲倩伊去翕相的","page":"第128頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":14,"sent":"雲仔舍毋但厝宅有牆圍仔，厝閣是西洋式的疊樓仔","page":"第129頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":15,"sent":"雲仔舍坐佇厝前樹仔跤泡茶等阮，應該講是等翕相師傅","page":"第130頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":16,"sent":"規家伙仔有十二个人，老的佮少年的三對翁某","page":"第131頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":17,"sent":"佇厝邊的花園𪜶翕真濟相片，翕相師傅真厲害","page":"第131頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":18,"sent":"翻頭欲轉來，閣來到崙仔邊大榕仔跤，牛無佇遐矣","page":"第132頁","correct":"蓮治佮翕相師傅的故事","options":["雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持"]},{"no":19,"sent":"就有一陣鐵馬鈃仔聲咧響，一台紅的鐵馬仔倚來，騎的人是彼个真皮的姑娘仔蓮治","page":"第132頁","correct":"蓮治佮翕相師傅的故事","options":["雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持"]},{"no":20,"sent":"蓮治騎足雄佇頭前𤆬路的款勢，伊穿長花仔裙騎紅鐵馬，佇青青的田岸仔路，真媠","page":"第133頁","correct":"蓮治佮翕相師傅的故事","options":["雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持"]},{"no":21,"sent":"阮閣轉去彼間土地公廟仔的樹仔跤食，𪜶兩个顧講話，我取食","page":"第133頁","correct":"蓮治佮翕相師傅的故事","options":["雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持"]},{"no":22,"sent":"蓮治無隨載我轉，佇樹仔跤講𪜶的代誌予我聽","page":"第134頁","correct":"蓮治講𪜶的故事","options":["蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶"]},{"no":23,"sent":"伊是佇一个同學𪜶兜翕相的時去熟似著這个師傅","page":"第134頁","correct":"蓮治講𪜶的故事","options":["蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶"]},{"no":25,"sent":"蓮治對伊的感覺煞無去，毋過猶是共當做朋友看待","page":"第135頁","correct":"蓮治講𪜶的故事","options":["蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶"]},{"no":26,"sent":"蓮治趁𪜶細漢阿兄對日本轉來，鼓吹阿爸翕相做紀念，予伊一个機會通開喙講親情","page":"第135頁","correct":"蓮治講𪜶的故事","options":["蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶"]},{"no":27,"sent":"結局，師傅猶是毋敢講。蓮治拄才要求伊後擺若無啥代誌毋通閣來","page":"第135頁","correct":"蓮治講𪜶的故事","options":["蓮治佮翕相師傅的故事","蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶"]},{"no":28,"sent":"彼工我枝仔冰一睏食七枝，轉去腹肚疼，幾若工攏袂食飯","page":"第135頁","correct":"難忘的記持","options":["蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶","認bat翕相師傅的緣起"]},{"no":29,"sent":"一改食七枝愛開五角才買有的枝仔冰，這世人毋知猶閣有機會無","page":"第135頁","correct":"難忘的記持","options":["蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶","認bat翕相師傅的緣起"]},{"no":30,"sent":"我褲袋仔內撏著一箍銀，才想著彼是翕相師傅袂記得共我討轉去的","page":"第135頁","correct":"難忘的記持","options":["蓮治講𪜶的故事","難忘的記持","舊相片引起的回憶","認bat翕相師傅的緣起"]},{"no":31,"sent":"邊仔徛一个青春的媠姑娘，相片當然是烏白的","page":"第124頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":32,"sent":"毋過彼个姑娘的喙脣閣有胭脂點甲紅記記","page":"第124頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":33,"sent":"I--仔講翕相彼工伊有點胭脂，翕出來的相片當然嘛有胭脂","page":"第125頁","correct":"舊相片引起的回憶","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":34,"sent":"伊捌𤆬一个朋友來阮兜過暝，彼个人客就是一个專門咧共人翕相的師傅","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":35,"sent":"佇日頭跤，看伊一項一項提出來拭","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":36,"sent":"「翕相佮照鏡有啥無仝款？」、「敢著用遐濟家私才會當翕？」","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":37,"sent":"檢采是佇阮兜咧做人客，伊攏真頂真共我解說","page":"第125頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":38,"sent":"尾仔伊講明仔載隔幾庄有人欲倩伊去翕相","page":"第126頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":39,"sent":"算講是我的工錢","page":"第126頁","correct":"認bat翕相師傅的緣起","options":["舊相片引起的回憶","認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相"]},{"no":40,"sent":"沿路攏有樹仔，鳥仔tsiuh-tsiuh叫","page":"第126頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":41,"sent":"翕相師那踏鐵馬那呼噓仔抑是唱歌，曲調我攏真熟似","page":"第126頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":42,"sent":"一隻牛予人縛佇遐，袂得自由去食草，連烏鶖嘛欺負伊","page":"第127頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":43,"sent":"師傅共鐵馬插起來，緊組翕相機，欲翕","page":"第128頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":44,"sent":"無共這款記持留落來，敢毋是真拍損？","page":"第128頁","correct":"去圳寮仔翕相的路途","options":["認bat翕相師傅的緣起","去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事"]},{"no":45,"sent":"伊的細漢後生佇日本讀醫學，轉來𨑨迌，閣𤆬一个日本姑娘仔做伴","page":"第128頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":46,"sent":"雲仔舍欲翕幾張仔相做紀念，順紲做家庭議量","page":"第128頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":47,"sent":"彼是我頭擺看著樓仔厝，紅磚仔配黃瓦厝頂，佇翠青的樹林內","page":"第129頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":48,"sent":"師傅真正式共伊應講：「這个是我的助手！」","page":"第130頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":49,"sent":"「失敬！」雲仔舍緊叫厝內人捀茶請阮","page":"第130頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":50,"sent":"閣特別提日本糖仔餅予我食。包餅的玻璃紙有夠媠","page":"第130頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":51,"sent":"雲仔舍有三个後生，頭兩个攏咧做醫生，佇附近的員林開醫生館","page":"第131頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":53,"sent":"彼个姑娘敢若毋驚半人，仝款無攬無拈，大概是嬌慣勢矣","page":"第132頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]},{"no":54,"sent":"師傅嘛真𠢕，攏會掠時間翕，舞欲兩點鐘久，也是翕十外組相片","page":"第132頁","correct":"雲仔舍兜的翕相","options":["去圳寮仔翕相的路途","雲仔舍兜的翕相","蓮治佮翕相師傅的故事","蓮治講𪜶的故事"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

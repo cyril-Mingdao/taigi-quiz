@@ -1,5 +1,5 @@
 /*! 本土語線上測驗 — © 2026 詹宗龍（臺中明道中學）保留一切權利。 */
-/* 本土語線上測驗：整合教師管理頁（朗讀測驗＋生份字＋選詞塌空＋咱來鬥句＋形音義）
+/* 本土語線上測驗：整合教師管理頁（朗讀測驗＋生份字＋選詞塌空＋咱來鬥句＋形音義＋心智圖配對）
    臺中明道中學 詹宗龍 製作
    教師名單由收件程式（CONFIG.TEACHERS）判定。總管理者（CONFIG.SUPER_ADMINS）看得到所有班級，
    並可用「👥 教師班級權限」勾選其他教師能看哪些班；其他教師只看得到被勾選的班級＋自己的紀錄。朗讀測驗的錄音一律經收件程式轉送。
@@ -10,7 +10,8 @@ const CATS = [
   { id: 'SIANN', icon: '📖', name: '咱來餾生份字' },
   { id: 'SUANSU', icon: '✏️', name: '選詞塌空' },
   { id: 'TAUKU', icon: '🧩', name: '咱來鬥句' },
-  { id: 'HINGIM', icon: '🔤', name: '形音義' }
+  { id: 'HINGIM', icon: '🔤', name: '形音義' },
+  { id: 'SIMTI', icon: '🧠', name: '心智圖配對' }
 ];
 /* 版本排序與色塊（2026-11-17）：出版社 真平→康軒→全華→育達，同社依冊號；色塊＝各站分頁圖示（skill common.ICON） */
 const PUB_ORDER = ['真平', '康軒', '全華', '育達'];
@@ -43,7 +44,7 @@ CATALOG.forEach(c => { catalogById[c.id] = c; });
 
 const isRead = () => admin.cat === 'READ';
 const catOf = id => (catalogById[id] ? catalogById[id].cat : (String(id).split('-')[0] in KIND_SET ? String(id).split('-')[0] : 'READ'));
-const KIND_SET = { SIANN: 1, SUANSU: 1, TAUKU: 1, HINGIM: 1 };
+const KIND_SET = { SIANN: 1, SUANSU: 1, TAUKU: 1, HINGIM: 1, SIMTI: 1 };
 const lessonShort = id => (catalogById[id] ? catalogById[id].title : id);
 const bookOf = id => (catalogById[id] ? catalogById[id].book : OTHER_BOOK);
 const lessonLabel = id => (catalogById[id] ? `${catalogById[id].book} ${catalogById[id].title}` : id);

@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜全華版國中第1冊 第3課 芫荽皮蛋豬血粿Pizza（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\CHUANHWA-B1\L3.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3課 芫荽皮蛋豬血粿Pizza｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>全華版國中第1冊 第3課 芫荽皮蛋豬血粿Pizza</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-CHUANHWA-B1L3","kind":"SIMTI","kindName":"心智圖配對","book":"全華第1冊","bookFull":"全華版國中第1冊","title":"第3課 芫荽皮蛋豬血粿Pizza","items":[{"no":1,"sent":"我愛食芫荽、愛食皮蛋、愛食豬血粿、愛食pizza","page":"第39頁","correct":"我愛食的四項","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":2,"sent":"我愛食芫荽、愛食皮蛋、愛食豬血粿、愛食pizza，這幾項物件鬥做伙","page":"第39頁","correct":"我愛食的四項","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":4,"sent":"對我來講是有夠唌人","page":"第39頁","correct":"我愛食的四項","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":5,"sent":"毋過想欲試的人實在有限","page":"第39頁","correct":"別人毋敢試","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":6,"sent":"除了本來就驚芫荽的攏無好喙以外，準講有佮意這幾項的人，嘛袂當接受𪜶做伙。","page":"第39頁","correct":"別人毋敢試","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":7,"sent":"除了本來就驚芫荽的攏無好喙以外","page":"第39頁","correct":"別人毋敢試","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":8,"sent":"除了本來就驚芫荽的攏無好喙以外，準講有佮意這幾項的人","page":"第39頁","correct":"別人毋敢試","options":["我愛食的四項","別人毋敢試","會扴味無","敆做伙的醬"]},{"no":11,"sent":"我認為創意口味有兩个重點，第一是這幾項食物敢會扴味","page":"第39頁","correct":"會扴味無","options":["別人毋敢試","會扴味無","敆做伙的醬","羶的對抗佮融合"]},{"no":12,"sent":"第一是這幾項食物敢會扴味","page":"第39頁","correct":"會扴味無","options":["別人毋敢試","會扴味無","敆做伙的醬","羶的對抗佮融合"]},{"no":13,"sent":"若毋是扴味的組合","page":"第39頁","correct":"會扴味無","options":["別人毋敢試","會扴味無","敆做伙的醬","羶的對抗佮融合"]},{"no":14,"sent":"加上適合的醬","page":"第39頁","correct":"敆做伙的醬","options":["會扴味無","敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬"]},{"no":15,"sent":"加上適合的醬，應該就袂䆀。","page":"第39頁","correct":"敆做伙的醬","options":["會扴味無","敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬"]},{"no":17,"sent":"我感覺「有一个羶」的物件攏有機會鬥陣，會當互相對抗佮融合。","page":"第40頁","correct":"羶的對抗佮融合","options":["敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人"]},{"no":18,"sent":"我感覺「有一个羶」的物件攏有機會鬥陣","page":"第40頁","correct":"羶的對抗佮融合","options":["敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人"]},{"no":19,"sent":"會當互相對抗佮融合。","page":"第40頁","correct":"羶的對抗佮融合","options":["敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人"]},{"no":20,"sent":"芫荽、皮蛋、豬血、cheese攏是有羶的食材。","page":"第40頁","correct":"羶的對抗佮融合","options":["敆做伙的醬","羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人"]},{"no":21,"sent":"融合的媒介，第一用塗豆麩，無意外，因為夜市仔咧賣的豬血粿就有糝，定著無問題；另外一項是烘肉醬","page":"第40頁","correct":"塗豆麩佮烘肉醬","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":22,"sent":"融合的媒介，第一用塗豆麩","page":"第40頁","correct":"塗豆麩佮烘肉醬","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":23,"sent":"第一用塗豆麩","page":"第40頁","correct":"塗豆麩佮烘肉醬","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":24,"sent":"因為夜市仔咧賣的豬血粿就有糝","page":"第40頁","correct":"塗豆麩佮烘肉醬","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":25,"sent":"因為烘肉醬會當應付所有的肉羶，用佇遮有合理。","page":"第40頁","correct":"塗豆麩佮烘肉醬","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":26,"sent":"辦公室同事咧招，毋過有勇氣的人竟然連我干焦兩个，所以阮一人分一半。","page":"第41頁","correct":"有勇氣的兩个人","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":28,"sent":"皮蛋烘過閣有鹹卵仁的芳氣","page":"第41頁","correct":"有夠搭峇","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":29,"sent":"本底我煩惱豬血粿佮pizza餅攏是粉漿類，會傷飫、口感有可能傷過厚重，結果咧，伊限定使用薄餅，餅脆脆、豬血粿𩚨𩚨","page":"第41頁","correct":"有夠搭峇","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]},{"no":30,"sent":"有夠搭峇！","page":"第41頁","correct":"有夠搭峇","options":["羶的對抗佮融合","塗豆麩佮烘肉醬","有勇氣的兩个人","有夠搭峇"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

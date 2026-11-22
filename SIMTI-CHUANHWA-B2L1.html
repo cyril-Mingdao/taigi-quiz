@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜全華版國中第2冊 第1課 無事坐巴士（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\CHUANHWA-B2\L1.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 無事坐巴士｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>全華版國中第2冊 第1課 無事坐巴士</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-CHUANHWA-B2L1","kind":"SIMTI","kindName":"心智圖配對","book":"全華第2冊","bookFull":"全華版國中第2冊","title":"第1課 無事坐巴士","items":[{"no":1,"sent":"駛對山崎往南投的早幫車","page":"第7頁","correct":"窗外的田園","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":2,"sent":"駛對山崎往南投的早幫車\n窗外的田園　傳來鳥仔聲","page":"第7頁","correct":"窗外的田園","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":3,"sent":"窗外的田園　傳來鳥仔聲","page":"第7頁","correct":"窗外的田園","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":4,"sent":"窗外的田園","page":"第7頁","correct":"窗外的田園","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":5,"sent":"傳來鳥仔聲","page":"第7頁","correct":"窗外的田園","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":6,"sent":"囡仔時的記持攏藏佇遐","page":"第7頁","correct":"囡仔時的記持","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":7,"sent":"囡仔時的記持攏藏佇遐\n閣有阿爸佮阿母少年時的戀歌聲","page":"第7頁","correct":"囡仔時的記持","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":8,"sent":"閣有阿爸佮阿母少年時的戀歌聲","page":"第7頁","correct":"囡仔時的記持","options":["窗外的田園","囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底"]},{"no":9,"sent":"為恁的青春　拍一張公車票","page":"第7頁","correct":"沿路酸甘蜜甜","options":["囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺"]},{"no":10,"sent":"為恁的青春","page":"第7頁","correct":"沿路酸甘蜜甜","options":["囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺"]},{"no":11,"sent":"為恁的青春　拍一張公車票\n沿路的風景酸甘蜜甜","page":"第7頁","correct":"沿路酸甘蜜甜","options":["囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺"]},{"no":12,"sent":"拍一張公車票","page":"第7頁","correct":"沿路酸甘蜜甜","options":["囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺"]},{"no":13,"sent":"沿路的風景酸甘蜜甜","page":"第7頁","correct":"沿路酸甘蜜甜","options":["囡仔時的記持","沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺"]},{"no":14,"sent":"對你的數念囥心肝底","page":"第7頁","correct":"數念囥心肝底","options":["沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺","車牌仔的故事"]},{"no":16,"sent":"恁的笑容","page":"第7頁","correct":"數念囥心肝底","options":["沿路酸甘蜜甜","數念囥心肝底","南來北往盤山過嶺","車牌仔的故事"]},{"no":18,"sent":"沿一條路行","page":"第8頁","correct":"南來北往盤山過嶺","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":19,"sent":"南來北往　盤山過嶺","page":"第8頁","correct":"南來北往盤山過嶺","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":20,"sent":"南來北往","page":"第8頁","correct":"南來北往盤山過嶺","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":21,"sent":"盤山過嶺","page":"第8頁","correct":"南來北往盤山過嶺","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":22,"sent":"一支車牌仔　藏偌濟故事","page":"第8頁","correct":"車牌仔的故事","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":23,"sent":"一支車牌仔","page":"第8頁","correct":"車牌仔的故事","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":24,"sent":"藏偌濟故事","page":"第8頁","correct":"車牌仔的故事","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":25,"sent":"苦楝跤的後一站敢是三塊厝","page":"第8頁","correct":"車牌仔的故事","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":26,"sent":"拍一張青春的公車票　予我來做主","page":"第8頁","correct":"有事無事坐bá-suh","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":27,"sent":"拍一張青春的公車票","page":"第8頁","correct":"有事無事坐bá-suh","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":28,"sent":"予我來做主","page":"第8頁","correct":"有事無事坐bá-suh","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":29,"sent":"有事無事　坐bá-suh","page":"第8頁","correct":"有事無事坐bá-suh","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]},{"no":30,"sent":"有事無事","page":"第8頁","correct":"有事無事坐bá-suh","options":["數念囥心肝底","南來北往盤山過嶺","車牌仔的故事","有事無事坐bá-suh"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

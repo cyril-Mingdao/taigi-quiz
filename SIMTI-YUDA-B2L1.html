@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達創世紀版高中全1冊 第1課 阮兜的早頓（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\YUDA-B2\L1.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 阮兜的早頓｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達創世紀版高中全1冊 第1課 阮兜的早頓</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B2L1","kind":"SIMTI","kindName":"心智圖配對","book":"育達創世紀全1冊","bookFull":"育達創世紀版高中全1冊","title":"第1課 阮兜的早頓","items":[{"no":1,"sent":"自我有記持開始，阮兜的早頓就是阿爸一國，阿母佮阮兄弟仔一國。","page":"第8頁","correct":"阿爸一國阿母一國","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":2,"sent":"自我有記持開始，阮兜的早頓就是阿爸一國","page":"第8頁","correct":"阿爸一國阿母一國","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":3,"sent":"阮兜的早頓就是阿爸一國","page":"第8頁","correct":"阿爸一國阿母一國","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":4,"sent":"阮兜的早頓就是阿爸一國，阿母佮阮兄弟仔一國。","page":"第8頁","correct":"阿爸一國阿母一國","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":5,"sent":"阿母佮阮兄弟仔一國。","page":"第8頁","correct":"阿爸一國阿母一國","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":6,"sent":"我讀iu-tsí-ián的時，逐工透早阿母就共早頓攢好勢，有時陣是俗麭配牛奶，若無就是饅頭、包仔配豆奶。","page":"第8頁","correct":"阿母攢的早頓","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":7,"sent":"逐工透早阿母就共早頓攢好勢","page":"第8頁","correct":"阿母攢的早頓","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":8,"sent":"有時陣是俗麭配牛奶","page":"第8頁","correct":"阿母攢的早頓","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":10,"sent":"阿爸攏應講伊食飽矣！","page":"第8頁","correct":"阿母攢的早頓","options":["阿爸一國阿母一國","阿母攢的早頓","庄跤食糜","菜市仔口味"]},{"no":12,"sent":"捌聽阿媽講起，阿爸細漢的時，厝裡囡仔大陣，彼陣閣蹛佇庄跤，阿公、阿媽足早著愛去作穡，早起攏煮一大坩糜","page":"第8頁","correct":"庄跤食糜","options":["阿母攢的早頓","庄跤食糜","菜市仔口味","重口味的早頓"]},{"no":13,"sent":"等阿爸𪜶兄弟仔精神了後，配一寡仔菜脯、蔭瓜仔","page":"第8頁","correct":"庄跤食糜","options":["阿母攢的早頓","庄跤食糜","菜市仔口味","重口味的早頓"]},{"no":14,"sent":"凊彩扒扒咧就去讀冊矣。","page":"第9頁","correct":"庄跤食糜","options":["阿母攢的早頓","庄跤食糜","菜市仔口味","重口味的早頓"]},{"no":15,"sent":"阿媽閣講，阿爸細漢的時足歹喙斗，佇庄跤食糜配醬菜的日子，逐工攏嘛面憂面結，啥物都無愛食","page":"第9頁","correct":"庄跤食糜","options":["阿母攢的早頓","庄跤食糜","菜市仔口味","重口味的早頓"]},{"no":16,"sent":"毋才會生做黃酸黃酸。","page":"第9頁","correct":"庄跤食糜","options":["阿母攢的早頓","庄跤食糜","菜市仔口味","重口味的早頓"]},{"no":17,"sent":"講嘛奇怪，搬去臺北了後，阿公佮阿媽無閒咧做生理，早頓就攏叫阿爸家己提銀角仔去菜市仔買","page":"第9頁","correct":"菜市仔口味","options":["庄跤食糜","菜市仔口味","重口味的早頓","翁某冤家"]},{"no":18,"sent":"伊煞親像囡仔咧轉骨仝款，開脾矣！","page":"第9頁","correct":"菜市仔口味","options":["庄跤食糜","菜市仔口味","重口味的早頓","翁某冤家"]},{"no":19,"sent":"今仔日食蚵仔麵線，明仔載肉羹麵，若無就是米粉炒配豬血湯。","page":"第9頁","correct":"菜市仔口味","options":["庄跤食糜","菜市仔口味","重口味的早頓","翁某冤家"]},{"no":20,"sent":"就按呢，阮阿爸的早頓就沓沓仔變成菜市仔口味的綜合版，真僫改矣！","page":"第9頁","correct":"菜市仔口味","options":["庄跤食糜","菜市仔口味","重口味的早頓","翁某冤家"]},{"no":21,"sent":"阿母講伊佮阿爸拄交往的時陣，毋知阿爸愛食彼款重口味的早頓","page":"第10頁","correct":"重口味的早頓","options":["菜市仔口味","重口味的早頓","翁某冤家","無冤無家不成夫妻"]},{"no":23,"sent":"想袂到，結婚了後兩个人煞不時為著欲食佗一款早頓咧冤家。","page":"第10頁","correct":"翁某冤家","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":24,"sent":"原底阿爸會勉強共阿母攢的早頓食予了","page":"第10頁","correct":"翁某冤家","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":25,"sent":"毋過阿母敢若會當感受著翁婿淡薄仔稀微的心情─無食著家己佮意的早頓，規工攏袂輕鬆呢！","page":"第10頁","correct":"翁某冤家","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":26,"sent":"阿母共阮講:「無冤無家，不成夫妻。","page":"第11頁","correct":"無冤無家不成夫妻","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":27,"sent":"若為著無仝款的食食咧冤家量債，拍歹翁某的感情，彼就毋值矣。","page":"第11頁","correct":"無冤無家不成夫妻","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":28,"sent":"所以這馬阮兜的早頓，就保持這種各人揀各人愛食的，逐家攏誠歡喜，毋過","page":"第11頁","correct":"各人揀各人愛食的","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":29,"sent":"阿爸有當時仔欲去買伊上愛食的蚵仔麵線，攏會偷偷仔問我佮小弟有想欲食無。","page":"第11頁","correct":"各人揀各人愛食的","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]},{"no":30,"sent":"我定定咧想：「有時陣換食換食，嘛袂䆀呢！」","page":"第11頁","correct":"各人揀各人愛食的","options":["重口味的早頓","翁某冤家","無冤無家不成夫妻","各人揀各人愛食的"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜全華版國中第1冊 第1課 日頭公變魔術，有影抑無影？（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v50\mindmap\CHUANHWA-B1\L1.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 日頭公變魔術，有影抑無影？｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>全華版國中第1冊 第1課 日頭公變魔術，有影抑無影？</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHUANHWA-B1">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHUANHWA-B1" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-CHUANHWA-B1L1","kind":"SIMTI","kindName":"心智圖配對","book":"全華第1冊","bookFull":"全華版國中第1冊","title":"第1課 日頭公變魔術，有影抑無影？","items":[{"no":1,"sent":"透早時的日頭","page":"第7頁","correct":"白殕殕的毯仔","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":2,"sent":"共天頂變做白殕殕的毯仔","page":"第7頁","correct":"白殕殕的毯仔","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":3,"sent":"雞未啼、狗未吠","page":"第7頁","correct":"白殕殕的毯仔","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":4,"sent":"早頓店的鼎灶已經沖沖滾","page":"第7頁","correct":"白殕殕的毯仔","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":5,"sent":"早起時的日頭","page":"第8頁","correct":"青蘢蘢的大海","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":6,"sent":"共天頂變做青蘢蘢的大海","page":"第8頁","correct":"青蘢蘢的大海","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":7,"sent":"士農工商攏精神--looh","page":"第8頁","correct":"青蘢蘢的大海","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":8,"sent":"隨个仔隨个開始咧無閒","page":"第8頁","correct":"青蘢蘢的大海","options":["白殕殕的毯仔","青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑"]},{"no":9,"sent":"中晝時的日頭","page":"第8頁","correct":"燒烘烘的火爐","options":["青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤"]},{"no":10,"sent":"共天頂變做燒烘烘的火爐","page":"第8頁","correct":"燒烘烘的火爐","options":["青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤"]},{"no":11,"sent":"咱腹肚著推予飽","page":"第8頁","correct":"燒烘烘的火爐","options":["青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤"]},{"no":12,"sent":"才有氣力通拚下晡的穡頭","page":"第8頁","correct":"燒烘烘的火爐","options":["青蘢蘢的大海","燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤"]},{"no":13,"sent":"欲暗仔的日頭","page":"第9頁","correct":"黃錦錦的椪柑","options":["燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝"]},{"no":14,"sent":"共天頂變做黃錦錦的椪柑","page":"第9頁","correct":"黃錦錦的椪柑","options":["燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝"]},{"no":16,"sent":"一隻一隻飛轉去家己的岫","page":"第9頁","correct":"黃錦錦的椪柑","options":["燒烘烘的火爐","黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝"]},{"no":17,"sent":"暗暝仔的日頭","page":"第9頁","correct":"烏趖趖的墨盤","options":["黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕"]},{"no":18,"sent":"共天頂變做烏趖趖的墨盤","page":"第9頁","correct":"烏趖趖的墨盤","options":["黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕"]},{"no":19,"sent":"天星爍一下、爍一下","page":"第9頁","correct":"烏趖趖的墨盤","options":["黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕"]},{"no":20,"sent":"袂輸是火金蛄咧講：「猶未睏--ooh！」","page":"第9頁","correct":"烏趖趖的墨盤","options":["黃錦錦的椪柑","烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕"]},{"no":21,"sent":"人人攏有雙生仔囝","page":"第10頁","correct":"人人攏有雙生仔囝","options":["烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸"]},{"no":22,"sent":"有時躼、有時矮","page":"第10頁","correct":"人人攏有雙生仔囝","options":["烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸"]},{"no":23,"sent":"有時閣會覕相揣","page":"第10頁","correct":"人人攏有雙生仔囝","options":["烏趖趖的墨盤","人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸"]},{"no":24,"sent":"透早伊若睏精神","page":"第10頁","correct":"透早勼甲一漢仔疕","options":["人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖"]},{"no":25,"sent":"躼跤躼跤瘦卑巴","page":"第10頁","correct":"透早勼甲一漢仔疕","options":["人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖"]},{"no":26,"sent":"沓沓勼甲一漢仔疕","page":"第10頁","correct":"透早勼甲一漢仔疕","options":["人人攏有雙生仔囝","透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖"]},{"no":27,"sent":"食飯飽就有氣力","page":"第11頁","correct":"食飽直抽懸","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":28,"sent":"矮頓矮頓直抽懸","page":"第11頁","correct":"食飽直抽懸","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":29,"sent":"黃昏閣再躼跤躼手","page":"第11頁","correct":"食飽直抽懸","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":30,"sent":"日頭若落山","page":"第11頁","correct":"日落覕、月出趖","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":31,"sent":"伊就走去覕","page":"第11頁","correct":"日落覕、月出趖","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":32,"sent":"月娘浮上山","page":"第11頁","correct":"日落覕、月出趖","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":33,"sent":"又閣趖出來","page":"第11頁","correct":"日落覕、月出趖","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":34,"sent":"伊的跤底若黏黐","page":"第12頁","correct":"黏牢牢剝袂離","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":35,"sent":"定定共人黏牢牢","page":"第12頁","correct":"黏牢牢剝袂離","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":36,"sent":"袂輸司公仔象桮","page":"第12頁","correct":"黏牢牢剝袂離","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]},{"no":37,"sent":"相依相倚剝袂離","page":"第12頁","correct":"黏牢牢剝袂離","options":["透早勼甲一漢仔疕","食飽直抽懸","日落覕、月出趖","黏牢牢剝袂離"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
