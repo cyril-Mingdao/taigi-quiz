@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜真平版國中第2冊 第2課 看戲真趣味（題庫來源：09_生份字\真平國中第二冊\02成果-生字-第2課 看戲真趣味.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 看戲真趣味｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>真平版國中第2冊 第2課 看戲真趣味</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-CHINPING-B2L2","kind":"SIANN","kindName":"咱來餾生份字","book":"真平第2冊","bookFull":"真平版國中第2冊","title":"第2課 看戲真趣味","items":[{"no":1,"page":20,"ty":"古錐","tl":"kóo-tsui","md":"可愛"},{"no":2,"page":20,"ty":"淡薄仔","tl":"tām-po̍h-á","md":"一點點"},{"no":3,"page":20,"ty":"倯","tl":"sông","md":"俗氣"},{"no":4,"page":20,"ty":"鬥陣","tl":"tàu-tīn","md":"結伴、偕同、一起"},{"no":5,"page":20,"ty":"踅玲瑯","tl":"se̍h-lin-long","md":"繞圈子"},{"no":6,"page":20,"ty":"閣","tl":"koh","md":"又、再、還(3)"},{"no":7,"page":20,"ty":"袂","tl":"bē/buē","md":"不。否定詞"},{"no":8,"page":20,"ty":"跳針","tl":"thiàu-tsiam","md":"喻為說話不連貫，或前言不對後語"},{"no":9,"page":20,"ty":"逐家","tl":"ta̍k-ke","md":"大家"},{"no":10,"page":20,"ty":"上蓋","tl":"siōng/siāng-kài","md":"非常、最"},{"no":11,"page":20,"ty":"熟似","tl":"si̍k-sāi","md":"熟識"},{"no":12,"page":20,"ty":"笑詼","tl":"tshiò-khue/khe","md":"笑話、笑料"},{"no":13,"page":20,"ty":"齣","tl":"tshut","md":"戲劇；單位；麻煩"},{"no":14,"page":20,"ty":"喙","tl":"tshuì","md":"嘴巴(4)"},{"no":15,"page":20,"ty":"裂獅獅","tl":"li̍h-sai-sai","md":"擬態詞"},{"no":16,"page":20,"ty":"苦齣","tl":"khóo-tshut","md":"悲劇、苦情戲"},{"no":17,"page":20,"ty":"目屎","tl":"ba̍k-sái","md":"眼淚"},{"no":18,"page":21,"ty":"活跳跳","tl":"ua̍h-thiàu-thiàu","md":"活力充沛的樣子"},{"no":19,"page":21,"ty":"搬","tl":"puann","md":"演出；使力移動；遷移"},{"no":20,"page":21,"ty":"氣口","tl":"khuì-kháu","md":"口氣；口味"},{"no":21,"page":21,"ty":"細漢","tl":"sè/suè-hàn","md":"年齡較小的(3)"},{"no":22,"page":21,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是"},{"no":23,"page":21,"ty":"這馬","tl":"tsit-má","md":"現在"},{"no":24,"page":21,"ty":"鬧熱","tl":"lāu/nāu-jia̍t/lia̍t","md":"熱鬧"},{"no":25,"page":21,"ty":"向望","tl":"ǹg-bāng","md":"盼望、希望"},{"no":26,"page":21,"ty":"會當","tl":"ē-tàng","md":"可以"},{"no":27,"page":21,"ty":"出頭天","tl":"tshut-thâu-thinn","md":"出人頭地"},{"no":28,"page":22,"ty":"做伙","tl":"tsò-hué/tsuè-hé","md":"一起"},{"no":29,"page":22,"ty":"佗","tl":"tó/tá","md":"何、哪，表疑問"},{"no":30,"page":22,"ty":"勸善","tl":"khuàn-siān","md":"勸導他人行善"},{"no":31,"page":22,"ty":"著","tl":"tio̍h","md":"必須(8)"},{"no":32,"page":22,"ty":"緊","tl":"kín","md":"快點，表催促(3)"},{"no":33,"page":22,"ty":"扮仙","tl":"pān-sian","md":"正戲前的開場戲"},{"no":34,"page":22,"ty":"圓圓圓","tl":"i̋nn-înn-înn","md":"指圓滿；近正圓"},{"no":35,"page":22,"ty":"大趁錢","tl":"tuā-thàn-tsînn","md":"賺大錢"},{"no":36,"page":22,"ty":"大葩尾","tl":"tuā-pha-bué","md":"盛大熱鬧"},{"no":37,"page":22,"ty":"庇佑","tl":"pì/pí-iū","md":"保佑"},{"no":38,"page":22,"ty":"賰","tl":"tshun","md":"剩餘；存下錢來"},{"no":39,"page":22,"ty":"家伙","tl":"ke-hué/hé","md":"指財產"},{"no":40,"page":22,"ty":"抾","tl":"khioh","md":"拾取、撿取"},{"no":41,"page":22,"ty":"無閒𩑾𩑾","tl":"bô-îng-tshih-tshih","md":"非常忙碌"},{"no":42,"page":22,"ty":"較早","tl":"khah-tsá","md":"以前；早一點"},{"no":43,"page":22,"ty":"庄頭","tl":"tsng-thâu","md":"泛指村落"},{"no":44,"page":22,"ty":"規年迵天","tl":"kui-nî-thàng-thinn","md":"一整年"},{"no":45,"page":22,"ty":"小生","tl":"sió-sing","md":"戲劇裡飾演年輕男子的角色"},{"no":46,"page":22,"ty":"胸坎","tl":"hing-khám","md":"胸膛"},{"no":47,"page":22,"ty":"小旦","tl":"sió-tuànn","md":"戲劇裡飾演年輕貌美女子的角色"},{"no":48,"page":22,"ty":"目尾","tl":"ba̍k-bué/bé","md":"眼尾；餘光；眼神"},{"no":49,"page":22,"ty":"三花","tl":"sann-hue","md":"男性丑角"},{"no":50,"page":22,"ty":"講笑詼","tl":"kóng-tshiò-khue/khe","md":"逗笑、講笑話"},{"no":51,"page":22,"ty":"刣","tl":"thâi","md":"宰殺(5)"},{"no":52,"page":22,"ty":"毋願","tl":"m̄-guān","md":"不願意；不甘心"},{"no":53,"page":22,"ty":"家己","tl":"ka-kī/tī","md":"自己"},{"no":54,"page":22,"ty":"媠","tl":"suí","md":"漂亮的、美麗的"},{"no":55,"page":22,"ty":"跤","tl":"kha","md":"在…下(4)"},{"no":56,"page":24,"ty":"仝款","tl":"kāng-khuán","md":"同樣"},{"no":57,"page":24,"ty":"傳承","tl":"thuân-sîng","md":"傳承"},{"no":58,"page":24,"ty":"精神","tl":"tsing-sîn","md":"神志、意志；睡醒"},{"no":59,"page":24,"ty":"猶原","tl":"iu-guân","md":"仍然、仍舊"},{"no":60,"page":24,"ty":"工夫","tl":"kang-hu","md":"本領、造詣(4)"},{"no":61,"page":24,"ty":"著愛","tl":"tio̍h-ài","md":"得、要、必須"},{"no":62,"page":24,"ty":"心神","tl":"sim-sîn","md":"心力；心思"},{"no":63,"page":24,"ty":"噗仔聲","tl":"pho̍k-á-siann","md":"掌聲"},{"no":64,"page":24,"ty":"傳統","tl":"thuân-thóng","md":"傳統"},{"no":65,"page":24,"ty":"佇","tl":"tī","md":"在..地方或時間"},{"no":66,"page":24,"ty":"生湠","tl":"senn/sinn-thuànn","md":"生育繁殖"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

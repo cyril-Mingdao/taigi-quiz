@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜真平版國中第3冊 第1課 阿母的頭毛（題庫來源：11_咱來鬥句\12真平版國中第3冊\01成果-鬥句-第1課 阿母的頭毛.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 阿母的頭毛｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>真平版國中第3冊 第1課 阿母的頭毛</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B3">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B3">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B3" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-CHINPING-B3L1","kind":"TAUKU","kindName":"咱來鬥句","book":"真平第3冊","bookFull":"真平版國中第3冊","title":"第1課 阿母的頭毛","items":[{"no":1,"page":6,"ty":"阿母","tl":"a-bú","md":"媽媽","sent":"阿母咧灶跤煮飯","parts":["阿母","咧","灶跤","煮飯"]},{"no":2,"page":6,"ty":"是按怎","tl":"sī-án-tsuánn","md":"為什麼","sent":"你是按怎無來上課？","parts":["你","是按怎","無來","上課？"]},{"no":3,"page":6,"ty":"已經","tl":"í-king","md":"已經","sent":"糖仔已經攏分了矣","parts":["糖仔","已經","攏分","了矣"]},{"no":4,"page":6,"ty":"會記得","tl":"ē-kì--tit","md":"記得(又唸作ē-kì--tsitē-kì--litē-kì--lihē-kì--eh)","sent":"你講過的話，敢閣會記得？","parts":["你講過的話，","敢閣","會記得？"]},{"no":5,"page":6,"ty":"細漢","tl":"sè/suè-hàn","md":"年齡較小的","sent":"細漢的時陣","parts":["細漢","的","時陣"]},{"no":6,"page":6,"ty":"烏金","tl":"oo-kim","md":"烏黑","sent":"伊的頭鬃烏金柔軟","parts":["伊的","頭鬃","烏金","柔軟"]},{"no":7,"page":6,"ty":"一點仔","tl":"tsi̍t-tiám-á","md":"一點點","sent":"加一點仔糖較好食","parts":["加","一點仔","糖較","好食"]},{"no":8,"page":7,"ty":"這馬","tl":"tsit-má","md":"現在","sent":"這馬的人攏罕得寫批矣","parts":["這馬","的人攏","罕得","寫批矣"]},{"no":9,"page":7,"ty":"大漢","tl":"tuā-hàn","md":"高大/長大/年長","sent":"囡仔若大漢，爸母就輕鬆矣","parts":["囡仔若","大漢，","爸母就輕鬆矣"]},{"no":10,"page":7,"ty":"操煩","tl":"tshau-huân","md":"操心煩惱","sent":"你莫為著我的代誌操煩","parts":["你莫為著","我的","代誌","操煩"]},{"no":11,"page":7,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"伊若真正按呢做，就傷超過矣","parts":["伊若真正","按呢","做，","就傷超過矣"]},{"no":12,"page":7,"ty":"阿爸","tl":"a-pah","md":"爸爸","sent":"阿爸逐工去上班","parts":["阿爸","逐工","去","上班"]},{"no":13,"page":7,"ty":"若無","tl":"nā-bô","md":"不然","sent":"予我一个，若無就準拄煞","parts":["予我","一个，","若無","就準拄煞"]},{"no":14,"page":7,"ty":"掠準","tl":"lia̍h-tsún","md":"認為、以為","sent":"我掠準阿爸會買手機予我。","parts":["我","掠準","阿爸會買","手機予我。"]},{"no":15,"page":7,"ty":"實在","tl":"si̍t-tsāi","md":"真實的、實際的","sent":"這件代誌是實在的","parts":["這件","代誌是","實在","的"]},{"no":16,"page":7,"ty":"有夠","tl":"ū-kàu","md":"非常、真夠","sent":"今仔日有夠熱","parts":["今仔日","有夠","熱"]},{"no":17,"page":8,"ty":"姑娘","tl":"koo-niû","md":"未出嫁的女子","sent":"伊做姑娘的時真媠","parts":["伊做","姑娘","的時","真媠"]},{"no":18,"page":8,"ty":"時陣","tl":"sî-tsūn","md":"時候","sent":"你啥物時陣欲轉來？","parts":["你啥物","時陣","欲","轉來？"]},{"no":19,"page":8,"ty":"阿母","tl":"a-bú","md":"媽媽","sent":"阿母咧灶跤煮飯","parts":["阿母","咧","灶跤","煮飯"]},{"no":20,"page":8,"ty":"頭毛","tl":"thâu-mn̂g/moo","md":"頭髮","sent":"伊的頭毛生成是虯的","parts":["伊的","頭毛","生成","是虯的"]},{"no":21,"page":8,"ty":"烏金","tl":"oo-kim","md":"烏黑","sent":"伊的頭鬃烏金柔軟","parts":["伊的","頭鬃","烏金","柔軟"]},{"no":22,"page":8,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾","sent":"厝主閣喝欲起厝稅矣","parts":["厝主","閣","喝欲起","厝稅矣"]},{"no":23,"page":8,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款","parts":["𪜶兩个好甲","親像","兄弟仔","仝款"]},{"no":24,"page":8,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別","sent":"這兩个皮包仔看著仝款仔仝款","parts":["這兩个皮","包仔看著","仝款","仔仝款"]},{"no":25,"page":8,"ty":"少年家","tl":"siàu-liân-ke","md":"年輕人","sent":"彼个少年家真有禮貌","parts":["彼个","少年家","真有","禮貌"]},{"no":26,"page":8,"ty":"心肝","tl":"sim-kuann","md":"心愛的人","sent":"你是阿母的心肝","parts":["你是","阿母","的","心肝"]},{"no":27,"page":8,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴","sent":"我予你一个面子，這件代誌就準拄煞","parts":["我","予","你一个面子，","這件代誌就準拄煞"]},{"no":28,"page":8,"ty":"化解","tl":"huà-kái","md":"解除、轉化","sent":"一句好話會當化解冤仇","parts":["一句好","話會當","化解","冤仇"]},{"no":29,"page":8,"ty":"一度","tl":"it-tōo","md":"曾經","sent":"伊一度想欲放棄","parts":["伊","一度","想欲","放棄"]},{"no":30,"page":8,"ty":"浪子","tl":"lōng-tsú","md":"到處遊蕩的人","sent":"浪子回頭金不換","parts":["浪子","回頭","金","不換"]},{"no":31,"page":9,"ty":"阮","tl":"guán / gún","md":"我們/我/我的","sent":"阮欲走矣，你咧？","parts":["阮","欲走","矣，","你咧？"]},{"no":32,"page":9,"ty":"阿母","tl":"a-bú","md":"媽媽","sent":"阿母咧灶跤煮飯","parts":["阿母","咧","灶跤","煮飯"]},{"no":33,"page":9,"ty":"頭毛","tl":"thâu-mn̂g/moo","md":"頭髮","sent":"伊的頭毛生成是虯的","parts":["伊的","頭毛","生成","是虯的"]},{"no":34,"page":9,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾","sent":"厝主閣喝欲起厝稅矣","parts":["厝主","閣","喝欲起","厝稅矣"]},{"no":35,"page":9,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款","parts":["𪜶兩个好甲","親像","兄弟仔","仝款"]},{"no":36,"page":9,"ty":"寒天","tl":"kuânn-thinn","md":"冬天","sent":"寒天的時陣，愛穿較燒咧","parts":["寒天","的時陣，","愛穿","較燒咧"]},{"no":37,"page":9,"ty":"日頭","tl":"ji̍t/li̍t-thâu","md":"太陽","sent":"今仔日的日頭真猛","parts":["今仔日","的","日頭","真猛"]},{"no":38,"page":9,"ty":"大漢","tl":"tuā-hàn","md":"高大/長大/年長","sent":"囡仔若大漢，爸母就輕鬆矣","parts":["囡仔若","大漢，","爸母就輕鬆矣"]},{"no":39,"page":9,"ty":"了後","tl":"liáu-āu","md":"之後","sent":"你出門了後，伊就醒矣","parts":["你出門","了後，","伊就醒矣"]},{"no":40,"page":9,"ty":"已經","tl":"í-king","md":"已經","sent":"糖仔已經攏分了矣","parts":["糖仔","已經","攏分","了矣"]},{"no":41,"page":9,"ty":"光彩","tl":"kong-tshái","md":"光輝、光芒","sent":"天星的光彩真媠","parts":["天星","的","光彩","真媠"]},{"no":42,"page":9,"ty":"天頂","tl":"thinn-tíng","md":"天上","sent":"天頂天公，地下母舅公","parts":["天頂","天公，","地下","母舅公"]},{"no":43,"page":9,"ty":"層","tl":"tsân","md":"件（計算事件）","sent":"這層代誌我來處理","parts":["這","層","代誌我","來處理"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

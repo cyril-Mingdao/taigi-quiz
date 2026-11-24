@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  咱來鬥句線上測驗｜真平版國中第2冊 第4課 藝術展覽（題庫來源：11_咱來鬥句\11真平版國中第2冊\04成果-鬥句-第4課 藝術展覽.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 藝術展覽｜咱來鬥句線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧩 咱來鬥句 🧩</h1>
+     <h2>真平版國中第2冊 第4課 藝術展覽</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧩</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B2">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B2">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B2" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"TAUKU-CHINPING-B2L4","kind":"TAUKU","kindName":"咱來鬥句","book":"真平第2冊","bookFull":"真平版國中第2冊","title":"第4課 藝術展覽","items":[{"no":1,"page":52,"ty":"佮","tl":"kah","md":"和(4)","sent":"阿美定定佮我講私奇話","parts":["阿美定定","佮","我講","私奇話"]},{"no":2,"page":52,"ty":"無","tl":"--bô","md":"句末疑問助詞(7)","sent":"這站代誌到底是有影無？","parts":["這站代誌","到底是有影","無？"]},{"no":3,"page":52,"ty":"一寡","tl":"--tsi̍t-kuá","md":"一些、少許","sent":"你加減嘛愛食一寡","parts":["你加減","嘛","愛食","一寡"]},{"no":4,"page":52,"ty":"袂䆀","tl":"bē/buē-bái","md":"不錯","sent":"這間店裝潢了袂䆀","parts":["這間店","裝","潢了","袂䆀"]},{"no":5,"page":52,"ty":"足","tl":"tsiok/tsok","md":"非常、很、十分(6)","sent":"海邊的湧激足懸","parts":["海邊的","湧激","足","懸"]},{"no":6,"page":52,"ty":"遮","tl":"tsia","md":"這、這裡","sent":"遮暗時真鬧熱","parts":["遮","暗時","真","鬧熱"]},{"no":7,"page":53,"ty":"今仔日","tl":"kin-á-ji̍t/li̍t","md":"今天、今日","sent":"阿爸今仔日去菜園仔沃肥","parts":["阿爸","今仔日","去菜園","仔沃肥"]},{"no":8,"page":53,"ty":"誠","tl":"tsiânn","md":"很、非常","sent":"阿母誠𠢕佮人講價","parts":["阿母","誠","𠢕佮","人講價"]},{"no":9,"page":53,"ty":"著","tl":"tio̍h","md":"對(8)","sent":"你講了按呢著","parts":["你講","了","按呢","著"]},{"no":10,"page":53,"ty":"𠢕","tl":"gâu","md":"能幹、有本事(3)","sent":"阿明真𠢕弄喙花","parts":["阿明真","𠢕","弄","喙花"]},{"no":11,"page":53,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","sent":"阿虎愛唱歌，毋過逐攏幌頭","parts":["阿虎愛","唱歌，","毋過","逐攏幌頭"]},{"no":12,"page":53,"ty":"啥物","tl":"siánn-mih/mi̍h","md":"什麼","sent":"啥物人佇遐咧唱歌？","parts":["啥物","人佇遐","咧","唱歌？"]},{"no":13,"page":53,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","sent":"按呢做較省力","parts":["按呢","做較","省力"]},{"no":14,"page":54,"ty":"頂","tl":"tíng","md":"先前的(4)","sent":"錢我頂擺就納去矣","parts":["錢我","頂","擺就納","去矣"]},{"no":15,"page":54,"ty":"無","tl":"--bô","md":"句末疑問助詞(7)","sent":"這站代誌到底是有影無？","parts":["這站代誌","到底是有影","無？"]},{"no":16,"page":54,"ty":"佮","tl":"kah","md":"和(4)","sent":"阿美定定佮我講私奇話","parts":["阿美定定","佮","我講","私奇話"]},{"no":17,"page":54,"ty":"恁","tl":"lín","md":"你們；你的；你們的","sent":"恁老師對學生真有耐性","parts":["恁","老師","對學生","真有耐性"]},{"no":18,"page":54,"ty":"做伙","tl":"tsò-hué/hé","md":"一起；往來","sent":"咱下暗有閒做伙來去看覓","parts":["咱下暗","有閒","做伙","來去看覓"]},{"no":19,"page":54,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款","parts":["𪜶兩个好甲","親像","兄弟仔","仝款"]},{"no":20,"page":54,"ty":"敲","tl":"khà","md":"擊、叩；修改衣","sent":"過九點就毋通閣敲電話予伊","parts":["過九點","就毋通閣","敲電話","予伊"]},{"no":21,"page":54,"ty":"毋","tl":"m̄","md":"表示否定(5)","sent":"我定定攏毋知伊咧想啥","parts":["我定定攏","毋知","伊咧","想啥"]},{"no":22,"page":54,"ty":"實在","tl":"si̍t-tsāi","md":"真實的、實際的","sent":"這件代誌是實在的","parts":["這件","代誌是","實在","的"]},{"no":23,"page":54,"ty":"代先","tl":"tāi-sing","md":"事先、預先","sent":"這件代誌我代先佮伊講好矣","parts":["這件代誌我","代先","佮伊","講好矣"]},{"no":24,"page":54,"ty":"展覽","tl":"tián-lám","md":"展覽","sent":"伊公開展覽伊的私人花園","parts":["伊公開","展覽","伊的私","人花園"]},{"no":25,"page":54,"ty":"莫","tl":"mài","md":"不要","sent":"你莫烏白呸喙瀾","parts":["你","莫","烏白","呸喙瀾"]},{"no":26,"page":54,"ty":"受氣","tl":"siū/ siūnn-khì","md":"生氣、發怒","sent":"你莫閣受氣矣","parts":["你莫","閣","受氣","矣"]},{"no":27,"page":54,"ty":"進前","tl":"tsìn-tsîng","md":"之前；從前；向前","sent":"欲出門進前，愛會記得紮錢","parts":["欲出門","進前，","愛會記得紮錢"]},{"no":28,"page":54,"ty":"彼","tl":"he","md":"那個","sent":"彼是啥物聲？","parts":["彼","是","啥物","聲？"]},{"no":29,"page":54,"ty":"翕相","tl":"hip-siòng/siōng","md":"拍照、攝影","sent":"我想欲佮你翕相","parts":["我","想欲","佮你","翕相"]},{"no":30,"page":54,"ty":"興趣","tl":"hìng-tshù","md":"感到有興致(2)","sent":"你對政治敢有興趣？","parts":["你對","政治敢有","興趣？"]},{"no":31,"page":54,"ty":"擺","tl":"pái/páinn","md":"計次單位(3)","sent":"伊久久才來一擺","parts":["伊久久","才","來一","擺"]},{"no":32,"page":55,"ty":"敢","tl":"kám","md":"表疑問；有膽識","sent":"這敢是你的？","parts":["這","敢是","你","的？"]},{"no":33,"page":55,"ty":"無仝","tl":"bô kāng/kâng","md":"不一樣","sent":"這兩个物件無仝啦！","parts":["這兩个","物件","無仝","啦！"]},{"no":34,"page":55,"ty":"毋是","tl":"m̄ sī","md":"不是","sent":"伊真正無規矩毋是款","parts":["伊真正","無規矩","毋是","款"]},{"no":35,"page":55,"ty":"攝影","tl":"liap-iánn","md":"攝影","sent":"有袂少人誠興攝影","parts":["有袂少","人","誠興","攝影"]},{"no":36,"page":55,"ty":"裝置","tl":"tsong-tì","md":"裝置","sent":"這馬展覽會結合裝置藝術","parts":["這馬展覽","會結合","裝置","藝術"]},{"no":37,"page":55,"ty":"袂輸","tl":"bē/buē-su","md":"好比、好像","sent":"伊看著我袂輸看著鬼咧","parts":["伊看著我","袂輸","看著","鬼咧"]},{"no":38,"page":55,"ty":"齣","tl":"tshut","md":"戲劇；單位；麻煩","sent":"彼齣戲搬甲無意無思","parts":["彼","齣","戲搬甲","無意無思"]},{"no":39,"page":55,"ty":"色水","tl":"sik-tsuí","md":"顏色","sent":"這領衫的色水袂䆀","parts":["這領","衫的","色水","袂䆀"]},{"no":40,"page":55,"ty":"煞","tl":"suah","md":"竟然(7)","sent":"氣象報告講會好天煞咧落雨","parts":["氣象報告","講會好天","煞","咧落雨"]},{"no":41,"page":55,"ty":"毋捌","tl":"m̄ bat/pat","md":"不曾；不認識","sent":"我猶毋捌接觸過這種新產品","parts":["我猶","毋捌","接觸過這","種新產品"]},{"no":42,"page":55,"ty":"遮爾仔","tl":"tsiah-nī-á","md":"這麼、這般","sent":"這馬菜遮爾仔貴","parts":["這馬","菜","遮爾仔","貴"]},{"no":43,"page":55,"ty":"豐沛","tl":"phong-phài","md":"菜餚豐盛","sent":"今仔日的暗頓誠豐沛","parts":["今仔日","的","暗頓誠","豐沛"]},{"no":44,"page":55,"ty":"𪜶","tl":"in","md":"他們；他的","sent":"𪜶兩个感情真好","parts":["𪜶","兩个","感情","真好"]},{"no":45,"page":55,"ty":"共","tl":"kā","md":"把、將(4)","sent":"共伊放袂記","parts":["共","伊放","袂記"]},{"no":46,"page":55,"ty":"敆","tl":"kap","md":"接合；配合；調配","sent":"伊共兩本簿仔敆做伙","parts":["伊共兩","本簿仔","敆","做伙"]},{"no":47,"page":55,"ty":"貼倚","tl":"tah-uá","md":"貼近","sent":"候選人的政見愛貼倚民心","parts":["候選人的","政見愛","貼倚","民心"]},{"no":48,"page":56,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有、僅僅","sent":"干焦賰遮的菜爾爾","parts":["干焦","賰遮的","菜","爾爾"]},{"no":49,"page":56,"ty":"知影","tl":"tsai-iánn","md":"知道、懂得","sent":"你敢知影伊叫做啥物名？","parts":["你敢","知影","伊叫做","啥物名？"]},{"no":50,"page":56,"ty":"自翕","tl":"tsū-hip","md":"自拍","sent":"這馬的人誠愛自翕","parts":["這馬的","人","誠愛","自翕"]},{"no":51,"page":56,"ty":"不時","tl":"put-sî","md":"隨時、經常","sent":"伊不時嘛咧讀冊","parts":["伊","不時","嘛咧","讀冊"]},{"no":52,"page":56,"ty":"身軀","tl":"sin-khu","md":"身體","sent":"伊耍甲規身軀烏趖趖","parts":["伊耍","甲規","身軀","烏趖趖"]},{"no":53,"page":56,"ty":"拄著","tl":"tú-tio̍h","md":"碰到、遭遇","sent":"伊近來定定去拄著麻煩","parts":["伊近來","定定去","拄著","麻煩"]},{"no":54,"page":56,"ty":"有影","tl":"ū-iánn","md":"真實不虛","sent":"你講的話敢有影？","parts":["你講的","話敢","有影？"]},{"no":55,"page":56,"ty":"耍","tl":"sńg","md":"玩、遊戲","sent":"囡仔人愛耍𨑨迌物仔","parts":["囡仔人愛","耍","𨑨迌","物仔"]},{"no":56,"page":56,"ty":"逝","tl":"tsuā","md":"趟、回(3)","sent":"罕得轉來一逝","parts":["罕得","轉來","一","逝"]},{"no":57,"page":56,"ty":"四界","tl":"sì-kè/kuè","md":"到處、處處","sent":"我𤆬伊出去附近四界蹓蹓咧","parts":["我𤆬伊","出去附近","四界","蹓蹓咧"]},{"no":58,"page":56,"ty":"無的確","tl":"bô-tik-khak","md":"說不定、不一定","sent":"我今仔日無的確會加班","parts":["我","今仔日","無的確","會加班"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

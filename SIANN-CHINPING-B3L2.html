@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜真平版國中第3冊 第2課 阮阿媽專用的電話簿仔（題庫來源：09_生份字\真平國中第三冊\02成果-生字-第2課 阮阿媽專用的電話簿仔.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 阮阿媽專用的電話簿仔｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>真平版國中第3冊 第2課 阮阿媽專用的電話簿仔</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B3">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B3">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B3" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-CHINPING-B3L2","kind":"SIANN","kindName":"咱來餾生份字","book":"真平第3冊","bookFull":"真平版國中第3冊","title":"第2課 阮阿媽專用的電話簿仔","items":[{"no":1,"page":22,"ty":"阿爸","tl":"a-pah","md":"爸爸"},{"no":2,"page":22,"ty":"手機仔","tl":"tshiú-ki-á","md":"手機"},{"no":3,"page":22,"ty":"毋但","tl":"m̄-nā/ niā","md":"不只、不但"},{"no":4,"page":22,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾"},{"no":5,"page":22,"ty":"會當","tl":"ē-tàng","md":"可以"},{"no":6,"page":22,"ty":"看著","tl":"khuànn-tio̍h","md":"看到"},{"no":7,"page":22,"ty":"敲電話","tl":"khà tiān-uē","md":"打電話"},{"no":8,"page":22,"ty":"有夠","tl":"ū-kàu","md":"非常、真夠"},{"no":9,"page":22,"ty":"厲害","tl":"lī-hāi","md":"厲害"},{"no":10,"page":22,"ty":"這馬","tl":"tsit-má","md":"現在"},{"no":11,"page":22,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":12,"page":23,"ty":"誠","tl":"tsiânn","md":"很、非常"},{"no":13,"page":23,"ty":"看覓","tl":"khuànn-māi","md":"看看、試試看"},{"no":14,"page":23,"ty":"敢是","tl":"kám/kiám-sī","md":"疑問詞"},{"no":15,"page":23,"ty":"恁","tl":"lín","md":"你們/你的/你們的"},{"no":16,"page":23,"ty":"規欉好好","tl":"kui-tsâng hó-hó","md":"完好無缺"},{"no":17,"page":24,"ty":"細漢","tl":"sè/suè-hàn","md":"年齡較小的"},{"no":18,"page":24,"ty":"時陣","tl":"sî-tsūn","md":"時候"},{"no":19,"page":24,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動"},{"no":20,"page":24,"ty":"敲電話","tl":"khà tiān-uē","md":"打電話"},{"no":21,"page":24,"ty":"青盲牛","tl":"tshenn-mê-gû/tshinn-mî-gû","md":"不識字的人"},{"no":22,"page":24,"ty":"毋捌","tl":"m̄ bat/pat","md":"不曾；不認識"},{"no":23,"page":24,"ty":"拚勢","tl":"piànn-sè","md":"拚命"},{"no":24,"page":24,"ty":"無偌久","tl":"bô-guā/juā/luā-kú","md":"不久"},{"no":25,"page":24,"ty":"熟手","tl":"si̍k-tshiú","md":"熟練的人"},{"no":26,"page":24,"ty":"會曉","tl":"ē-hiáu/hiáng","md":"知道、懂得"},{"no":27,"page":24,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":28,"page":24,"ty":"歡喜","tl":"huann-hí","md":"高興/消遣"},{"no":29,"page":24,"ty":"逐日","tl":"ta̍k-ji̍t/li̍t","md":"每天"},{"no":30,"page":24,"ty":"幾若","tl":"kuí-nā/lō/ā","md":"幾、若干"},{"no":31,"page":24,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著"},{"no":32,"page":24,"ty":"落來","tl":"--lo̍h-lâi","md":"下來/從上面到下面"},{"no":33,"page":24,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別"},{"no":34,"page":25,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":35,"page":25,"ty":"免講","tl":"bián-kóng","md":"不用說、當然"},{"no":36,"page":25,"ty":"上無","tl":"siōng-bô","md":"最少、至少"},{"no":37,"page":25,"ty":"猶毋過","tl":"iáu-m̄-koh iah/ah/á/iá-m̄-kò","md":"不過、可是"},{"no":38,"page":25,"ty":"賰的","tl":"tshun--ê","md":"剩下的"},{"no":39,"page":25,"ty":"嘛是","tl":"mā sī","md":"也是"},{"no":40,"page":25,"ty":"毋捌","tl":"m̄ bat/pat","md":"不曾；不認識"},{"no":41,"page":25,"ty":"要緊","tl":"iàu-kín","md":"重要/嚴重"},{"no":42,"page":25,"ty":"就按呢","tl":"tsiū/tsū-án-ne","md":"就這樣/因此"},{"no":43,"page":25,"ty":"特別","tl":"ti̍k-pia̍t","md":"特別"},{"no":44,"page":25,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動"},{"no":45,"page":25,"ty":"古錐","tl":"kóo-tsui","md":"可愛"},{"no":46,"page":25,"ty":"解說","tl":"kái-suè","md":"解釋"},{"no":47,"page":25,"ty":"魚栽","tl":"hî-tsai/hû-tsai","md":"魚苗"},{"no":48,"page":25,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是"},{"no":49,"page":25,"ty":"大尾","tl":"tuā-bué/bé","md":"大條"},{"no":50,"page":26,"ty":"搪著","tl":"tn̄g-tio̍h","md":"遇到。"},{"no":51,"page":26,"ty":"物件","tl":"mi̍h/mn̍gh-kiānn","md":"東西"},{"no":52,"page":26,"ty":"生理","tl":"sing-lí","md":"生意、買賣"},{"no":53,"page":26,"ty":"問題","tl":"būn-tê","md":"問題"},{"no":54,"page":26,"ty":"細粒子","tl":"sè/suè-lia̍p-tsí","md":"嬌小"},{"no":55,"page":26,"ty":"一支","tl":"tsi̍t ki","md":"一根、一支"},{"no":56,"page":26,"ty":"鉸刀","tl":"ka-to","md":"剪刀"},{"no":57,"page":26,"ty":"過去","tl":"kuè--khì / kuè--khì","md":"指時限已過/從前"},{"no":58,"page":26,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部"},{"no":59,"page":26,"ty":"已經","tl":"í-king","md":"已經"},{"no":60,"page":26,"ty":"沓沓仔","tl":"ta̍uh-ta̍uh-á","md":"慢慢地"},{"no":61,"page":26,"ty":"反黃","tl":"huán-n̂g","md":"泛黃"},{"no":62,"page":26,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是"},{"no":63,"page":26,"ty":"猶原","tl":"iu-guân","md":"仍然、仍舊"},{"no":64,"page":26,"ty":"永遠","tl":"íng-uán","md":"永遠"},{"no":65,"page":26,"ty":"跟綴","tl":"kin-tuè/kun-tè","md":"跟隨"},{"no":66,"page":26,"ty":"身軀邊","tl":"sin-khu-pinn","md":"身邊"},{"no":67,"page":26,"ty":"獨獨","tl":"to̍k-to̍k","md":"僅僅、只有"},{"no":68,"page":27,"ty":"阿媽","tl":"a-má","md":"奶奶/外婆"},{"no":69,"page":27,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部"},{"no":70,"page":27,"ty":"著","tl":"tio̍h","md":"對/輪到/得到/必須/結果"},{"no":71,"page":27,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":72,"page":27,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":73,"page":27,"ty":"記持","tl":"kì-tî","md":"記憶、記性"},{"no":74,"page":27,"ty":"便若","tl":"piān-nā","md":"凡是、只要"},{"no":75,"page":27,"ty":"𪜶","tl":"in","md":"他們；他們的"},{"no":76,"page":27,"ty":"做伙","tl":"tsò/tsuè-hé","md":"一起/往來"},{"no":77,"page":27,"ty":"日子","tl":"ji̍t-tsí","md":"日子"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

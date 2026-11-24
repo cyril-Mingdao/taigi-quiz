@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  形音義線上測驗｜真平版國中第4冊 第2課 固定心態，沿路阻礙；成長心態，一生無礙（題庫來源：12_形音義\13真平版國中第4冊\02形音義-第2課 固定心態，沿路阻礙；成長心態，一生無礙.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 固定心態，沿路阻礙；成長心態，一生無礙｜形音義線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🔤 形音義 🔤</h1>
+     <h2>真平版國中第4冊 第2課 固定心態，沿路阻礙；成長心態，一生無礙</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🔤</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"HINGIM-CHINPING-B4L2","kind":"HINGIM","kindName":"形音義","book":"真平第4冊","bookFull":"真平版國中第4冊","title":"第2課 固定心態，沿路阻礙；成長心態，一生無礙","items":[{"no":1,"page":18,"ty":"這个","tl":"tsit ê","md":"這個","syl":[["ts","it","4","8"],["無","ê","5","不變"]]},{"no":2,"page":18,"ty":"感動","tl":"kám-tōng","md":"感動","syl":[["k","ám","2","1"],["t","ōng","7","不變"]]},{"no":3,"page":18,"ty":"伊","tl":"i","md":"他、她、牠、它","syl":[["無","i","1","不變"]]},{"no":4,"page":18,"ty":"真正","tl":"tsin-tsiànn","md":"真的、確實","syl":[["ts","in","1","7"],["ts","iànn","3","不變"]]},{"no":5,"page":18,"ty":"時陣","tl":"sî-tsūn","md":"時候","syl":[["s","î","5","7"],["ts","ūn","7","不變"]]},{"no":6,"page":18,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是","syl":[["無","m̄","7","3"],["k","oh","4","不變"]]},{"no":7,"page":18,"ty":"骨力","tl":"kut-la̍t","md":"勤勞","syl":[["k","ut","4","8"],["l","a̍t","8","不變"]]},{"no":8,"page":18,"ty":"顛倒","tl":"tian-tò","md":"反而","syl":[["t","ian","1","7"],["t","ò","3","不變"]]},{"no":9,"page":18,"ty":"閣較","tl":"koh-kh ah","md":"更加。","syl":[["k","oh","4","2"],["k","h","4","2"],["無","ah","4","不變"]]},{"no":10,"page":18,"ty":"拍拚","tl":"phah-piànn","md":"努力","syl":[["ph","ah","4","2"],["p","iànn","3","不變"]]},{"no":11,"page":19,"ty":"毋捌","tl":"m̄ bat/pat","md":"不曾；不認識","syl":[["無","m̄","7","3"],["b","at","4","不變"]]},{"no":12,"page":19,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身","syl":[["k","a","1","7"],["k","ī","7","不變"]]},{"no":13,"page":19,"ty":"未來","tl":"bī-lâi","md":"將來","syl":[["b","ī","7","3"],["l","âi","5","不變"]]},{"no":14,"page":19,"ty":"做伙","tl":"tsò/tsuè-hé","md":"一起/往來","syl":[["ts","ò","3","2"],["h","é","2","不變"]]},{"no":15,"page":19,"ty":"自信","tl":"tsū-sìn","md":"自信","syl":[["ts","ū","7","3"],["s","ìn","3","不變"]]},{"no":16,"page":19,"ty":"啥物","tl":"siánn-mih","md":"什麼","syl":[["s","iánn","2","1"],["m","ih","4","不變"]]},{"no":17,"page":20,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間","syl":[["t","ī","7","不變"]]},{"no":18,"page":20,"ty":"遮的","tl":"tsia--ê","md":"這些；這裡的","syl":[["ts","ia","1","不變"],["無","ê","5","輕聲"]]},{"no":19,"page":20,"ty":"已經","tl":"í-king","md":"已經","syl":[["無","í","2","1"],["k","ing","1","不變"]]},{"no":20,"page":20,"ty":"遮","tl":"tsia","md":"這、這裡","syl":[["ts","ia","1","不變"]]},{"no":21,"page":20,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾","syl":[["k","oh","4","不變"]]},{"no":22,"page":20,"ty":"較早","tl":"khah-tsá","md":"以前；早一點","syl":[["kh","ah","4","2"],["ts","á","2","不變"]]},{"no":23,"page":20,"ty":"捌","tl":"bat/pat","md":"知道；認識；曾經","syl":[["b","at","4","不變"]]},{"no":24,"page":20,"ty":"定定","tl":"tiānn-tiānn","md":"經常；靜止不動","syl":[["t","iānn","7","3"],["t","iānn","7","不變"]]},{"no":25,"page":20,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛","syl":[["b","a̍k","8","4"],["ts","iu","1","不變"]]},{"no":26,"page":20,"ty":"展","tl":"thián/tián","md":"張開","syl":[["th","ián","2","不變"]]},{"no":27,"page":20,"ty":"甲","tl":"kah","md":"到/到…的地步/既然/哪會","syl":[["k","ah","4","不變"]]},{"no":28,"page":20,"ty":"伊","tl":"i","md":"他、她、牠、它","syl":[["無","i","1","不變"]]},{"no":29,"page":20,"ty":"親堂","tl":"tshin-tông","md":"同宗的親戚","syl":[["tsh","in","1","7"],["t","ông","5","不變"]]},{"no":30,"page":20,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾","syl":[["k","oh","4","不變"]]},{"no":31,"page":20,"ty":"咱","tl":"lán","md":"我們；我們的；您、您們","syl":[["l","án","2","不變"]]},{"no":32,"page":20,"ty":"盹龜","tl":"tuh-ku","md":"打瞌睡","syl":[["t","uh","4","2"],["k","u","1","不變"]]},{"no":33,"page":20,"ty":"袂","tl":"bē / buē","md":"不/否定詞","syl":[["b","ē","7","不變"]]},{"no":34,"page":21,"ty":"會當","tl":"ē-tàng","md":"可以","syl":[["無","ē","7","3"],["t","àng","3","不變"]]},{"no":35,"page":21,"ty":"看著","tl":"khuànn-tio̍h","md":"看到","syl":[["kh","uànn","3","2"],["t","io̍h","8","不變"]]},{"no":36,"page":21,"ty":"讀冊","tl":"tha̍k-tsheh","md":"讀書；上學","syl":[["th","a̍k","8","4"],["tsh","eh","4","不變"]]},{"no":37,"page":21,"ty":"食苦","tl":"tsia̍h-khóo","md":"吃苦","syl":[["ts","ia̍h","8","3"],["kh","óo","2","不變"]]},{"no":38,"page":21,"ty":"當做","tl":"tòng-tsò/tsuè","md":"當作","syl":[["t","òng","3","2"],["ts","ò","3","不變"]]},{"no":39,"page":21,"ty":"𨑨迌","tl":"tshit-thô/thit-thô","md":"遊玩/玩弄/混","syl":[["tsh","it","4","8"],["th","ô","5","不變"]]},{"no":40,"page":21,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴","syl":[["h","ōo","7","不變"]]},{"no":41,"page":21,"ty":"看覓","tl":"khuànn-māi","md":"看看、試試看","syl":[["kh","uànn","3","2"],["m","āi","7","不變"]]},{"no":42,"page":21,"ty":"頇顢","tl":"hân-bān","md":"形容愚笨、沒有才能","syl":[["h","ân","5","7"],["b","ān","7","不變"]]},{"no":43,"page":21,"ty":"參","tl":"tsham","md":"和；一起；晉謁","syl":[["tsh","am","1","不變"]]},{"no":44,"page":21,"ty":"輸贏","tl":"su-iânn","md":"輸或贏","syl":[["s","u","1","7"],["無","iânn","5","不變"]]},{"no":45,"page":21,"ty":"若是","tl":"nā-sī","md":"如果、要是","syl":[["n","ā","7","3"],["s","ī","7","不變"]]},{"no":46,"page":21,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","syl":[["無","án","2","1"],["n","e","1","不變"]]},{"no":47,"page":21,"ty":"踏話頭","tl":"ta̍h-uē-thâu","md":"開場白","syl":[["t","a̍h","8","3"],["無","uē","7","3"],["th","âu","5","不變"]]},{"no":48,"page":21,"ty":"應該","tl":"ing-kai","md":"應該","syl":[["無","ing","1","7"],["k","ai","1","不變"]]},{"no":49,"page":21,"ty":"毋是","tl":"m̄ sī","md":"不是","syl":[["無","m̄","7","3"],["s","ī","7","不變"]]},{"no":50,"page":22,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間","syl":[["t","ī","7","不變"]]},{"no":51,"page":22,"ty":"人生","tl":"jîn-sing","md":"人生","syl":[["j","în","5","7"],["s","ing","1","不變"]]},{"no":52,"page":22,"ty":"特別","tl":"ti̍k-pia̍t","md":"特別","syl":[["t","i̍k","8","4"],["p","ia̍t","8","不變"]]},{"no":53,"page":22,"ty":"紹介","tl":"siāu-kài","md":"介紹","syl":[["s","iāu","7","3"],["k","ài","3","不變"]]},{"no":54,"page":22,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴","syl":[["h","ōo","7","不變"]]},{"no":55,"page":22,"ty":"逐家","tl":"ta̍k-ke","md":"大家；眾人","syl":[["t","a̍k","8","4"],["k","e","1","不變"]]},{"no":56,"page":22,"ty":"一个","tl":"tsi̍t ê","md":"一個","syl":[["ts","i̍t","8","4"],["無","ê","5","不變"]]},{"no":57,"page":22,"ty":"伊","tl":"i","md":"他、她、牠、它","syl":[["無","i","1","不變"]]},{"no":58,"page":22,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身","syl":[["k","a","1","7"],["k","ī","7","不變"]]},{"no":59,"page":22,"ty":"忝忝","tl":"thiám-thiám","md":"慘重","syl":[["th","iám","2","1"],["th","iám","2","不變"]]},{"no":60,"page":22,"ty":"閣較","tl":"koh-kh ah","md":"更加。","syl":[["k","oh","4","2"],["k","h","4","2"],["無","ah","4","不變"]]},{"no":61,"page":22,"ty":"日子","tl":"ji̍t-tsí","md":"日子","syl":[["j","i̍t","8","4"],["ts","í","2","不變"]]},{"no":62,"page":22,"ty":"一个","tl":"tsi̍t ê","md":"一個","syl":[["ts","i̍t","8","4"],["無","ê","5","不變"]]},{"no":63,"page":22,"ty":"相信","tl":"siong-sìn","md":"相信","syl":[["s","iong","1","7"],["s","ìn","3","不變"]]},{"no":64,"page":22,"ty":"骨力","tl":"kut-la̍t","md":"勤勞","syl":[["k","ut","4","8"],["l","a̍t","8","不變"]]},{"no":65,"page":22,"ty":"毋驚","tl":"m̄ kiann","md":"不怕","syl":[["無","m̄","7","3"],["k","iann","1","不變"]]},{"no":66,"page":22,"ty":"艱苦","tl":"kan-khóo","md":"艱難、痛苦","syl":[["k","an","1","7"],["kh","óo","2","不變"]]},{"no":67,"page":22,"ty":"一時","tl":"tsi̍t-sî","md":"一時、短時間","syl":[["ts","i̍t","8","4"],["s","î","5","不變"]]},{"no":68,"page":22,"ty":"毋免","tl":"m̄ bián","md":"不用","syl":[["無","m̄","7","3"],["b","ián","2","不變"]]},{"no":69,"page":22,"ty":"怨嘆","tl":"uàn-thàn","md":"抱怨、嘆息","syl":[["無","uàn","3","2"],["th","àn","3","不變"]]},{"no":70,"page":22,"ty":"膽寒","tl":"tám-hân","md":"害怕、畏懼","syl":[["t","ám","2","1"],["h","ân","5","不變"]]},{"no":71,"page":22,"ty":"總是","tl":"tsóng--sī","md":"無論","syl":[["ts","óng","2","不變"],["s","ī","7","輕聲"]]},{"no":72,"page":22,"ty":"拍拚","tl":"phah-piànn","md":"努力","syl":[["ph","ah","4","2"],["p","iànn","3","不變"]]},{"no":73,"page":22,"ty":"這馬","tl":"tsit-má","md":"現在","syl":[["ts","it","4","8"],["m","á","2","不變"]]},{"no":74,"page":22,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","syl":[["l","āi","7","3"],["t","é","2","不變"]]},{"no":75,"page":22,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身","syl":[["k","a","1","7"],["k","ī","7","不變"]]},{"no":76,"page":22,"ty":"跤目","tl":"kha-ba̍k","md":"腳踝","syl":[["kh","a","1","7"],["b","a̍k","8","不變"]]},{"no":77,"page":22,"ty":"故事","tl":"kòo-sū","md":"故事","syl":[["k","òo","3","2"],["s","ū","7","不變"]]},{"no":79,"page":22,"ty":"已經","tl":"í-king","md":"已經","syl":[["無","í","2","1"],["k","ing","1","不變"]]},{"no":80,"page":23,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要","syl":[["b","eh","4","不變"]]},{"no":81,"page":23,"ty":"抑是","tl":"ia̍h/iah/a̍h/ah-sī","md":"或是","syl":[["無","ia̍h","8","3"],["s","ī","7","不變"]]},{"no":82,"page":23,"ty":"沿路","tl":"iân-lōo","md":"沿途","syl":[["無","iân","5","7"],["l","ōo","7","不變"]]},{"no":83,"page":23,"ty":"人生","tl":"jîn-sing","md":"人生","syl":[["j","în","5","7"],["s","ing","1","不變"]]},{"no":84,"page":23,"ty":"按怎","tl":"án-tsuánn/nuá/ná","md":"怎麼、怎樣","syl":[["無","án","2","1"],["ts","uánn","2","不變"]]},{"no":85,"page":23,"ty":"啥物","tl":"siánn-mih","md":"什麼","syl":[["s","iánn","2","1"],["m","ih","4","不變"]]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

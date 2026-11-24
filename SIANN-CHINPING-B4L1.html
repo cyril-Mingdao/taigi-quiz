@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜真平版國中第4冊 第1課 人生逐位會開花（題庫來源：09_生份字\真平國中第四冊\01成果-生字-第1課 人生逐位會開花.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 人生逐位會開花｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>真平版國中第4冊 第1課 人生逐位會開花</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#CHINPING-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#CHINPING-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-CHINPING-B4L1","kind":"SIANN","kindName":"咱來餾生份字","book":"真平第4冊","bookFull":"真平版國中第4冊","title":"第1課 人生逐位會開花","items":[{"no":1,"page":6,"ty":"阿母","tl":"a-bú","md":"媽媽"},{"no":2,"page":6,"ty":"有夠","tl":"ū-kàu","md":"非常、真夠"},{"no":3,"page":6,"ty":"是按怎","tl":"sī-án-tsuánn","md":"為什麼"},{"no":4,"page":6,"ty":"頇顢","tl":"hân-bān","md":"形容愚笨、沒有才能"},{"no":5,"page":6,"ty":"毋通","tl":"m̄-thang","md":"不可以、不要"},{"no":6,"page":6,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此"},{"no":7,"page":6,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比"},{"no":8,"page":7,"ty":"外口","tl":"guā-kháu","md":"外面；外頭"},{"no":9,"page":7,"ty":"閣較","tl":"koh-kh ah","md":"更加。"},{"no":10,"page":7,"ty":"好食","tl":"hó-tsia̍h","md":"好吃"},{"no":11,"page":7,"ty":"遺傳","tl":"uî-thuân","md":"遺傳"},{"no":12,"page":7,"ty":"阿媽","tl":"a-má","md":"奶奶/外婆"},{"no":13,"page":7,"ty":"煮食","tl":"tsú-tsia̍h","md":"烹飪、做飯"},{"no":14,"page":7,"ty":"好料","tl":"hó-liāu","md":"大餐、美食"},{"no":15,"page":7,"ty":"抑是","tl":"ia̍h/iah/a̍h/ah-sī","md":"或是"},{"no":16,"page":8,"ty":"葩","tl":"pha","md":"盞（燈的單位）"},{"no":17,"page":8,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":18,"page":8,"ty":"丈","tl":"tn̄g","md":"丈（長度單位）"},{"no":19,"page":8,"ty":"若","tl":"nā","md":"如果"},{"no":20,"page":8,"ty":"化","tl":"hua","md":"（燈火）熄滅"},{"no":21,"page":8,"ty":"天光","tl":"thinn-kng","md":"天亮"},{"no":22,"page":8,"ty":"日頭","tl":"ji̍t/li̍t-thâu","md":"太陽"},{"no":23,"page":8,"ty":"若無","tl":"nā-bô","md":"不然"},{"no":24,"page":8,"ty":"理想","tl":"lí-sióng","md":"合乎心意的"},{"no":25,"page":8,"ty":"賰","tl":"tshun","md":"剩餘/存下錢來"},{"no":26,"page":8,"ty":"宛然","tl":"uán-jiân","md":"好像、儼然。"},{"no":27,"page":9,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":28,"page":9,"ty":"相揣","tl":"sio-tshuē/sann-tshē","md":"互相找、融合"},{"no":29,"page":9,"ty":"毋免","tl":"m̄ bián","md":"不用"},{"no":30,"page":9,"ty":"世路","tl":"sè-lōo","md":"人世間的道路"},{"no":31,"page":9,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":32,"page":9,"ty":"人生","tl":"jîn-sing","md":"人生"},{"no":33,"page":9,"ty":"逐位","tl":"ta̍k uī","md":"處處、到處"},{"no":34,"page":9,"ty":"攏","tl":"lóng","md":"都、皆、全部"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
