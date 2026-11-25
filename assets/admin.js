@@ -20,7 +20,8 @@ const BOOK_BADGE = {
   真平第1冊: ['#D32F2F', '#FFFFFF'], 真平第2冊: ['#283593', '#FFFFFF'], 真平第3冊: ['#827717', '#FFFFFF'], 真平第4冊: ['#E91E63', '#FFFFFF'],
   康軒第1冊: ['#AD1457', '#FFFFFF'], 康軒第2冊: ['#1565C0', '#FFFFFF'],
   康軒第3冊: ['#5D4037', '#FFFFFF'], 康軒第4冊: ['#6A1B9A', '#FFFFFF'], 全華第1冊: ['#00838F', '#FFFFFF'],
-  全華第2冊: ['#EF6C00', '#FFFFFF'], 全華第3冊: ['#2E7D32', '#FFFFFF'], 全華第4冊: ['#455A64', '#FFFFFF'], 育達全1冊: ['#FFD400', '#111111'], 育達創世紀全1冊: ['#111111', '#FFD400']
+  全華第2冊: ['#EF6C00', '#FFFFFF'], 全華第3冊: ['#2E7D32', '#FFFFFF'], 全華第4冊: ['#455A64', '#FFFFFF'], 育達全1冊: ['#FFD400', '#111111'], 育達創世紀全1冊: ['#111111', '#FFD400'],
+  育達長鴻第1冊: ['#FB8C00', '#111111'], 育達長鴻第2冊: ['#4E342E', '#FFD400'], 育達長鴻第3冊: ['#00695C', '#FFD400'], 育達長鴻第4冊: ['#C62828', '#FFD400']
 };
 const bookNum = b => { const m = String(b).match(/(\d+)冊/); return m ? +m[1] : 0; };
 const bookSortKey = b => { const p = PUB_ORDER.indexOf(String(b).slice(0, 2)); return (p < 0 ? 99 : p) * 100 + bookNum(b); };

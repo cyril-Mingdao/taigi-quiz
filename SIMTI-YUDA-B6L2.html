@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達長鴻版國中第4冊 第2課 藏水沬（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v66\mindmap\YUDA-B6\L2.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 藏水沬｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達長鴻版國中第4冊 第2課 藏水沬</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B6">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B6">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B6" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B6L2","kind":"SIMTI","kindName":"心智圖配對","book":"育達長鴻第4冊","bookFull":"育達長鴻版國中第4冊","title":"第2課 藏水沬","items":[{"no":1,"sent":"臺灣的熱人，正經是熱甲予人叫毋敢，榖雨風透過，就開始大勢熱矣，人若踮佇外口，定定攏會感覺誠齷齪。","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":2,"sent":"臺灣的熱人","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":3,"sent":"臺灣的熱人，正經是熱甲予人叫毋敢","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":4,"sent":"正經是熱甲予人叫毋敢","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":5,"sent":"正經是熱甲予人叫毋敢，榖雨風透過","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":6,"sent":"人若踮佇外口，定定攏會感覺誠齷齪。","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":7,"sent":"定定攏會感覺誠齷齪。","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":8,"sent":"講著沐水，自從我毋驚水了後，見若去到游泳池，我就隨共頭栽入去。","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":9,"sent":"講著沐水，自從我毋驚水了後","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":10,"sent":"自從我毋驚水了後","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":11,"sent":"自從我毋驚水了後，見若去到游泳池","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":12,"sent":"見若去到游泳池，我就隨共頭栽入去。","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":13,"sent":"我就隨共頭栽入去。","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":14,"sent":"因為我對水裡的世界誠好玄，想欲知影彼內底到底是生做啥物款。","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":15,"sent":"因為我對水裡的世界誠好玄","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":16,"sent":"我印象上深的是頂改阮去澎湖七美藏水沬，我驚我萬不二若沉落去海裡，會去鑿著海膽。","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":17,"sent":"我印象上深的是頂改阮去澎湖七美藏水沬","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":18,"sent":"我印象上深的是頂改阮去澎湖七美藏水沬，我驚我萬不二若沉落去海裡","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":19,"sent":"我驚我萬不二若沉落去海裡","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":20,"sent":"我驚我萬不二若沉落去海裡，會去鑿著海膽。","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":21,"sent":"會去鑿著海膽。","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":22,"sent":"頂一改阮去小琉球，有看著彼海膽烏嘛嘛、軟荍荍閣黏黐黐，足癩𰣻的。","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":23,"sent":"頂一改阮去小琉球，有看著彼海膽烏嘛嘛、軟荍荍閣黏黐黐","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":24,"sent":"有看著彼海膽烏嘛嘛、軟荍荍閣黏黐黐","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":25,"sent":"有看著彼海膽烏嘛嘛、軟荍荍閣黏黐黐，足癩𰣻的。","page":"第24頁","correct":"驚著海膽","options":["好玄水裡的世界","驚著海膽","海裡的生物","飼魚仔"]},{"no":26,"sent":"這幫阮有看著海星、海參，閣有足濟款細尾魚仔。","page":"第24頁","correct":"海裡的生物","options":["驚著海膽","海裡的生物","飼魚仔","活跳跳的珊瑚"]},{"no":27,"sent":"救生員閣提一塊俗麭予阮去飼魚仔，我若裂一片仔囝擲落去，規大陣的魚仔隨泅過來相爭食。","page":"第24頁","correct":"飼魚仔","options":["海裡的生物","飼魚仔","活跳跳的珊瑚","硓𥑮石起厝"]},{"no":28,"sent":"彼珊瑚有幾若種，五花十色，逐種都足媠的，活跳跳，有影會喘氣呢！","page":"第25頁","correct":"活跳跳的珊瑚","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":29,"sent":"阿爸捌共阮講過，講有一寡珊瑚死去了後，伊的石頭會當用來起厝，毋但佇澎湖的社里誠四常","page":"第25頁","correct":"硓𥑮石起厝","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":30,"sent":"咱臺灣誠濟倚海的所在，到今嘛攏猶看會著這種用「硓𥑮石」起的厝宅。","page":"第25頁","correct":"硓𥑮石起厝","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":31,"sent":"雖然坐船愛坐足久的","page":"第25頁","correct":"坐船足久","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":32,"sent":"榖雨風透過，就開始大勢熱矣","page":"第23頁","correct":"熱甲叫毋敢","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":33,"sent":"想欲知影彼內底到底是生做啥物款","page":"第23頁","correct":"好玄水裡的世界","options":["熱甲叫毋敢","好玄水裡的世界","驚著海膽","海裡的生物"]},{"no":34,"sent":"這幫阮有看著海星、海參","page":"第24頁","correct":"海裡的生物","options":["驚著海膽","海裡的生物","飼魚仔","活跳跳的珊瑚"]},{"no":35,"sent":"閣有足濟款細尾魚仔。","page":"第24頁","correct":"海裡的生物","options":["驚著海膽","海裡的生物","飼魚仔","活跳跳的珊瑚"]},{"no":36,"sent":"救生員閣提一塊俗麭予阮去飼魚仔","page":"第24頁","correct":"飼魚仔","options":["海裡的生物","飼魚仔","活跳跳的珊瑚","硓𥑮石起厝"]},{"no":37,"sent":"我若裂一片仔囝擲落去","page":"第24頁","correct":"飼魚仔","options":["海裡的生物","飼魚仔","活跳跳的珊瑚","硓𥑮石起厝"]},{"no":38,"sent":"規大陣的魚仔隨泅過來相爭食。","page":"第24頁","correct":"飼魚仔","options":["海裡的生物","飼魚仔","活跳跳的珊瑚","硓𥑮石起厝"]},{"no":39,"sent":"彼珊瑚有幾若種","page":"第25頁","correct":"活跳跳的珊瑚","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":40,"sent":"五花十色，逐種都足媠的","page":"第25頁","correct":"活跳跳的珊瑚","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":41,"sent":"活跳跳，有影會喘氣呢！","page":"第25頁","correct":"活跳跳的珊瑚","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":42,"sent":"阿爸捌共阮講過，講有一寡珊瑚死去了後","page":"第25頁","correct":"硓𥑮石起厝","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]},{"no":43,"sent":"伊的石頭會當用來起厝，毋但佇澎湖的社里誠四常","page":"第25頁","correct":"硓𥑮石起厝","options":["飼魚仔","活跳跳的珊瑚","硓𥑮石起厝","坐船足久"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

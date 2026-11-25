@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜育達長鴻版國中第2冊 第2課 爸仔囝（題庫來源：09_生份字\長鴻國中第二冊\02成果-生字-第2課 爸仔囝.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 爸仔囝｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>育達長鴻版國中第2冊 第2課 爸仔囝</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-YUDA-B4L2","kind":"SIANN","kindName":"咱來餾生份字","book":"育達長鴻第2冊","bookFull":"育達長鴻版國中第2冊","title":"第2課 爸仔囝","items":[{"no":1,"page":26,"ty":"轉來","tl":"tńg--lâi","md":"回來"},{"no":2,"page":26,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":3,"page":26,"ty":"軟心","tl":"nńg-sim","md":"心軟"},{"no":4,"page":26,"ty":"神","tl":"sîn","md":"發呆、出神"},{"no":5,"page":26,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":6,"page":26,"ty":"目尾","tl":"ba̍k-bué/bé","md":"眼尾；餘光；眼神"},{"no":7,"page":26,"ty":"下頦","tl":"ē-hâi","md":"下巴"},{"no":8,"page":26,"ty":"踮","tl":"tiàm","md":"在…；居住、過夜"},{"no":9,"page":26,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾"},{"no":10,"page":26,"ty":"袂輸","tl":"bē/buē-su","md":"好比、好像"},{"no":11,"page":26,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別"},{"no":12,"page":26,"ty":"䖙","tl":"the/thenn","md":"半躺、斜靠"},{"no":13,"page":26,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":14,"page":26,"ty":"甲","tl":"kah","md":"到/到…的地步/既然/哪會"},{"no":15,"page":26,"ty":"罩","tl":"tà","md":"趴在身上"},{"no":16,"page":26,"ty":"身軀頂","tl":"sing-khu-tíng","md":"身上"},{"no":17,"page":27,"ty":"透早","tl":"thàu-tsá","md":"大清早、七早八早"},{"no":18,"page":27,"ty":"貓霧仔光","tl":"bâ-bū-á-kng","md":"破曉時的天色"},{"no":19,"page":27,"ty":"興","tl":"hìng","md":"興致高昂"},{"no":20,"page":27,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":21,"page":27,"ty":"眠床","tl":"bîn/mn̂g-tshn̂g","md":"床、床鋪"},{"no":22,"page":27,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":23,"page":27,"ty":"吠","tl":"puī","md":"狗吠叫"},{"no":24,"page":27,"ty":"躼躼長","tl":"lò-lò-tn̂g","md":"很長"},{"no":25,"page":27,"ty":"哈唏","tl":"hah-hì","md":"打呵欠"},{"no":26,"page":27,"ty":"身軀","tl":"sin-khu","md":"身體"},{"no":27,"page":27,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部"},{"no":28,"page":27,"ty":"躽","tl":"nuà","md":"翻滾"},{"no":29,"page":27,"ty":"大聲","tl":"tuā-siann","md":"聲音大"},{"no":30,"page":27,"ty":"看覓","tl":"khuànn-māi","md":"看看、試試看"},{"no":31,"page":27,"ty":"若無","tl":"nā-bô","md":"不然"},{"no":32,"page":27,"ty":"強欲","tl":"kiōng-beh/bueh","md":"幾乎要"},{"no":33,"page":27,"ty":"煏","tl":"piak","md":"裂開、斷裂。指物體因受熱、拉扯或數量過多等因素，膨脹起來超過限度而爆裂。"},{"no":34,"page":28,"ty":"今仔日","tl":"kin-á-ji̍t / li̍t","md":"今天、今日"},{"no":35,"page":28,"ty":"聲嗽","tl":"siann-sàu","md":"口氣"},{"no":36,"page":28,"ty":"敢若","tl":"kánn/kán/ká-ná","md":"好像、似乎"},{"no":37,"page":28,"ty":"蝹","tl":"un","md":"蜷縮身體"},{"no":38,"page":28,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":39,"page":28,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":40,"page":28,"ty":"𥍉𥍉看","tl":"nih-nih-khuànn","md":"眨眼直看"},{"no":41,"page":28,"ty":"氣口","tl":"khuì-kháu","md":"口氣；口味"},{"no":42,"page":28,"ty":"勻勻仔","tl":"ûn-ûn-á","md":"慢慢地"},{"no":43,"page":28,"ty":"躘","tl":"liòng/lìng","md":"猛然跳起"},{"no":44,"page":28,"ty":"頭殼頂","tl":"thâu-khak-tíng","md":"頭頂"},{"no":45,"page":28,"ty":"歡喜","tl":"huann-hí","md":"高興/消遣"},{"no":46,"page":28,"ty":"裂獅獅","tl":"li̍h-sai-sai","md":"擬態詞"},{"no":47,"page":28,"ty":"耳仔覆覆","tl":"hīnn-á-phak-phak","md":"耳朵服貼"},{"no":48,"page":28,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比"},{"no":49,"page":28,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要"},{"no":50,"page":28,"ty":"起飛","tl":"khí-pue","md":"起飛"},{"no":51,"page":28,"ty":"尾溜","tl":"bué/bé-liu","md":"末端/屁股/最後"},{"no":52,"page":28,"ty":"直直幌","tl":"ti̍t-ti̍t-hàinn","md":"一直擺動"},{"no":53,"page":28,"ty":"知影","tl":"tsai-iánn","md":"知道、懂得"},{"no":54,"page":28,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":55,"page":29,"ty":"阮","tl":"guán / gún","md":"我們/我/我的"},{"no":56,"page":29,"ty":"兩个","tl":"nn̄g ê","md":"兩個"},{"no":57,"page":29,"ty":"無論","tl":"bô-lūn","md":"不論"},{"no":58,"page":29,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":59,"page":29,"ty":"𤆬","tl":"tshuā","md":"引導；照顧；誘拐"},{"no":60,"page":29,"ty":"較","tl":"khah","md":"比較；再怎麼樣也…；更…"},{"no":61,"page":29,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛"},{"no":62,"page":29,"ty":"雺霧","tl":"bông-bū","md":"霧"},{"no":63,"page":29,"ty":"閣","tl":"koh","md":"又/出乎意料/用在句尾"},{"no":64,"page":29,"ty":"痚呴","tl":"he-ku","md":"氣喘"},{"no":65,"page":29,"ty":"沓沓","tl":"ta̍uh-ta̍uh","md":"慢慢地"},{"no":66,"page":29,"ty":"佳哉","tl":"ka-tsài","md":"幸虧、好在"},{"no":67,"page":29,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":68,"page":29,"ty":"流浪","tl":"liû-lōng","md":"四處飄泊"},{"no":69,"page":29,"ty":"有緣","tl":"ū-iân","md":"有緣分"},{"no":70,"page":29,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":71,"page":29,"ty":"永遠","tl":"íng-uán","md":"永遠"},{"no":72,"page":29,"ty":"袂","tl":"bē / buē","md":"不/否定詞"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  選詞塌空線上測驗｜育達長鴻版國中第1冊 第2課 來去屏東海生館蹛一暝（題庫來源：10_選詞塌空\14長鴻國中第1冊\02成果-選詞-第2課 來去屏東海生館蹛一暝.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2課 來去屏東海生館蹛一暝｜選詞塌空線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>✏️ 選詞塌空 ✏️</h1>
+     <h2>育達長鴻版國中第1冊 第2課 來去屏東海生館蹛一暝</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">✏️</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B3">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B3">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B3" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SUANSU-YUDA-B3L2","kind":"SUANSU","kindName":"選詞塌空","book":"育達長鴻第1冊","bookFull":"育達長鴻版國中第1冊","title":"第2課 來去屏東海生館蹛一暝","items":[{"no":1,"page":26,"ty":"歇熱","tl":"hioh-jua̍h","md":"暑假","sent":"後禮拜歇熱欲--來去日本"},{"no":2,"page":26,"ty":"期待","tl":"kî-thāi","md":"期待","sent":"我足期待歇熱來到"},{"no":3,"page":26,"ty":"嘛是","tl":"mā sī","md":"也是","sent":"你是庄跤人，我嘛是庄跤人"},{"no":4,"page":26,"ty":"歡頭喜面","tl":"huann-thâu-hí-bīn","md":"歡天喜地","sent":"伊歡頭喜面去上課"},{"no":5,"page":26,"ty":"不而過","tl":"put-jî-kò/put-lî-kò","md":"但是、不過","sent":"伊足𠢕讀冊，不而過無愛運動"},{"no":6,"page":26,"ty":"有夠","tl":"ū-kàu","md":"非常、真夠","sent":"今仔日有夠熱"},{"no":7,"page":26,"ty":"磕袂著","tl":"kha̍p-bē-tio̍h/kha̍p-buē-tio̍h","md":"動不動就……","sent":"伊磕袂著就受氣"},{"no":8,"page":26,"ty":"強欲","tl":"kiōng-beh/bueh","md":"幾乎要","sent":"我聽甲強欲起性地"},{"no":9,"page":26,"ty":"共人","tl":"kā-lâng/ka̋ng","md":"對人","sent":"袂當用樹奶共人擉"},{"no":10,"page":26,"ty":"熁","tl":"hannh","md":"熱氣逼人","sent":"日頭遐炎，熁甲欲昏去"},{"no":11,"page":26,"ty":"冷氣","tl":"líng-khì","md":"冷氣","sent":"熱天開冷氣較涼"},{"no":12,"page":26,"ty":"所在","tl":"sóo-tsāi","md":"地方","sent":"這个所在真鬧熱"},{"no":13,"page":26,"ty":"遮爾仔","tl":"tsiah-nī-á","md":"這麼、這般","sent":"這馬菜遮爾仔貴"},{"no":14,"page":26,"ty":"拄好","tl":"tú-hó","md":"剛好/恰巧","sent":"我欲去揣阮阿舅，伊拄好出去矣"},{"no":15,"page":26,"ty":"敲電話","tl":"khà tiān-uē","md":"打電話","sent":"我逐暗敲電話予阿母"},{"no":16,"page":26,"ty":"來去","tl":"lâi-khì；laih","md":"離開/前往/來往","sent":"我欲來去踅街"},{"no":17,"page":26,"ty":"蹛一暝","tl":"tuà--tsi̍t-mê/tuà--tsi̍t-mî","md":"住一晚","sent":"阮去阿姨兜蹛一暝"},{"no":18,"page":27,"ty":"拄著","tl":"tú-tio̍h","md":"碰到、遭遇","sent":"伊近來定定去拄著麻煩"},{"no":19,"page":27,"ty":"歇熱","tl":"hioh-jua̍h","md":"暑假","sent":"後禮拜歇熱欲--來去日本"},{"no":20,"page":27,"ty":"衝","tl":"tshìng","md":"氣勢旺、熱門","sent":"這間店的雞排上衝"},{"no":21,"page":27,"ty":"磅空","tl":"pōng-khang","md":"隧道","sent":"火車鑽入去磅空"},{"no":22,"page":27,"ty":"了了","tl":"liáu-liáu","md":"全部、光光","sent":"錢開了了矣"},{"no":23,"page":27,"ty":"別搭","tl":"pa̍t-tah","md":"別處","sent":"遮無位，阮去別搭坐"},{"no":24,"page":27,"ty":"嘛是","tl":"mā sī","md":"也是","sent":"你是庄跤人，我嘛是庄跤人"},{"no":25,"page":27,"ty":"賰","tl":"tshun","md":"剩餘/存下錢來","sent":"阿媽叫我共食賰的菜收入去菜櫥"},{"no":26,"page":27,"ty":"一寡仔","tl":"tsi̍t-kuá-á","md":"一點、一些","sent":"猶有一寡仔物件無整理"},{"no":27,"page":27,"ty":"爾爾","tl":"niā-niā","md":"而已","sent":"我規身軀干焦十箍爾爾"},{"no":28,"page":27,"ty":"選擇","tl":"suán-ti̍k","md":"選擇","sent":"你愛家己選擇欲行的路"},{"no":29,"page":27,"ty":"猶閣","tl":"iáu-koh","md":"還","sent":"阮的工頭看起來猶閣真少年"},{"no":30,"page":27,"ty":"較濟","tl":"khah-tsē","md":"比較多","sent":"這間店的人客會較濟"},{"no":31,"page":27,"ty":"了後","tl":"liáu-āu","md":"之後","sent":"你出門了後，伊就醒矣"},{"no":32,"page":27,"ty":"會使","tl":"ē-sái/saih","md":"可以、能夠","sent":"我功課若寫好就會使去耍矣"},{"no":33,"page":27,"ty":"四界","tl":"sì-kè/kuè","md":"到處、處處","sent":"我𤆬伊出去附近四界蹓蹓咧"},{"no":34,"page":27,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","sent":"我的鞋仔內底敢若有石頭仔，感覺砧砧"},{"no":35,"page":27,"ty":"魴魚","tl":"hang-hî/hang-hû","md":"魟魚","sent":"海生館內底有大尾魴魚"},{"no":36,"page":27,"ty":"生做","tl":"senn/sinn-tsò","md":"長得、長相","sent":"伊生做懸懸瘦瘦"},{"no":37,"page":27,"ty":"古錐","tl":"kóo-tsui","md":"可愛","sent":"阮兩个孫仔生做有夠古錐"},{"no":38,"page":27,"ty":"徛鵝","tl":"khiā-gô","md":"企鵝","sent":"徛鵝行路搖來搖去"},{"no":39,"page":28,"ty":"上蓋","tl":"siōng/siāng-kài","md":"非常、最","sent":"伊是阮這班生做上蓋媠的"},{"no":40,"page":28,"ty":"真正","tl":"tsin-tsiànn","md":"真的、確實","sent":"伊真正是一个好人"},{"no":41,"page":28,"ty":"目睭","tl":"ba̍k-tsiu","md":"眼睛","sent":"伊目睭真大蕊"},{"no":42,"page":28,"ty":"毋捌","tl":"m̄-bat","md":"不曾","sent":"我毋捌去過澎湖"},{"no":43,"page":28,"ty":"日頭","tl":"ji̍t/li̍t-thâu","md":"太陽","sent":"今仔日的日頭真猛"},{"no":44,"page":28,"ty":"落來","tl":"--lo̍h-lâi","md":"下來/從上面到下面","sent":"桌頂的物件落落來矣"},{"no":45,"page":28,"ty":"彼个","tl":"hit ê","md":"那個","sent":"彼个物件是我的"},{"no":46,"page":28,"ty":"親像","tl":"tshin/tshan-tshiūnn","md":"好像、好比","sent":"𪜶兩个好甲親像兄弟仔仝款"},{"no":47,"page":28,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別","sent":"這兩个皮包仔看著仝款仔仝款"},{"no":48,"page":28,"ty":"足濟","tl":"tsiok-tsē","md":"非常多","sent":"厝內有覕足濟虼蚻--的"},{"no":49,"page":28,"ty":"活動","tl":"ua̍h-tāng/tōng","md":"活動筋骨","sent":"你坐遐久，緊起來活動一下"},{"no":50,"page":28,"ty":"了後","tl":"liáu-āu","md":"之後","sent":"你出門了後，伊就醒矣"},{"no":51,"page":28,"ty":"解說","tl":"kái-suè","md":"解釋","sent":"我較按怎解說伊都毋信"},{"no":52,"page":28,"ty":"做伙","tl":"tsò/tsuè-hé","md":"一起/往來","sent":"咱兩个做伙來去𨑨迌"},{"no":53,"page":28,"ty":"箍一輾","tl":"khoo-tsi̍t-liàn","md":"繞一圈","sent":"阮去公園箍一輾"},{"no":54,"page":28,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著","sent":"紲落來咱就來表決"},{"no":55,"page":28,"ty":"暗頓","tl":"àm-tǹg","md":"晚餐、晚飯","sent":"暗頓食飽了後來去公園行行咧"},{"no":56,"page":28,"ty":"想袂到","tl":"siūnn-bē-kàu/siūnn-buē-kàu","md":"想不到","sent":"想袂到伊遮爾𠢕煮食"},{"no":57,"page":28,"ty":"毋但","tl":"m̄-nā/ niā","md":"不只、不但","sent":"我看伊做的歹代誌毋但按呢"},{"no":58,"page":28,"ty":"豐沛","tl":"phong-phài","md":"菜餚豐盛","sent":"今仔日的暗頓誠豐沛"},{"no":59,"page":28,"ty":"落尾","tl":"lo̍h/lōo-bué/bé","md":"後來、最後","sent":"落尾我就去高雄讀冊"},{"no":60,"page":28,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身","sent":"欲成功愛靠家己認真拍拚"},{"no":61,"page":28,"ty":"𢯾","tl":"mooh","md":"緊抱、緊貼","sent":"兩个人𢯾做伙"},{"no":62,"page":28,"ty":"棉襀被","tl":"mî-tsioh-phuē/mî-tsioh-phē","md":"棉被","sent":"寒天愛蓋棉襀被"},{"no":63,"page":28,"ty":"選擇","tl":"suán-ti̍k","md":"選擇","sent":"你愛家己選擇欲行的路"},{"no":64,"page":28,"ty":"下昏暗","tl":"e-hng-àm/enn-hng-àm","md":"今天晚上","sent":"下昏暗欲食啥物？"},{"no":65,"page":28,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要","sent":"定定都睏到欲上課矣才欲起來"},{"no":66,"page":28,"ty":"所在","tl":"sóo-tsāi","md":"地方","sent":"這个所在真鬧熱"},{"no":67,"page":28,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間","sent":"伊這馬佇厝裡咧睏"},{"no":68,"page":28,"ty":"不時","tl":"put-sî","md":"隨時、經常","sent":"伊不時嘛咧讀冊"},{"no":69,"page":28,"ty":"看著","tl":"khuànn-tio̍h","md":"看到","sent":"看著日頭落山就好來轉矣"},{"no":70,"page":28,"ty":"身軀邊","tl":"sin-khu-pinn","md":"身邊","sent":"阿母一直佇我的身軀邊"},{"no":71,"page":28,"ty":"一下仔","tl":"tsi̍t-ē-á","md":"一會兒","sent":"遮爾濟工課一下仔就完成矣"},{"no":72,"page":28,"ty":"隔轉工","tl":"keh-tńg-kang","md":"翌日","sent":"阿爸愛隔轉工才會轉來"},{"no":73,"page":28,"ty":"早頓","tl":"tsá-tǹg","md":"早餐","sent":"你有食早頓無？"},{"no":74,"page":28,"ty":"猶閣","tl":"iáu-koh","md":"還","sent":"阮的工頭看起來猶閣真少年"},{"no":75,"page":28,"ty":"通好","tl":"thang-hó","md":"可以、得以","sent":"考試考煞就通好𨑨迌"},{"no":76,"page":29,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間","sent":"伊這馬佇厝裡咧睏"},{"no":77,"page":29,"ty":"蹛一暝","tl":"tuà--tsi̍t-mê/tuà--tsi̍t-mî","md":"住一晚","sent":"阮去阿姨兜蹛一暝"},{"no":78,"page":29,"ty":"誠實","tl":"tsiânn-si̍t","md":"真實的","sent":"風颱欲來，敢是誠實的？"},{"no":79,"page":29,"ty":"一个","tl":"tsi̍t ê","md":"一個","sent":"我有一个小妹"},{"no":80,"page":29,"ty":"記持","tl":"kì-tî","md":"記憶、記性","sent":"你記持誠䆀，隨講隨袂記得"},{"no":81,"page":29,"ty":"若","tl":"nā","md":"如果","sent":"天若烏就毋敢出門"},{"no":82,"page":29,"ty":"蹛","tl":"tuà","md":"居住/在/位置/過夜/任職","sent":"阿明仔蹛佇學校附近"},{"no":83,"page":29,"ty":"看覓","tl":"khuànn-māi","md":"看看、試試看","sent":"這款菜你食看覓"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

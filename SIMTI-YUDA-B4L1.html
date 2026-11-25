@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  心智圖配對線上測驗｜育達長鴻版國中第2冊 第1課 踢銅管仔（題庫來源：19_課堂遊戲GitHub版\taigi-class-games_v66\mindmap\YUDA-B4\L1.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 踢銅管仔｜心智圖配對線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🧠 心智圖配對 🧠</h1>
+     <h2>育達長鴻版國中第2冊 第1課 踢銅管仔</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🧠</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B4">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B4">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B4" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script>
+    const LESSON = {"id":"SIMTI-YUDA-B4L1","kind":"SIMTI","kindName":"心智圖配對","book":"育達長鴻第2冊","bookFull":"育達長鴻版國中第2冊","title":"第1課 踢銅管仔","items":[{"no":1,"sent":"個外月前接著一通電話，是一个較早的同事敲來的。","page":"第6頁","correct":"一通電話","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":2,"sent":"個外月前接著一通電話","page":"第6頁","correct":"一通電話","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":3,"sent":"是一个較早的同事敲來的。","page":"第6頁","correct":"一通電話","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":4,"sent":"五十年前阮佇臺南佳里附近一間農校咧教冊，這通電話也予我想起彼當陣，阮同齊耍踢銅管仔的往事。","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":5,"sent":"五十年前阮佇臺南佳里附近一間農校咧教冊","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":6,"sent":"五十年前阮佇臺南佳里附近一間農校咧教冊，這通電話也予我想起彼當陣","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":7,"sent":"這通電話也予我想起彼當陣，阮同齊耍踢銅管仔的往事。","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":8,"sent":"阮同齊耍踢銅管仔的往事。","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":9,"sent":"向時臺灣的電視業拄發芽，猶無遐爾發達，阮遐當然嘛無電視通看。","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":10,"sent":"向時臺灣的電視業拄發芽","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":11,"sent":"向時臺灣的電視業拄發芽，猶無遐爾發達","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":12,"sent":"庄跤所在閣無啥物娛樂，所以就定定相招同事佮學生囡仔踮學校內底耍踢銅管仔的遊戲。","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":13,"sent":"庄跤所在閣無啥物娛樂","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":14,"sent":"所以就定定相招同事佮學生囡仔踮學校內底耍踢銅管仔的遊戲。","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":15,"sent":"欲耍踢銅管仔愛先揣一个較曠闊的所在，閣提一个空的銅管仔做器具，人數通常是五、六个人以上。","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":16,"sent":"欲耍踢銅管仔愛先揣一个較曠闊的所在","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":17,"sent":"欲耍踢銅管仔愛先揣一个較曠闊的所在，閣提一个空的銅管仔做器具","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":18,"sent":"閣提一个空的銅管仔做器具","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":19,"sent":"閣提一个空的銅管仔做器具，人數通常是五、六个人以上。","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":20,"sent":"人數通常是五、六个人以上。","page":"第8頁","correct":"場地佮器具","options":["庄跤無娛樂","場地佮器具","開始的步驟","掠人交替"]},{"no":21,"sent":"先佇塗跤畫一个細个圓箍仔，共銅管仔倒崁囥佇中央，用jia̋ng-kián的方式掠一个人做óo-nih。","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":22,"sent":"先佇塗跤畫一个細个圓箍仔","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":23,"sent":"共銅管仔倒崁囥佇中央","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":24,"sent":"賰的人凊彩揀一个出來共銅管仔踢出去，踢愈遠愈好，通好有較長的時間通走去覕起來。","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":25,"sent":"Óo-nih就愛去掠人來交替，若揣著人愛大聲叫伊的名，閣比伊較代先走轉來共銅管仔踏落去才有準算","page":"第9頁","correct":"掠人交替","options":["開始的步驟","掠人交替","銅管仔的戰爭","這陣的囡仔"]},{"no":26,"sent":"佇óo-nih離開銅管仔去掠人的時陣，逐个人攏會使走出來共銅管仔踼予遠遠遠，óo-nih就愛先共銅管仔抾轉去原位","page":"第10頁","correct":"銅管仔的戰爭","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":27,"sent":"才會當閣出去掠人，袂輸一場銅管仔的戰爭。","page":"第10頁","correct":"銅管仔的戰爭","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":28,"sent":"是講這陣的囡仔應該攏毋捌耍過踢銅管仔矣，因為時代的變遷、科技的進步","page":"第11頁","correct":"這陣的囡仔","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":29,"sent":"逐个囡仔的童年毋是看bàng-gà就是咧路裡掠寶物，雖然耍的物件、流行的趨勢攏無仝款","page":"第11頁","correct":"這陣的囡仔","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":30,"sent":"毋過唯一無改變的就是囡仔人單純閣天真的模樣！","page":"第11頁","correct":"無改變的童心","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":31,"sent":"這通電話也予我想起彼當陣","page":"第6頁","correct":"農校教冊","options":["一通電話","農校教冊","庄跤無娛樂","場地佮器具"]},{"no":32,"sent":"阮遐當然嘛無電視通看","page":"第7頁","correct":"庄跤無娛樂","options":["農校教冊","庄跤無娛樂","場地佮器具","開始的步驟"]},{"no":33,"sent":"用jia̋ng-kián的方式掠一个人做óo-nih","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":34,"sent":"賰的人凊彩揀一个出來共銅管仔踢出去","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":35,"sent":"踢愈遠愈好，通好有較長的時間通走去覕起來。","page":"第8頁","correct":"開始的步驟","options":["場地佮器具","開始的步驟","掠人交替","銅管仔的戰爭"]},{"no":36,"sent":"Óo-nih就愛去掠人來交替","page":"第9頁","correct":"掠人交替","options":["開始的步驟","掠人交替","銅管仔的戰爭","這陣的囡仔"]},{"no":37,"sent":"若揣著人愛大聲叫伊的名","page":"第9頁","correct":"掠人交替","options":["開始的步驟","掠人交替","銅管仔的戰爭","這陣的囡仔"]},{"no":38,"sent":"閣比伊較代先走轉來共銅管仔踏落去才有準算","page":"第9頁","correct":"掠人交替","options":["開始的步驟","掠人交替","銅管仔的戰爭","這陣的囡仔"]},{"no":39,"sent":"佇óo-nih離開銅管仔去掠人的時陣","page":"第10頁","correct":"銅管仔的戰爭","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":40,"sent":"逐个人攏會使走出來共銅管仔踼予遠遠遠，óo-nih就愛先共銅管仔抾轉去原位","page":"第10頁","correct":"銅管仔的戰爭","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":41,"sent":"逐个囡仔的童年毋是看bàng-gà就是咧路裡掠寶物","page":"第11頁","correct":"這陣的囡仔","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]},{"no":42,"sent":"雖然耍的物件、流行的趨勢攏無仝款","page":"第11頁","correct":"這陣的囡仔","options":["掠人交替","銅管仔的戰爭","這陣的囡仔","無改變的童心"]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  咱來餾生份字線上測驗｜育達長鴻版國中第4冊 第4課 對減塑到無痕食食（題庫來源：09_生份字\長鴻國中第四冊\04成果-生字-第4課 對減塑到無痕食食.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4課 對減塑到無痕食食｜咱來餾生份字線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>📖 咱來餾生份字 📖</h1>
+     <h2>育達長鴻版國中第4冊 第4課 對減塑到無痕食食</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">📖</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B6">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B6">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B6" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"SIANN-YUDA-B6L4","kind":"SIANN","kindName":"咱來餾生份字","book":"育達長鴻第4冊","bookFull":"育達長鴻版國中第4冊","title":"第4課 對減塑到無痕食食","items":[{"no":1,"page":52,"ty":"又閣","tl":"iū-koh","md":"又、再"},{"no":2,"page":52,"ty":"規家伙仔","tl":"kui-ke-hué/hé-á","md":"全家人"},{"no":3,"page":52,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":4,"page":52,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":5,"page":52,"ty":"駁岸頂","tl":"poh-huānn-tíng","md":"堤防上"},{"no":6,"page":52,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":7,"page":52,"ty":"予","tl":"hōo","md":"給予/被…/任由/讓/後綴"},{"no":8,"page":52,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":9,"page":52,"ty":"弄","tl":"lāng","md":"把玩、戲耍"},{"no":10,"page":52,"ty":"樂暢","tl":"lo̍k-thiòng","md":"快樂、愉快"},{"no":11,"page":52,"ty":"車","tl":"tshia","md":"用車縫製"},{"no":12,"page":52,"ty":"布袋","tl":"pòo-tē","md":"棉布製成的袋子"},{"no":13,"page":52,"ty":"糞埽","tl":"pùn-sò","md":"垃圾"},{"no":14,"page":52,"ty":"捌","tl":"bat","md":"曾經"},{"no":15,"page":52,"ty":"咱","tl":"lán","md":"我們；我們的；您、您們"},{"no":16,"page":52,"ty":"袂使","tl":"bē/buē-sái/saih","md":"不可以、使不得"},{"no":17,"page":52,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":18,"page":52,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要"},{"no":19,"page":52,"ty":"滇","tl":"tīnn","md":"滿"},{"no":20,"page":52,"ty":"倒轉","tl":"tò-tńg","md":"返回/倒反過來"},{"no":21,"page":53,"ty":"海翁","tl":"hái-ang","md":"鯨魚"},{"no":22,"page":53,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":23,"page":53,"ty":"邊仔","tl":"pinn--á","md":"旁邊"},{"no":24,"page":53,"ty":"逐家","tl":"ta̍k-ke","md":"大家；眾人"},{"no":25,"page":53,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":26,"page":53,"ty":"伊","tl":"i","md":"他、她、牠、它"},{"no":27,"page":53,"ty":"腹肚","tl":"pak/bak-tóo","md":"肚子"},{"no":28,"page":53,"ty":"破","tl":"phuà","md":"剖開"},{"no":29,"page":53,"ty":"內面","tl":"lāi-bīn","md":"裡面、內部"},{"no":30,"page":53,"ty":"足濟","tl":"tsiok-tsē","md":"非常多"},{"no":31,"page":53,"ty":"糞埽袋仔","tl":"pùn-sò-tē-á","md":"垃圾袋"},{"no":32,"page":53,"ty":"已經","tl":"í-king","md":"已經"},{"no":33,"page":53,"ty":"有身","tl":"ū-sin","md":"懷孕"},{"no":34,"page":53,"ty":"一睏仔","tl":"tsi̍t-khùn-á","md":"一陣子"},{"no":35,"page":53,"ty":"這陣","tl":"tsit-tsūn","md":"現在。當下這個時刻"},{"no":36,"page":53,"ty":"又閣","tl":"iū-koh","md":"又、再"},{"no":37,"page":53,"ty":"車","tl":"tshia","md":"用車縫製"},{"no":38,"page":53,"ty":"幾若","tl":"kuí-nā/lō/ā","md":"幾、若干"},{"no":39,"page":53,"ty":"布袋","tl":"pòo-tē","md":"棉布製成的袋子"},{"no":40,"page":53,"ty":"著愛","tl":"tio̍h-ài","md":"得、要、必須"},{"no":41,"page":53,"ty":"活動","tl":"ua̍h-tāng/tōng","md":"活動筋骨"},{"no":42,"page":54,"ty":"是按怎","tl":"sī-án-tsuánn","md":"為什麼"},{"no":43,"page":54,"ty":"干焦","tl":"kan-na/tann/ta","md":"只有、僅僅"},{"no":44,"page":54,"ty":"著愛","tl":"tio̍h-ài","md":"得、要、必須"},{"no":45,"page":54,"ty":"食食","tl":"tsia̍h-si̍t","md":"飲食。"},{"no":46,"page":54,"ty":"家己","tl":"ka-kī / ka-tī","md":"自己、本身"},{"no":47,"page":54,"ty":"擲掉","tl":"tàn-tiāu","md":"丟掉"},{"no":48,"page":54,"ty":"糞埽","tl":"pùn-sò","md":"垃圾"},{"no":49,"page":54,"ty":"感覺","tl":"kám-kak","md":"覺得"},{"no":50,"page":54,"ty":"費氣費觸","tl":"huì-khì-huì-tak","md":"很麻煩"},{"no":51,"page":54,"ty":"毋過","tl":"m̄-koh/kò/kù","md":"不過、但是"},{"no":52,"page":54,"ty":"海翁","tl":"hái-ang","md":"鯨魚"},{"no":53,"page":54,"ty":"決心","tl":"kuat-sim","md":"拿定主意"},{"no":54,"page":54,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要"},{"no":55,"page":54,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":56,"page":54,"ty":"逐擺","tl":"ta̍k-pái","md":"每次"},{"no":57,"page":54,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":58,"page":54,"ty":"布袋","tl":"pòo-tē","md":"棉布製成的袋子"},{"no":59,"page":54,"ty":"囥","tl":"khǹg","md":"放置、存放"},{"no":60,"page":54,"ty":"入去","tl":"ji̍p/li̍p-khì","md":"進去"},{"no":61,"page":54,"ty":"內面","tl":"lāi-bīn","md":"裡面、內部"},{"no":62,"page":54,"ty":"共","tl":"kā","md":"給；跟；幫；把"},{"no":63,"page":54,"ty":"欲","tl":"beh / bueh","md":"表意願；表假設；將要"},{"no":64,"page":54,"ty":"擲㧒捔","tl":"tàn-hiat-ka̍k","md":"丟掉"},{"no":65,"page":54,"ty":"佮","tl":"kah","md":"和；搭配；附帶；適合"},{"no":66,"page":54,"ty":"果子","tl":"kué/ké-tsí","md":"水果"},{"no":67,"page":54,"ty":"埋","tl":"tâi","md":"掩埋"},{"no":68,"page":54,"ty":"佇","tl":"tī","md":"在某個地方/在某段時間"},{"no":69,"page":54,"ty":"攏","tl":"lóng","md":"都、皆、全部"},{"no":70,"page":54,"ty":"甲","tl":"kah","md":"到/到…的地步/既然/哪會"},{"no":71,"page":54,"ty":"媠噹噹","tl":"suí-tang-tang","md":"形容非常漂亮"},{"no":72,"page":54,"ty":"厝邊兜","tl":"tshù-pinn-tau","md":"鄰居"},{"no":73,"page":54,"ty":"足濟","tl":"tsiok-tsē","md":"非常多"},{"no":74,"page":54,"ty":"呵咾","tl":"o-ló","md":"讚美、表揚"},{"no":75,"page":54,"ty":"阮","tl":"guán / gún","md":"我們/我/我的"},{"no":76,"page":54,"ty":"若","tl":"nā","md":"如果"},{"no":77,"page":54,"ty":"糞埽","tl":"pùn-sò","md":"垃圾"},{"no":78,"page":54,"ty":"無去","tl":"bô--khì","md":"不見了"}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>

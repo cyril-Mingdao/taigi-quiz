@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+  形音義線上測驗｜育達長鴻版國中第1冊 第1課 白糖粿（題庫來源：12_形音義\14長鴻版國中第1冊\01形音義-第1課 白糖粿.html）
+  臺中明道中學 詹宗龍 製作。題目取自各版本課本之課文生詞與課文句子，僅供非營利之教育教學使用；
+  課本內容之著作財產權屬各出版社所有。本網站之程式碼、版面與教案設計 © 2026 詹宗龍，保留一切權利。
+  【引用來源】
+  臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
+  音檔即時連結中華民國教育部《臺灣台語常用詞辭典》官方錄音，著作權屬教育部。
+  臺羅字型使用「豆腐烏 Tauhu Oo」（https://tauhu.tw/），依 SIL Open Font License 1.1 授權。
+  前述引用之他人作品，著作權仍屬各原權利人。
+-->
+<html lang="zh-TW">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="author" content="詹宗龍（臺中明道中學）">
+  <meta name="copyright" content="© 2026 詹宗龍（臺中明道中學）。保留一切權利。">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1課 白糖粿｜形音義線上測驗</title>
+  <link href="https://tauhu.tw/tauhu-oo.css" rel="stylesheet">
+  <link href="assets/style.css?v=80a1b9e6" rel="stylesheet">
+ </head>
+ <body>
+  <main>
+   <div class="container">
+    <header class="header">
+     <div class="credit-author">臺中明道中學　詹宗龍　製作</div>
+     <h1>🔤 形音義 🔤</h1>
+     <h2>育達長鴻版國中第1冊 第1課 白糖粿</h2>
+     <div class="credit-line">線上測驗｜每次 25 題・每題 4 分</div>
+    </header>
+
+    <section class="quiz-card" id="quiz-gate" data-section>
+     <h3>請先用學校帳號登入</h3>
+     <div>本測驗會記錄成績，請用 <b>@ms.mingdao.edu.tw</b> 的學校 Google 帳號登入（金門大學同學請用老師登記的 Gmail 帳號）。</div>
+     <div id="gsi-btn"></div>
+     <div class="hint" id="gate-msg">登入按鈕沒出現？請確認網路連線，並用電腦版 Chrome 或 Edge 開啟本頁。</div>
+    </section>
+
+    <section class="quiz-card hidden" id="teacher-choice" data-section>
+     <div class="quiz-user" id="choice-user"></div>
+     <h3>請選擇模式</h3>
+     <div class="mode-grid">
+      <button class="mode-btn" id="mode-student" type="button">
+       <span class="mode-icon">🔤</span><b>學生模式</b>
+       <span class="hint">跟學生一樣先看班級座號頁再作答（教師的選擇不儲存），成績記在班級「教師」</span>
+      </button>
+      <button class="mode-btn" id="mode-admin" type="button">
+       <span class="mode-icon">🛠️</span><b>教師管理</b>
+       <span class="hint">所有測驗（朗讀、生份字、選詞塌空、咱來鬥句、形音義、心智圖配對）的成績、檢核與下載</span>
+      </button>
+     </div>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B3">回測驗列表</a></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-profile" data-section>
+     <h3>請填寫基本資料</h3>
+     <div class="hint">成績會依班級、座號彙整給老師，請點選正確的部別、班級與座號。之後可以在測驗說明頁修改。</div>
+     <div class="teacher-preview hidden" id="pf-teacher">🧑‍🏫 <b>教師預覽</b>：這是學生登入後看到的基本資料頁，可以照學生的方式點選、按「儲存並繼續」檢查；教師的選擇<b>不會儲存</b>，成績一律記在班級「教師」。</div>
+     <form id="profile-form" class="profile-form" autocomplete="off">
+      <div class="pf-field"><div class="pf-label">部別</div><div class="chip-row" id="pf-dept"></div></div>
+      <div class="pf-field"><div class="pf-label">班級</div><div id="pf-classes"><span class="hint">請先點選部別</span></div></div>
+      <div class="pf-field"><div class="pf-label">座號</div><div class="chip-grid" id="pf-seats"></div></div>
+      <div class="pf-inputs">
+       <label>姓名<input id="pf-name" required maxlength="30"></label>
+       <label>信箱<input id="pf-email" readonly></label>
+      </div>
+      <div class="pf-picked" id="pf-picked"></div>
+      <div class="quiz-actions">
+       <button class="qbtn" type="submit" id="pf-save">儲存並繼續</button>
+       <button class="qbtn light hidden" type="button" id="pf-cancel">取消</button>
+      </div>
+      <div class="warn" id="pf-msg"></div>
+     </form>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-intro" data-section>
+     <div class="quiz-user" id="quiz-user"></div>
+     <h3>測驗說明</h3>
+     <ul id="intro-rules">
+      <li>每次測驗 <b>25 題、每題 4 分</b>，滿分 100 分；題目每次隨機抽選。</li>
+      <li><b>每題作答後就鎖定</b>，會自動跳到下一題，不能回頭修改。</li>
+      <li>25 題做完會馬上顯示分數與每題的參考答案，成績自動送給老師。</li>
+      <li>可以重複測驗，<b>每一次都會記錄</b>。</li>
+      <li class="warn">作答中切換到其他分頁或視窗，系統會記錄次數給老師參考。</li>
+     </ul>
+     <div class="hint">其他測驗：<a href="index.html#YUDA-B3">回測驗列表</a></div>
+     <div class="quiz-actions">
+      <button class="qbtn" id="btn-start">開始作答</button>
+      <button class="qbtn light" id="btn-history">📋 我的成績</button>
+      <button class="qbtn light" id="btn-edit-profile">✏️ 修改班級座號</button>
+      <button class="qbtn light" id="btn-switch">換帳號</button>
+      <button class="qbtn light hidden" id="btn-back-admin">🛠️ 切換教師管理</button>
+     </div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-play" data-section>
+     <div class="qz-top">
+      <span class="qz-progress" id="qz-progress"></span>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qz-bar-fill"></div></div>
+     </div>
+     <div id="qz-box"></div>
+     <div class="quiz-actions center"><button class="qbtn light small" id="qz-quit" type="button">放棄這次作答</button></div>
+    </section>
+
+    <section class="quiz-card hidden" id="quiz-result" data-section>
+     <div class="rs-head">
+      <h3>📝 測驗結果</h3>
+      <div class="rs-score" id="rs-score"></div>
+      <div id="rs-summary"></div>
+     </div>
+     <div class="rs-status" id="rs-status"></div>
+     <div class="quiz-actions">
+      <button class="qbtn hidden" id="rs-retry">重新送出</button>
+      <button class="qbtn" id="rs-again">🔁 再測一次</button>
+      <button class="qbtn light" id="rs-history">📋 我的成績</button>
+      <a class="qbtn light" href="index.html#YUDA-B3" style="text-decoration:none">回測驗列表</a>
+     </div>
+     <h3 style="margin-top:18px">參考答案</h3>
+     <div class="admin-table-wrap" id="rs-table"></div>
+    </section>
+   </div>
+  </main>
+  <div class="quiz-modal hidden" id="quiz-modal">
+   <div class="quiz-card" id="quiz-modal-body"></div>
+  </div>
+  <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
+  <script>
+    const LESSON = {"id":"HINGIM-YUDA-B3L1","kind":"HINGIM","kindName":"形音義","book":"育達長鴻第1冊","bookFull":"育達長鴻版國中第1冊","title":"第1課 白糖粿","items":[{"no":1,"page":6,"ty":"定著","tl":"tiānn-tio̍h","md":"一定","syl":[["t","iānn","7","3"],["t","io̍h","8","不變"]]},{"no":2,"page":6,"ty":"傱","tl":"tsông","md":"慌亂奔忙","syl":[["ts","ông","5","不變"]]},{"no":3,"page":6,"ty":"所在","tl":"sóo-tsāi","md":"地方","syl":[["s","óo","2","1"],["ts","āi","7","不變"]]},{"no":4,"page":6,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","syl":[["l","āi","7","3"],["t","é","2","不變"]]},{"no":5,"page":6,"ty":"聊聊仔","tl":"liâu-liâu-á","md":"慢慢地、小心地","syl":[["l","iâu","5","7"],["l","iâu","5","7"],["無","á","2","不變"]]},{"no":6,"page":6,"ty":"數念","tl":"siàu-liām","md":"懷念","syl":[["s","iàu","3","2"],["l","iām","7","不變"]]},{"no":7,"page":6,"ty":"故鄉","tl":"kòo-hiong","md":"家鄉","syl":[["k","òo","3","2"],["h","iong","1","不變"]]},{"no":8,"page":6,"ty":"滋味","tl":"tsu-bī","md":"味道/感覺","syl":[["ts","u","1","7"],["b","ī","7","不變"]]},{"no":9,"page":6,"ty":"幼麵麵","tl":"iù-mī-mī","md":"細嫩","syl":[["無","iù","3","2"],["m","ī","7","3"],["m","ī","7","不變"]]},{"no":10,"page":6,"ty":"勻勻仔","tl":"ûn-ûn-á","md":"慢慢地","syl":[["無","ûn","5","7"],["無","ûn","5","7"],["無","á","2","不變"]]},{"no":11,"page":6,"ty":"烰","tl":"phû","md":"油炸浮起","syl":[["ph","û","5","不變"]]},{"no":12,"page":6,"ty":"滿足","tl":"buán-tsiok","md":"滿足","syl":[["b","uán","2","1"],["ts","iok","4","不變"]]},{"no":13,"page":6,"ty":"滒","tl":"kō","md":"沾、蘸","syl":[["k","ō","7","不變"]]},{"no":14,"page":6,"ty":"沿","tl":"iân","md":"層（量詞）","syl":[["無","iân","5","不變"]]},{"no":15,"page":6,"ty":"一个","tl":"tsi̍t ê","md":"一個","syl":[["ts","i̍t","8","4"],["無","ê","5","不變"]]},{"no":16,"page":6,"ty":"姑娘仔","tl":"koo-niû-á","md":"姑娘、少女","syl":[["k","oo","1","7"],["n","iû","5","7"],["無","á","2","不變"]]},{"no":17,"page":6,"ty":"媠噹噹","tl":"suí-tang-tang","md":"形容非常漂亮","syl":[["s","uí","2","1"],["t","ang","1","7"],["t","ang","1","不變"]]},{"no":18,"page":6,"ty":"仝款","tl":"kāng-khuán","md":"同樣、相像/一樣，沒有差別","syl":[["k","āng","7","3"],["kh","uán","2","不變"]]},{"no":19,"page":6,"ty":"予人","tl":"hōo lâng","md":"被人、讓人","syl":[["h","ōo","7","3"],["l","âng","5","不變"]]},{"no":20,"page":6,"ty":"意愛","tl":"ì-ài","md":"喜歡、愛慕","syl":[["無","ì","3","2"],["無","ài","3","不變"]]},{"no":21,"page":7,"ty":"是按怎","tl":"sī-án-tsuánn","md":"為什麼","syl":[["s","ī","7","3"],["無","án","2","1"],["ts","uánn","2","不變"]]},{"no":22,"page":7,"ty":"哪會","tl":"ná ē","md":"怎麼會","syl":[["n","á","2","1"],["無","ē","7","不變"]]},{"no":23,"page":7,"ty":"佮意","tl":"kah-ì","md":"喜歡、滿意","syl":[["k","ah","4","2"],["無","ì","3","不變"]]},{"no":24,"page":7,"ty":"其實","tl":"kî-si̍t","md":"其實","syl":[["k","î","5","7"],["s","i̍t","8","不變"]]},{"no":25,"page":7,"ty":"毋但","tl":"m̄-nā/ niā","md":"不只、不但","syl":[["無","m̄","7","3"],["n","ā","7","不變"]]},{"no":26,"page":7,"ty":"猶閣","tl":"iáu-koh","md":"還","syl":[["無","iáu","2","1"],["k","oh","4","不變"]]},{"no":27,"page":7,"ty":"一个","tl":"tsi̍t ê","md":"一個","syl":[["ts","i̍t","8","4"],["無","ê","5","不變"]]},{"no":28,"page":7,"ty":"故事","tl":"kòo-sū","md":"故事","syl":[["k","òo","3","2"],["s","ū","7","不變"]]},{"no":29,"page":7,"ty":"原底","tl":"guân-té/tué","md":"原本、原先","syl":[["g","uân","5","7"],["t","é","2","不變"]]},{"no":30,"page":7,"ty":"七娘媽","tl":"tshit-niû-má","md":"織女、七娘娘","syl":[["tsh","it","4","8"],["n","iû","5","7"],["m","á","2","不變"]]},{"no":31,"page":7,"ty":"彼工","tl":"hit-kang","md":"那天","syl":[["h","it","4","8"],["k","ang","1","不變"]]},{"no":32,"page":7,"ty":"日子","tl":"ji̍t-tsí","md":"日子","syl":[["j","i̍t","8","4"],["ts","í","2","不變"]]},{"no":33,"page":7,"ty":"硩","tl":"teh","md":"壓","syl":[["t","eh","4","不變"]]},{"no":34,"page":7,"ty":"中央","tl":"tiong-iong/tiong-ng","md":"中間、正中","syl":[["t","iong","1","7"],["無","iong","1","不變"]]},{"no":35,"page":7,"ty":"揤","tl":"tshi̍h","md":"按、壓","syl":[["tsh","i̍h","8","不變"]]},{"no":36,"page":7,"ty":"凹","tl":"nah","md":"凹陷","syl":[["n","ah","4","不變"]]},{"no":37,"page":7,"ty":"貯","tl":"té/tué","md":"裝、盛","syl":[["t","é","2","不變"]]},{"no":38,"page":7,"ty":"目屎","tl":"ba̍k-sái","md":"眼淚","syl":[["b","a̍k","8","4"],["s","ái","2","不變"]]},{"no":39,"page":7,"ty":"成做","tl":"tsiânn-tsò/tsuè","md":"成為","syl":[["ts","iânn","5","7"],["ts","ò","3","不變"]]},{"no":40,"page":7,"ty":"特殊","tl":"ti̍k-sû","md":"特別","syl":[["t","i̍k","8","4"],["s","û","5","不變"]]},{"no":41,"page":8,"ty":"古早","tl":"kóo-tsá","md":"從前、以前","syl":[["k","óo","2","1"],["ts","á","2","不變"]]},{"no":42,"page":8,"ty":"秫米","tl":"tsu̍t-bí","md":"糯米","syl":[["ts","u̍t","8","4"],["b","í","2","不變"]]},{"no":43,"page":8,"ty":"浸","tl":"tsìm","md":"泡在水中","syl":[["ts","ìm","3","不變"]]},{"no":44,"page":8,"ty":"紲落來","tl":"suà--lo̍h-lâi","md":"接下來、接著","syl":[["s","uà","3","不變"],["l","o̍h","8","輕聲"],["l","âi","5","輕聲"]]},{"no":45,"page":8,"ty":"挨米","tl":"e-bí","md":"磨米","syl":[["無","e","1","7"],["b","í","2","不變"]]},{"no":46,"page":8,"ty":"硩","tl":"teh","md":"壓","syl":[["t","eh","4","不變"]]},{"no":47,"page":8,"ty":"粿粞","tl":"kué-tshè/ké-tshuè","md":"糯米團","syl":[["k","ué","2","1"],["tsh","è","3","不變"]]},{"no":48,"page":8,"ty":"搙","tl":"jio̍k/lio̍k","md":"用手搓揉","syl":[["j","io̍k","8","不變"]]},{"no":49,"page":8,"ty":"捻","tl":"liàm","md":"用手指捏取","syl":[["l","iàm","3","不變"]]},{"no":50,"page":8,"ty":"糋","tl":"tsìnn","md":"炸/油炸食品","syl":[["ts","ìnn","3","不變"]]},{"no":51,"page":8,"ty":"上尾","tl":"siōng/siāng-bué/bé","md":"最後","syl":[["s","iōng","7","3"],["b","ué","2","不變"]]},{"no":52,"page":8,"ty":"內底","tl":"lāi-té/tué","md":"裡面、內部","syl":[["l","āi","7","3"],["t","é","2","不變"]]},{"no":53,"page":8,"ty":"滒","tl":"kō","md":"沾、蘸","syl":[["k","ō","7","不變"]]},{"no":54,"page":8,"ty":"按呢","tl":"án-ne/ni","md":"這樣、如此","syl":[["無","án","2","1"],["n","e","1","不變"]]},{"no":55,"page":8,"ty":"芳貢貢","tl":"phang-kòng-kòng","md":"形容香氣很盛","syl":[["ph","ang","1","7"],["k","òng","3","2"],["k","òng","3","不變"]]},{"no":56,"page":8,"ty":"燒燙燙","tl":"sio-thǹg-thǹg","md":"溫度很高會燙人","syl":[["s","io","1","7"],["th","ǹg","3","2"],["th","ǹg","3","不變"]]},{"no":57,"page":8,"ty":"予人","tl":"hōo lâng","md":"被人、讓人","syl":[["h","ōo","7","3"],["l","âng","5","不變"]]},{"no":58,"page":8,"ty":"喙瀾","tl":"tshuì-nuā","md":"口水、唾液","syl":[["tsh","uì","3","2"],["n","uā","7","不變"]]},{"no":59,"page":8,"ty":"提著","tl":"the̍h-tio̍h","md":"得到、獲得","syl":[["th","e̍h","8","3"],["t","io̍h","8","不變"]]},{"no":60,"page":8,"ty":"一喙","tl":"tsi̍t tshuì","md":"一口","syl":[["ts","i̍t","8","4"],["tsh","uì","3","不變"]]}]};
+  </script>
+  <script src="assets/common.js?v=6d29e15f"></script>
+  <script src="assets/engine.js?v=804351a4"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleLogin()"></script>
+ </body>
+</html>
